@@ -30,7 +30,7 @@ function welcome(){
 				<button onclick='getOccupation()'>Travel the Trail</button>\
 				<button onclick ='getInfo()'>Learn About the Trail</button>\
 				<button onclick='getScores()'>Top 10 Players</button>\
-				<button onclick='mute()'>Turn Off Sound</button>\
+				<button onclick='mute()'>Toggle Sound</button>\
 				<button onclick='quit()'>Quit</button>\
 				</div>\
 			</div>";
@@ -38,8 +38,7 @@ function welcome(){
 }
 
 function getOccupation(){
-	var t = "<div class= 'container'>\
-			<form>\
+	var t = "<form>\
 				<input type='radio' name='occupation' value='Banker' onclick = 'displayOcc(this.value)' > Banker<br>\
 				<input type='radio' name='occupation' value='Carpenter' onclick = 'displayOcc(this.value)'  > Carpenter<br>\
 				<input type='radio' name='occupation' value='Farmer' onclick = 'displayOcc(this.value)' > Farmer<br>\
@@ -50,8 +49,7 @@ function getOccupation(){
 			</form>\
 			<div id='info' ></div>\
 				<br>\
-				<input type='button' name='CharNames' value = 'Next' onclick = 'getLeaderName()'>\
-		</div>";
+				<input type='button' name='CharNames' value = 'Next' onclick = 'getLeaderName()'>";
 	document.getElementById("innerPage").innerHTML = t;
 }
 
@@ -113,6 +111,15 @@ function getInfo(){
 		
 	}
 	
+}
+
+//A function to sub in for getInfo just incase
+function getInfo2(num = 0){
+	var gameInfo = ["Page 1 info", "Page 2 info", "Page 3 info", "Page 4 info"];
+	if(num < 3)
+		document.getElementById("innerPage").innerHTML = "<p>" + gameInfo[num] +"</p> <button onclick='getInfo2("+(num+1)+")'>Next</button>";
+	else
+		document.getElementById("innerPage").innerHTML = "<p>" + gameInfo[num] +"</p> <button onclick='welcome()'>Next</button>";
 }
 
 function quit(){
