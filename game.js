@@ -19,9 +19,9 @@ var supplies = [0,0,0,0,0,0];
 var gameStatus;
 var job;
 var score;
+var month;
 
 welcome();
-
 
 function welcome(){
 	var t = "<div class='container'>\
@@ -29,8 +29,8 @@ function welcome(){
 				<div id='innerPage'>\
 				<button onclick='getOccupation()'>Travel the Trail</button>\
 				<button onclick ='getInfo()'>Learn About the Trail</button>\
-				<button onclick='getScores()'>Top 10 Players</button>\
-				<button onclick='mute()'>Toggle Sound</button>\
+				<button onclick=''>Top 10 Players</button>\
+				<button onclick=''>Toggle Sound</button>\
 				<button onclick='quit()'>Quit</button>\
 				</div>\
 			</div>";
@@ -49,7 +49,7 @@ function getOccupation(){
 			</form>\
 			<div id='info' ></div>\
 				<br>\
-				<input type='button' name='CharNames' value = 'Next' onclick = 'getLeaderName()'>";
+				<input type='button' id='CharNames' value = 'Next' onclick = ''>";
 	document.getElementById("innerPage").innerHTML = t;
 }
 
@@ -58,31 +58,32 @@ function displayOcc(occupation){
 			document.getElementById("info").innerHTML = "Banker has the most starting money in the game but you get least amount of points playing him.";
 			supplies[MONEY] = 1600;
 	}
-	if(occupation == "Carpenter"){
+	else if(occupation == "Carpenter"){
 			document.getElementById("info").innerHTML = "The Carpenter starts with an average amount of money, but get more points than the banker.";
 			supplies[MONEY] = 800;
 	}
-	if(occupation == "Farmer" ){
+	else if(occupation == "Farmer" ){
 			document.getElementById("info").innerHTML = "You get little starting money, but 3 times as many points has the farmer.";
 			supplies[MONEY] = 400;
 	}
-	if(occupation == "Outlaw"){
+	else if(occupation == "Outlaw"){
 			document.getElementById("info").innerHTML = "You start with basically no money, but you can rob people. Be sure not to get arrested as there are dire consequences.";
 			supplies[MONEY] = 200;
 	}
-	if(occupation == "Cowboy" ){
+	else if(occupation == "Cowboy" ){
 			document.getElementById("info").innerHTML = "The cowboy starts with a below average amount of money, but knows how to take care of it's cattle.";
 			supplies[MONEY] = 600;
 	}
-	if(occupation == "Merchant"){
+	else if(occupation == "Merchant"){
 			document.getElementById("info").innerHTML = "The Merchant starts with a below average amount of money, but gets better deals when trading.";
 			supplies[MONEY] = 600;
 	}
-	if(occupation == "Batman"){
+	else if(occupation == "Batman"){
 			document.getElementById("info").innerHTML = "You're Batman!";
 			supplies[MONEY] = 99999;
 	}
 	job = occupation;
+	document.getElementById("CharNames").setAttribute("onclick", "getLeaderName()");
 }
 
 
@@ -157,6 +158,33 @@ function finalizeNames(){
 	}
 	var t = "<p>The name of your leader is " + characters[0] + ".<br>\
 			The names of your party members are " + characters[1] + ", " + characters[2] + ", " + characters[3] + ", and " + characters[4] + ".</p>\
-			<button>Next</button> <button onclick='getLeaderName()'>Change Names</button>";
+			<button onclick='pickMonth()'>Next</button> <button onclick='getLeaderName()'>Change Names</button>";
 	document.getElementById("innerPage").innerHTML = t;
+}
+
+function pickMonth(){
+	var t = "<p>It is 1848. Your jump off place for Oregon is Independence, Missouri. You must decide which month to leave Independence.</p>\
+			<form>\
+			<input name='months' type='radio' value='March' onclick='assignMonth(this.value)'>March</input><br>\
+			<input name='months' type='radio' value='April' onclick='assignMonth(this.value)'>April</input><br>\
+			<input name='months' type='radio' value='May' onclick='assignMonth(this.value)'>May</input><br>\
+			<input name='months' type='radio' value='June' onclick='assignMonth(this.value)'>June</input><br>\
+			<input name='months' type='radio' value='July' onclick='assignMonth(this.value)'>July</input><br>\
+			</form><br>\
+			<button onclick='getAdvice()'>Ask for Advice</button> <button id='play' onclick=''>Play Game</button>"
+	document.getElementById("innerPage").innerHTML = t;
+}
+
+function assignMonth(userMonth){
+	month = userMonth;
+	document.getElementById("play").setAttribute("onclick", "finishIntro()");
+}
+
+function getAdvice(){
+	document.getElementById("innerPage").innerHTML = "<p>Offer Advice Here</p> <button onclick='pickMonth()'>Back</button>"
+}
+
+//Initialize all global variables and arrays before starting game
+function finishIntro(){
+	console.log(month);
 }
