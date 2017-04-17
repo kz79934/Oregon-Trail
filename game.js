@@ -14,13 +14,14 @@ const HEALTH = 1;
 const PACE = 2;
 const RATIONS = 3;
 
-var characters = ["Andrew", "Kathy", "LeBron", "Barbara", "Frank"];
+var characters;
 var supplies = [0,0,0,0,0,0];
-var status;
+var gameStatus;
 var job;
 var score;
 
 welcome();
+
 
 function welcome(){
 	var t = "<div class='container'>\
@@ -49,13 +50,12 @@ function getOccupation(){
 			</form>\
 			<div id='info' ></div>\
 				<br>\
-				<input type='button' name='CharNames' value = 'Next' onclick = 'getNames()'>\
+				<input type='button' name='CharNames' value = 'Next' onclick = 'getLeaderName()'>\
 		</div>";
-	document.getElementById("main").innerHTML = t;
+	document.getElementById("innerPage").innerHTML = t;
 }
 
 function displayOcc(occupation){
-	//console.log(occupation);
 	if(occupation == "Banker" ){
 			document.getElementById("info").innerHTML = "Banker has the most starting money in the game but you get least amount of points playing him.";
 			supplies[MONEY] = 1600;
@@ -87,9 +87,6 @@ function displayOcc(occupation){
 	job = occupation;
 }
 
-function getNames(){
-
-}
 
 function getInfo(){	
 	document.getElementById("innerPage").innerHTML = "<p>Page 1 info.</p><p>Press SPACEBAR to Continue</p>"
@@ -120,4 +117,39 @@ function getInfo(){
 
 function quit(){
 	document.getElementById("main").innerHTML = "<h1>THANKS FOR PLAYING FUCKER!!!</h1>";
+}
+
+function getLeaderName(){
+	characters = ["Andrew", "Kathy", "LeBron", "Barbara", "Frank"];
+	var t = "<p>What is the first name of your leader?</p>\
+			<input id='leader' type='text' value=''></input><button onclick='getNames()'>Next</button>"
+	document.getElementById("innerPage").innerHTML = t;
+			
+}
+function getNames(){
+	var leaderName = document.getElementById("leader").value;
+	if(leaderName.replace(/\s/g, "") != "")
+		characters[0] = leaderName;
+	var t = "<p>What are the first names of the other members in your party?<br>\
+			The leader's name is " + characters[0] + ".</p>\
+			<input class='names' type='text' value=''></input><br>\
+			<input class='names' type='text' value=''></input><br>\
+			<input class='names' type='text' value=''></input><br>\
+			<input class='names' type='text' value=''></input><br><br>\
+			<button onclick='getLeaderName()'>Back</button>\
+			<button onclick='finalizeNames()'>Next</button>";
+	document.getElementById("innerPage").innerHTML = t;
+}
+
+function finalizeNames(){
+	var tempNames = document.getElementsByClassName("names");
+	var i
+	for(i = 1; i < 5; i++){
+		if((tempNames[i-1].value).replace(/\s/g, "") != "")
+			characters[i] = tempNames[i-1].value;
+	}
+	var t = "<p>The name of your leader is " + characters[0] + ".<br>\
+			The names of your party members are " + characters[1] + ", " + characters[2] + ", " + characters[3] + ", and " + characters[4] + ".</p>\
+			<button>Next</button> <button onclick='getLeaderName()'>Change Names</button>";
+	document.getElementById("innerPage").innerHTML = t;
 }
