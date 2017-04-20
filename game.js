@@ -1,5 +1,4 @@
 const SPACEBAR = 32;
-
 //Indices for Supplies
 const MONEY = 0;
 const FOOD = 1;
@@ -14,12 +13,15 @@ const HEALTH = 1;
 const PACE = 2;
 const RATIONS = 3;
 
+var spaceTxt = "<div>Press SPACE BAR to Continue</div>";
+
 var characters;
 var supplies = [0,0,0,0,0,0];
 var gameStatus;
 var job;
 var score;
 var month;
+var traveled;
 
 welcome();
 
@@ -56,71 +58,70 @@ function getOccupation(){
 function displayOcc(occupation){
 	if(occupation == "Banker" ){
 			document.getElementById("info").innerHTML = "Banker has the most starting money in the game but you get least amount of points playing him.";
-			supplies[MONEY] = 1600;
+			supplies[MONEY] = 1600.00;
 	}
 	else if(occupation == "Carpenter"){
 			document.getElementById("info").innerHTML = "The Carpenter starts with an average amount of money, but get more points than the banker.";
-			supplies[MONEY] = 800;
+			supplies[MONEY] = 800.00;
 	}
 	else if(occupation == "Farmer" ){
 			document.getElementById("info").innerHTML = "You get little starting money, but 3 times as many points has the farmer.";
-			supplies[MONEY] = 400;
+			supplies[MONEY] = 400.00;
 	}
 	else if(occupation == "Outlaw"){
 			document.getElementById("info").innerHTML = "You start with basically no money, but you can rob people. Be sure not to get arrested as there are dire consequences.";
-			supplies[MONEY] = 200;
+			supplies[MONEY] = 200.00;
 	}
 	else if(occupation == "Cowboy" ){
 			document.getElementById("info").innerHTML = "The cowboy starts with a below average amount of money, but knows how to take care of it's cattle.";
-			supplies[MONEY] = 600;
+			supplies[MONEY] = 600.00;
 	}
 	else if(occupation == "Merchant"){
 			document.getElementById("info").innerHTML = "The Merchant starts with a below average amount of money, but gets better deals when trading.";
-			supplies[MONEY] = 600;
+			supplies[MONEY] = 600.00;
 	}
 	else if(occupation == "Batman"){
 			document.getElementById("info").innerHTML = "You're Batman!";
-			supplies[MONEY] = 99999;
+			supplies[MONEY] = 99999.00;
 	}
 	job = occupation;
 	document.getElementById("CharNames").setAttribute("onclick", "getLeaderName()");
 }
 
-
-function getInfo(){	
-	document.getElementById("innerPage").innerHTML = "<p>Page 1 info.</p><p>Press SPACEBAR to Continue</p>"
-	var count = 0;
-	document.body.onkeyup = function(k){
-		if(k.keyCode == SPACEBAR)
-			count++;
-		
-		switch(count){
-			case 1:
-				document.getElementById("innerPage").innerHTML = "<p>Page 2 info.</p><p>Press SPACEBAR to Continue</p>";
-				break;
-			case 2:
-				document.getElementById("innerPage").innerHTML = "<p>Page 3 info.</p><p>Press SPACEBAR to Continue</p>";
-				break;
-			case 3:
-				document.getElementById("innerPage").innerHTML = "<p>Page 4 info.</p><p>Press SPACEBAR to Continue</p>";
-				break;
-			default:
-				if(count == 4)
-					welcome();
-				break;
-		}
-		
-	}
-	
-}
-
-//A function to sub in for getInfo just incase
-function getInfo2(num = 0){
+function getInfo(num = 0){
 	var gameInfo = ["Page 1 info", "Page 2 info", "Page 3 info", "Page 4 info"];
-	if(num < 3)
-		document.getElementById("innerPage").innerHTML = "<p>" + gameInfo[num] +"</p> <button onclick='getInfo2("+(num+1)+")'>Next</button>";
-	else
-		document.getElementById("innerPage").innerHTML = "<p>" + gameInfo[num] +"</p> <button onclick='welcome()'>Next</button>";
+	var count = 1;
+	//Commented section uses a button instead
+	/*
+	document.getElementById("innerPage").innerHTML = "<p>"+ gameInfo[0] +"</p> <button id='info'>Next</button>"
+	$(document).ready(function(){
+		$("#info").click(function(){
+			if(count < 4){
+				$("p").text(gameInfo[count]);
+				count++;
+			}
+			else{
+				$(this).unbind();
+				welcome();
+			}
+		});
+	});
+	*/
+	document.getElementById("innerPage").innerHTML = "<p>"+ gameInfo[0] +"</p>" + spaceTxt;
+	$(document).ready(function(){
+		$(document).keypress(function(e){
+			if(e.keyCode == SPACEBAR){
+				if(count < 4){
+					$("p").text(gameInfo[count]);
+					count++;
+				}
+				else{
+					$(this).unbind();
+					welcome();
+				}
+			}
+		});
+	});
 }
 
 function quit(){
@@ -181,10 +182,73 @@ function assignMonth(userMonth){
 }
 
 function getAdvice(){
-	document.getElementById("innerPage").innerHTML = "<p>Offer Advice Here</p> <button onclick='pickMonth()'>Back</button>"
+	//document.getElementById("innerPage").innerHTML = "<p>Offer Advice Here</p> <button onclick='pickMonth()'>Back</button>"
+	document.getElementById("innerPage").innerHTML = "<p>Offer Advice Here</p>" + spaceTxt;
+	$(document).ready(function(){
+		$(document).keypress(function(e){
+			if(e.keyCode == SPACEBAR){
+				$(this).unbind();
+				pickMonth();
+			}
+		});
+	});
 }
 
 //Initialize all global variables and arrays before starting game
 function finishIntro(){
 	console.log(month);
+
+	var info = ["Before leaving Independence you should buy equipment and supplies. You have $"+ supplies[MONEY] +" in cash, but you don't have to spend it all now"
+				, "You can buy whatever you need at Krunal's General Store."];
+	//var t = "<p>"+ info[0] +"</p> <button id='toStore' onclick=''>Next</button>";
+	var t = "<p>"+ info[0] +"</p>" + spaceTxt;
+	document.getElementsByClassName("container")[0].innerHTML = t;
+	
+	/*
+	$(document).ready(function(){
+		$("#toStore").click(function(){
+			$("p").text(info[1]);
+			document.getElementById("toStore").setAttribute("onclick", "initStore()");
+			$(this).unbind();
+		});
+	});
+	*/
+	
+	var count = 0;
+	$(document).ready(function(){
+		$(document).keypress(function(e){
+			if(e.keyCode == SPACEBAR){
+				if(!count){
+					$("p").text(info[1]);
+					count++;
+				}
+				else{
+					$(this).unbind();
+					storeGreeting();
+				}
+			}
+		});
+	});
+}
+
+function storeGreeting(){
+	console.log("test");
+	var t = "<p>Hi, I'm Krunal! I see you're going to Oregon, and it just so happens that I have some very useful supplies you may need.</p>\
+			<div>- A team of oxen to pull your wagon<br>- Clothing for both summer and winter<br>- Plenty of food for your trip<br>- Bait so you can fish<br>- Spare parts for your wagon</div><br>" + spaceTxt;
+	
+	document.getElementsByClassName("container")[0].innerHTML = t;
+	$(document).ready(function(){
+		$(document).keypress(function(e){
+			if(e.keyCode == SPACEBAR){
+				$(this).unbind();
+				initStore();
+			}
+		});
+	});
+
+}
+
+function initStore(){
+	var t = "<h2>Krunal's General Store</h2><h4>Independence, Missouri</h4><h4>"+ month +" 1, 1848</h4>";
+	document.getElementsByClassName("container")[0].innerHTML = t;
 }
