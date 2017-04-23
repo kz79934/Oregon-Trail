@@ -328,7 +328,7 @@ function initBuy(item){
 			<input value=''></input><button onclick='checkValid(BAIT)'>Buy It!</button><div id='errMsg'></div>";
 	}
 	else if(item == "Wagon"){
-		t = "<p>Advice on Wagon.<br>\
+		t = "<p>Advice on Wagon.<br><br>\
 		How many wheels would you like to buy? <input id='wheel' value=''></input><br>\
 		How many axels would you like to buy? <input id='axel' value=''></input><br>\
 		How many tongues would you like to buy? <input id='tongue' value=''></input><br></p>\
@@ -361,21 +361,21 @@ function checkValid(index){
 			document.getElementById("errMsg").innerHTML = "You do not have enough money to do that!";
 		}
 		else{
-			tempParts[WHEEL] = tempInputs[0].value;
-			tempParts[AXEL] = tempInputs[1].value;
-			tempParts[TONGUE] = tempInputs[2].value;
-			initStore();
+			tempParts[WHEEL] = parseInt(tempInputs[0].value);
+			tempParts[AXEL] = parseInt(tempInputs[1].value);
+			tempParts[TONGUE] = parseInt(tempInputs[2].value);
+			backToStore();
 		}
 	}
 	else{
 		if(patt.test(tempInputs[0].value)){
 				tempValue = tempSupplies[index];
 				if(index == OXEN)
-					tempSupplies[index] = tempInputs[0].value * 2;
+					tempSupplies[index] = parseInt(tempInputs[0].value) * 2;
 				else if(index == BAIT)
-					tempSupplies[index] = tempInputs[0].value * 20;
+					tempSupplies[index] = parseInt(tempInputs[0].value) * 20;
 				else
-					tempSupplies[index] = tempInputs[0].value;
+					tempSupplies[index] = parseInt(tempInputs[0].value);
 				tempBalance = supplies[MONEY] - ((price[OXEN_COST]*tempSupplies[OXEN]) + (price[CLOTHING_COST]*tempSupplies[CLOTHING]) + 
 				(price[FOOD_COST]*tempSupplies[FOOD]) + (price[BAIT_COST]*tempSupplies[BAIT]) + (price[WAGON_COST]*tempSupplies[PARTS]));
 				if(tempBalance < 0){
@@ -383,11 +383,16 @@ function checkValid(index){
 					document.getElementById("errMsg").innerHTML = "You do not have enough money to do that!";
 				}
 				else
-					initStore();
+					backToStore();
 		}
 		else
 			document.getElementById("errMsg").innerHTML = "Please enter a number!";
 	}
+}
+
+function backToStore(){
+	//Add if statements to figure out if going back to initStore or other general store.
+	initStore();
 }
 
 function tempTransfer(){
