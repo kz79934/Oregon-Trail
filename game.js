@@ -13,7 +13,8 @@ const CLOTHING = 5;
 //Indices for Status
 const WEATHER = 0;
 	//Weather Options
-	
+	const COOL = 0;
+	const RAINY = 1;
 
 const HEALTH = 1;
 	//Health Options
@@ -35,13 +36,16 @@ const RATIONS = 3;
 
 var spaceTxt = "<div>Press SPACE BAR to Continue</div>";
 
-var locations = [];
-var distance = [];
+//Distance is relative to the previous location (Ex: b is a 100 miles from a)
+var locations = ["a", "b", "c", "d", "e"];
+var distance = [50, 100, 150, 200, 250];
+
+var rivers = [];
 
 var months = ["January", "Februrary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-var price = [.2, 10, 40, 2, 10]
+var price = [.2, 10, 20, .1, 10]
 	//Indicies for price
 	const FOOD_COST = 0;
 	const CLOTHING_COST = 1;
@@ -51,12 +55,23 @@ var price = [.2, 10, 40, 2, 10]
 
 var characters;
 var supplies = [0,0,0,0,0,0];
+//Holder for supplies you want to buy
+var tempSupplies = [0,0,0,0,0,0];
 var parts = [0,0,0];
+//Holder for parts you want to buy
+var tempParts = [0,0,0];
 var gameStatus = [0, 0, 0, 0];
 var job;
 var score = 0;
 var month;
-var traveled = 0;
+var day = 1;
+var year = 1848;
+var totalTraveled = 0;
+var tempTraveled = 0;
+var currWeather = "Cool";
+var currHealth = "Good";
+var currLocation = "Independence";
+var gameDone = 0;
 
 welcome();
 
@@ -211,7 +226,7 @@ function pickMonth(){
 }
 
 function assignMonth(userMonth){
-	month = userMonth;
+	month = months.indexOf(userMonth);
 	document.getElementById("play").setAttribute("onclick", "finishIntro()");
 }
 
@@ -279,24 +294,115 @@ function storeGreeting(){
 }
 
 function initStore(){
-	var t = "<h2>Krunal's General Store</h2><h4>Independence, Missouri</h4><h4>"+ month +" 1, 1848</h4>\
-			<button value='Oxen' onclick='initBuy()'>Oxen</button> &nbsp $"+(price[OXEN_COST]*supplies[OXEN])+"<br>\
-			<button value='Clothes' onclick='initBuy()'>Clothes</button> &nbsp $"+(price[CLOTHING_COST]*supplies[CLOTHING])+"<br>\
-			<button value='Food' onclick='initBuy()'>Food</button> &nbsp $"+(price[FOOD_COST]*supplies[FOOD])+"<br>\
-			<button value='Bait' onclick='initBuy()'>Bait</button> &nbsp $"+(price[BAIT_COST]*supplies[BAIT])+"<br>\
-			<button value='Wagon' onclick='initBuy()'>Spare Parts</button> &nbsp $"+(price[WAGON_COST]*supplies[PARTS])+"<br><br>\
-			<button id='startTrail' onclick='initOpening()'>Start the Trail</button>";
+	var tempBalance = supplies[MONEY] - ((price[OXEN_COST]*tempSupplies[OXEN]) + (price[CLOTHING_COST]*tempSupplies[CLOTHING]) + 
+	(price[FOOD_COST]*tempSupplies[FOOD]) + (price[BAIT_COST]*tempSupplies[BAIT]) + (price[WAGON_COST]*tempSupplies[PARTS]));
+	var t = "<h2>Krunal's General Store</h2><h4>Independence, Missouri</h4><h4>"+ months[month] +" 1, 1848</h4>\
+			<button value='Oxen' onclick='initBuy(this.value)'>Oxen</button> &nbsp $"+(price[OXEN_COST]*tempSupplies[OXEN])+"<br>\
+			<button value='Clothes' onclick='initBuy(this.value)'>Clothes</button> &nbsp $"+(price[CLOTHING_COST]*tempSupplies[CLOTHING])+"<br>\
+			<button value='Food' onclick='initBuy(this.value)'>Food</button> &nbsp $"+(price[FOOD_COST]*tempSupplies[FOOD])+"<br>\
+			<button value='Bait' onclick='initBuy(this.value)'>Bait</button> &nbsp $"+(price[BAIT_COST]*tempSupplies[BAIT])+"<br>\
+			<button value='Wagon' onclick='initBuy(this.value)'>Spare Parts</button> &nbsp $"+(price[WAGON_COST]*tempSupplies[PARTS])+"<br><br>\
+			<div>Balance After Purchase: $"+tempBalance+"</div><br>\
+			<button id='startTrail' onclick=''>Start the Trail</button>";
+	document.getElementsByClassName("container")[0].innerHTML = t;
+	if(tempSupplies[OXEN] > 0)
+		document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
+}
+
+function initBuy(item){
+	var t;
+	if(item == "Oxen"){
+		t = "<p>Advice on Oxen. How many yoke would you like to buy?</p>\
+			<input value=''></input><button onclick='checkValid(OXEN)'>Buy It!</button><div id='errMsg'></div>";
+	}
+	else if(item == "Clothes"){
+		t = "<p>Advice on Clothes. How many pairs of clothes would you like to buy?</p>\
+			<input value=''></input><button onclick='checkValid(CLOTHING)'>Buy It!</button><div id='errMsg'></div>";
+	}
+	else if(item == "Food"){
+		t = "<p>Advice on Food. How much food in pounds would you like to buy?</p>\
+			<input value=''></input><button onclick='checkValid(FOOD)'>Buy It!</button><div id='errMsg'></div>";
+	}
+	else if(item == "Bait"){
+		t = "<p>Advice on Bait. How many buckets of bait would you like to buy?</p>\
+			<input value=''></input><button onclick='checkValid(BAIT)'>Buy It!</button><div id='errMsg'></div>";
+	}
+	else if(item == "Wagon"){
+		t = "<p>Advice on Wagon.<br>\
+		How many wheels would you like to buy? <input id='wheel' value=''></input><br>\
+		How many axels would you like to buy? <input id='axel' value=''></input><br>\
+		How many tongues would you like to buy? <input id='tongue' value=''></input><br></p>\
+		<button onclick='checkValid(PARTS)'>Buy It!</button><div id='errMsg'></div>";
+	}
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
-function initBuy(){
-	if(supplies[OXEN] > 0)
-		document.getElementById("startTrail").setAttribute("onclick", "initLocation()");
+function checkValid(index){
+	var tempBalance, tempValue;
+	var tempInputs = document.getElementsByTagName("input");
+	var patt = /\d+/;
+	if(index == PARTS){
+		var total = 0;
+		var i;
+		for(i = 0; i < tempInputs.length; i++){
+			if(!(patt.test(tempInputs[i].value))){
+				document.getElementById("errMsg").innerHTML = "Please enter a number for each part!";
+				return;
+			}
+			total += parseInt(tempInputs[i].value);
+		}
+		console.log(total);
+		tempValue = tempSupplies[index];
+		tempSupplies[index] = total;
+		tempBalance = supplies[MONEY] - ((price[OXEN_COST]*tempSupplies[OXEN]) + (price[CLOTHING_COST]*tempSupplies[CLOTHING]) + 
+		(price[FOOD_COST]*tempSupplies[FOOD]) + (price[BAIT_COST]*tempSupplies[BAIT]) + (price[WAGON_COST]*tempSupplies[PARTS]));
+		if(tempBalance < 0){
+			tempSupplies[index] = tempValue;
+			document.getElementById("errMsg").innerHTML = "You do not have enough money to do that!";
+		}
+		else{
+			tempParts[WHEEL] = tempInputs[0].value;
+			tempParts[AXEL] = tempInputs[1].value;
+			tempParts[TONGUE] = tempInputs[2].value;
+			initStore();
+		}
+	}
+	else{
+		if(patt.test(tempInputs[0].value)){
+				tempValue = tempSupplies[index];
+				if(index == OXEN)
+					tempSupplies[index] = tempInputs[0].value * 2;
+				else if(index == BAIT)
+					tempSupplies[index] = tempInputs[0].value * 20;
+				else
+					tempSupplies[index] = tempInputs[0].value;
+				tempBalance = supplies[MONEY] - ((price[OXEN_COST]*tempSupplies[OXEN]) + (price[CLOTHING_COST]*tempSupplies[CLOTHING]) + 
+				(price[FOOD_COST]*tempSupplies[FOOD]) + (price[BAIT_COST]*tempSupplies[BAIT]) + (price[WAGON_COST]*tempSupplies[PARTS]));
+				if(tempBalance < 0){
+					tempSupplies[index] = tempValue;
+					document.getElementById("errMsg").innerHTML = "You do not have enough money to do that!";
+				}
+				else
+					initStore();
+		}
+		else
+			document.getElementById("errMsg").innerHTML = "Please enter a number!";
+	}
+}
+
+function tempTransfer(){
+	var i;
+	for(i = 0; i < supplies.length; i++)
+		supplies[i] += tempSupplies[i];
+	for(i = 0; i < parts.length; i++)
+		parts[i] += tempParts;
+	tempSupplies = [0,0,0,0,0,0];
+	tempParts = [0,0,0];
 }
 
 function initOpening(){
-	
-	var IndepDay = month;
+	tempTransfer();
+	var IndepDay = months[month];
 	var t = "<div id='op' style= 'background-color: black;'>\
 			<img src='opening.JPG' alt='Mountain View' style='width:98%; height:97%;position: absolute;background-color: black;'>\
 			<div id='opScene' style= 'position: absolute ;\
@@ -309,7 +415,7 @@ function initOpening(){
 									background-color:#FFFDDD;\
 									color:black;\
 									border:4px double #e6e600;'>\
-									Independence: "+IndepDay+" 1 <br> Click Space to begin you journey</div>\
+									Independence: "+IndepDay+" 1, 1848 <br> Click Space to begin you journey</div>\
 			</div> ";
 	
 	document.getElementsByClassName("container")[0].innerHTML = t;
@@ -317,14 +423,101 @@ function initOpening(){
 	$(document).keypress(function(e){
 		if(e.keyCode == SPACEBAR){
 			$(this).unbind();
-			mainGame();
+			locationInfo();
 		}
 	});
 }
 
-function initLocation(){
-	document.getElementsByClassName("container")[0].innerHTML = "";
+function locationInfo(){
+	//Do this later
+	mainGame();
+}
+
+function stopLocation(){
+	var t = "<p>Do you want to stop at " +currLocation+"?</p>\
+			<button>Yes</button>&nbsp<button onclick='mainGame()'>No</button>";
+	document.getElementsByClassName("container")[0].innerHTML = t;
+}
+
+function travelTrail(){
+	if(gameStatus[PACE] == STEADY){
+		totalTraveled += 6;
+		tempTraveled += 6;
+	}
+	else if(gameStatus[PACE] == STRENUOUS){
+		totalTraveled += 12;
+		tempTraveled += 12;
+	}
+	else if(gameStatus[PACE] == GRUELING){
+		totalTraveled += 18;
+		tempTraveled += 18;
+	}
+	//Check if they won
+	if(tempTraveled >= distance[distance.length - 1]){
+		gameDone = 1;
+		endGame();
+	}
+
+	else if(tempTraveled >= distance[0]){
+		//Ask if they wish to stop here
+		totalTraveled = totalTraveled - (tempTraveled - distance[0]);
+		tempTraveled = 0;
+		currLocation = locations[0];
+		distance.shift();
+		locations.shift();
+		stopLocation();
+		console.log(distance.length);
+	}
+	
+	else if(!gameDone)
+		mainGame();
 }
 
 function mainGame(){
+	//Adjusting the date
+	if(day > monthDays[month]){
+		day = 1;
+		if(month == 11){
+			month = 0;
+			year++;
+		}
+		else
+			month++;
+	}
+	//Adjusting the Weather text
+	if(gameStatus[WEATHER] == COOL)
+		currWeather = "Cool";
+	else if(gameStatus[WEATHER] == RAINY)
+		currWeather = "Rainy";
+	//Adjusting the Health text
+	if(gameStatus[HEALTH] == GOOD)
+		currHealth = "Good";
+	else if(gameStatus[HEALTH] == OKAY)
+		currHealth = "Okay";
+	else if(gameStatus[HEALTH] == BAD)
+		currHealth = "Bad";
+	
+	var t = "<div id='msg'></div>\
+			<button onclick=''>Check Options</button>\
+			<p id='info'>Date: "+months[month]+" "+day+", "+year+"<br>\
+			Weather: "+currWeather+"<br>\
+			Health: "+currHealth+"<br>\
+			Food: "+supplies[FOOD]+" pounds<br>\
+			Next Landmark: "+(distance[0]-tempTraveled)+"<br>\
+			Miles Traveled: "+totalTraveled+"</p>\
+			" + spaceTxt;
+			
+	document.getElementsByClassName("container")[0].innerHTML = t;
+	
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			travelTrail();
+		}
+	});
+	
+}
+
+function endGame(){
+	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU WIN FUCKER!!!</h1>";
 }
