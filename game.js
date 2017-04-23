@@ -9,19 +9,39 @@ const CLOTHING = 5;
 
 //Indices for Status
 const WEATHER = 0;
+	//Weather Options
+	
+
 const HEALTH = 1;
+	//Health Options
+	const GOOD = 0;
+	const OKAY = 1;
+	const BAD = 2;
+	
 const PACE = 2;
+	//Pace Options
+	const STEADY = 0;
+	const STRENUOUS = 1;
+	const GRUELING = 2;
+
 const RATIONS = 3;
+	//Rations Options
+	const FILLING = 0;
+	const MEAGER = 1;
+	const BAREBONES = 2;
 
 var spaceTxt = "<div>Press SPACE BAR to Continue</div>";
 
+var locations = [];
+var distance = [];
+
 var characters;
 var supplies = [0,0,0,0,0,0];
-var gameStatus;
+var gameStatus = [0, 0, 0, 0];
 var job;
-var score;
+var score = 0;
 var month;
-var traveled;
+var traveled = 0;
 
 welcome();
 
@@ -108,19 +128,18 @@ function getInfo(num = 0){
 	});
 	*/
 	document.getElementById("innerPage").innerHTML = "<p>"+ gameInfo[0] +"</p>" + spaceTxt;
-	$(document).ready(function(){
-		$(document).keypress(function(e){
-			if(e.keyCode == SPACEBAR){
-				if(count < 4){
-					$("p").text(gameInfo[count]);
-					count++;
-				}
-				else{
-					$(this).unbind();
-					welcome();
-				}
+	
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			if(count < 4){
+				$("p").text(gameInfo[count]);
+				count++;
 			}
-		});
+			else{
+				$(this).unbind();
+				welcome();
+			}
+		}
 	});
 }
 
@@ -184,17 +203,16 @@ function assignMonth(userMonth){
 function getAdvice(){
 	//document.getElementById("innerPage").innerHTML = "<p>Offer Advice Here</p> <button onclick='pickMonth()'>Back</button>"
 	document.getElementById("innerPage").innerHTML = "<p>Offer Advice Here</p>" + spaceTxt;
-	$(document).ready(function(){
-		$(document).keypress(function(e){
-			if(e.keyCode == SPACEBAR){
-				$(this).unbind();
-				pickMonth();
-			}
-		});
+	
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			pickMonth();
+		}
 	});
+	
 }
 
-//Initialize all global variables and arrays before starting game
 function finishIntro(){
 	console.log(month);
 
@@ -215,20 +233,19 @@ function finishIntro(){
 	*/
 	
 	var count = 0;
-	$(document).ready(function(){
-		$(document).keypress(function(e){
-			if(e.keyCode == SPACEBAR){
-				if(!count){
-					$("p").text(info[1]);
-					count++;
-				}
-				else{
-					$(this).unbind();
-					storeGreeting();
-				}
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			if(!count){
+				$("p").text(info[1]);
+				count++;
 			}
-		});
+			else{
+				$(this).unbind();
+				storeGreeting();
+			}
+		}
 	});
+	
 }
 
 function storeGreeting(){
@@ -237,18 +254,35 @@ function storeGreeting(){
 			<div>- A team of oxen to pull your wagon<br>- Clothing for both summer and winter<br>- Plenty of food for your trip<br>- Bait so you can fish<br>- Spare parts for your wagon</div><br>" + spaceTxt;
 	
 	document.getElementsByClassName("container")[0].innerHTML = t;
-	$(document).ready(function(){
-		$(document).keypress(function(e){
-			if(e.keyCode == SPACEBAR){
-				$(this).unbind();
-				initStore();
-			}
-		});
+	
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			initStore();
+		}
 	});
-
 }
 
 function initStore(){
-	var t = "<h2>Krunal's General Store</h2><h4>Independence, Missouri</h4><h4>"+ month +" 1, 1848</h4>";
+	var price = [0,0,0,0,0];
+	var t = "<h2>Krunal's General Store</h2><h4>Independence, Missouri</h4><h4>"+ month +" 1, 1848</h4>\
+			<button value='Oxen' onclick='initBuy()'>Oxen</button> &nbsp $"+price[0]+"<br>\
+			<button value='Clothes' onclick='initBuy()'>Clothes</button> &nbsp $"+price[1]+"<br>\
+			<button value='Food' onclick='initBuy()'>Food</button> &nbsp $"+price[2]+"<br>\
+			<button value='Bait' onclick='initBuy()'>Bait</button> &nbsp $"+price[3]+"<br>\
+			<button value='Wagon' onclick='initBuy()'>Wagon</button> &nbsp $"+price[4]+"<br><br>\
+			<button id='startTrail' onclick=''>Start the Trail</button>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
+}
+
+function initBuy(){
+	if(supplies[OXEN] > 0)
+		document.getElementById("startTrail").setAttribute("onclick", "initLocation()");
+}
+
+function initLocation(){
+	document.getElementsByClassName("container")[0].innerHTML = "";
+}
+
+function mainGame(){
 }
