@@ -3,6 +3,9 @@ const SPACEBAR = 32;
 const MONEY = 0;
 const FOOD = 1;
 const PARTS = 2;
+	const WHEEL = 0;
+	const AXEL = 1;
+	const TONGUE = 2;
 const BAIT = 3;
 const OXEN = 4;
 const CLOTHING = 5;
@@ -35,8 +38,20 @@ var spaceTxt = "<div>Press SPACE BAR to Continue</div>";
 var locations = [];
 var distance = [];
 
+var months = ["January", "Februrary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+var price = [.2, 10, 40, 2, 10]
+	//Indicies for price
+	const FOOD_COST = 0;
+	const CLOTHING_COST = 1;
+	const OXEN_COST = 2;
+	const BAIT_COST = 3;
+	const WAGON_COST = 4;
+
 var characters;
 var supplies = [0,0,0,0,0,0];
+var parts = [0,0,0];
 var gameStatus = [0, 0, 0, 0];
 var job;
 var score = 0;
@@ -264,13 +279,12 @@ function storeGreeting(){
 }
 
 function initStore(){
-	var price = [0,0,0,0,0];
 	var t = "<h2>Krunal's General Store</h2><h4>Independence, Missouri</h4><h4>"+ month +" 1, 1848</h4>\
-			<button value='Oxen' onclick='initBuy()'>Oxen</button> &nbsp $"+price[0]+"<br>\
-			<button value='Clothes' onclick='initBuy()'>Clothes</button> &nbsp $"+price[1]+"<br>\
-			<button value='Food' onclick='initBuy()'>Food</button> &nbsp $"+price[2]+"<br>\
-			<button value='Bait' onclick='initBuy()'>Bait</button> &nbsp $"+price[3]+"<br>\
-			<button value='Wagon' onclick='initBuy()'>Wagon</button> &nbsp $"+price[4]+"<br><br>\
+			<button value='Oxen' onclick='initBuy()'>Oxen</button> &nbsp $"+(price[OXEN_COST]*supplies[OXEN])+"<br>\
+			<button value='Clothes' onclick='initBuy()'>Clothes</button> &nbsp $"+(price[CLOTHING_COST]*supplies[CLOTHING])+"<br>\
+			<button value='Food' onclick='initBuy()'>Food</button> &nbsp $"+(price[FOOD_COST]*supplies[FOOD])+"<br>\
+			<button value='Bait' onclick='initBuy()'>Bait</button> &nbsp $"+(price[BAIT_COST]*supplies[BAIT])+"<br>\
+			<button value='Wagon' onclick='initBuy()'>Spare Parts</button> &nbsp $"+(price[WAGON_COST]*supplies[PARTS])+"<br><br>\
 			<button id='startTrail' onclick=''>Start the Trail</button>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
