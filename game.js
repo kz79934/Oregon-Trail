@@ -285,13 +285,41 @@ function initStore(){
 			<button value='Food' onclick='initBuy()'>Food</button> &nbsp $"+(price[FOOD_COST]*supplies[FOOD])+"<br>\
 			<button value='Bait' onclick='initBuy()'>Bait</button> &nbsp $"+(price[BAIT_COST]*supplies[BAIT])+"<br>\
 			<button value='Wagon' onclick='initBuy()'>Spare Parts</button> &nbsp $"+(price[WAGON_COST]*supplies[PARTS])+"<br><br>\
-			<button id='startTrail' onclick=''>Start the Trail</button>";
+			<button id='startTrail' onclick='initOpening()'>Start the Trail</button>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
 function initBuy(){
 	if(supplies[OXEN] > 0)
 		document.getElementById("startTrail").setAttribute("onclick", "initLocation()");
+}
+
+function initOpening(){
+	
+	var IndepDay = month;
+	var t = "<div id='op' style= 'background-color: black;'>\
+			<img src='opening.JPG' alt='Mountain View' style='width:98%; height:97%;position: absolute;background-color: black;'>\
+			<div id='opScene' style= 'position: absolute ;\
+									left: 30%;\
+									top: 77%;\
+									width: 30%;\
+									height: 20%;\
+									text-align: center;\
+									font-size: 30px;\
+									background-color:#FFFDDD;\
+									color:black;\
+									border:4px double #e6e600;'>\
+									Independence: "+IndepDay+" 1 <br> Click Space to begin you journey</div>\
+			</div> ";
+	
+	document.getElementsByClassName("container")[0].innerHTML = t;
+	
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			mainGame();
+		}
+	});
 }
 
 function initLocation(){
