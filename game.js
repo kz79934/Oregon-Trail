@@ -70,6 +70,8 @@ var totalTraveled = 0;
 var tempTraveled = 0;
 var currWeather = "Cool";
 var currHealth = "Good";
+var currPace = "Steady";
+var currRations = "Filling";
 var currLocation = "Independence";
 var gameDone = 0;
 
@@ -340,7 +342,7 @@ function initBuy(item){
 function checkValid(index){
 	var tempBalance, tempValue;
 	var tempInputs = document.getElementsByTagName("input");
-	var patt = /\d+/;
+	var patt = /^\d+$/;
 	if(index == PARTS){
 		var total = 0;
 		var i;
@@ -400,7 +402,7 @@ function tempTransfer(){
 	for(i = 0; i < supplies.length; i++)
 		supplies[i] += tempSupplies[i];
 	for(i = 0; i < parts.length; i++)
-		parts[i] += tempParts;
+		parts[i] += tempParts[i];
 	tempSupplies = [0,0,0,0,0,0];
 	tempParts = [0,0,0];
 }
@@ -420,7 +422,7 @@ function initOpening(){
 									background-color:#FFFDDD;\
 									color:black;\
 									border:4px double #e6e600;'>\
-									Independence: "+IndepDay+" 1, 1848 <br> Click Space to begin you journey</div>\
+									Independence: "+IndepDay+" 1, 1848 <br> Click Space to begin your journey</div>\
 			</div> ";
 	
 	document.getElementsByClassName("container")[0].innerHTML = t;
@@ -433,14 +435,112 @@ function initOpening(){
 	});
 }
 
+function checkSupplies(){
+	var t = "<p>Your Supplies:<br>\
+			Oxen: "+supplies[OXEN]+"<br>\
+			Sets of Clothing: "+supplies[CLOTHING]+"<br>\
+			Bait: "+supplies[BAIT]+"<br>\
+			Wagon Wheels: "+parts[WHEEL]+"<br>\
+			Wagon Axels: "+parts[AXEL]+"<br>\
+			Wagon Tongues: "+parts[TONGUE]+"<br>\
+			Pounds of Food: "+supplies[FOOD]+"<br>\
+			Money Left: $"+supplies[MONEY]+"</p>\
+			" + spaceTxt;
+	document.getElementsByClassName("container")[0].innerHTML = t;
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			locationInfo();
+		}
+	});
+}
+
+function paceInfo(){
+	var t = "<p>Pace Info Here</p>" + spaceTxt;
+	document.getElementsByClassName("container")[0].innerHTML = t;
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			changePace();
+		}
+	});
+}
+
+function setPace(pace){
+	currPace = pace;
+	if(pace == "Steady")
+		gameStatus[PACE] = STEADY;
+	else if(pace == "Strenuous")
+		gameStatus[PACE] = STRENUOUS;
+	else if(pace == "Grueling")
+		gameStatus[PACE] = GRUELING;
+	locationInfo();
+}
+
+function changePace(){
+	var t = "<div id='paceOptions'>Change pace<br>\
+			(currently: "+currPace+")<br><br>\
+			The pace at which you travel can change.<br>\
+			Your choices are:<br>\
+			<button value='Steady' onclick='setPace(this.value)'>Steady</button><br>\
+			<button value='Stenuous' onclick='setPace(this.value)'>Strenuous</button><br>\
+			<button value='Grueling' onclick='setPace(this.value)'>Grueling</button><br>\
+			<button onclick='paceInfo()'>Pace Information</button></div>"
+	document.getElementsByClassName("container")[0].innerHTML = t;
+}
+
+function setRations(rations){
+	currRations = rations;
+	if(rations == "Filling")
+		gameStatus[RATIONS] = FILLING;
+	else if(rations == "Meager")
+		gameStatus[RATIONS] = MEAGER;
+	else if(rations == "Bare Bones")
+		gameStatus[RATIONS] = BAREBONES;
+	locationInfo();
+}
+
+function changeRations(){
+	var t = "<div id='foodOptions'>Change food rations<br>\
+			(currently: "+currRations+")<br><br>\
+			The amount of food the people in your party eat each day can change.<br>\
+			<button value='Filling' onclick='setRations(this.value)'>Filling</button> - Meals are large and generous.<br>\
+			<button value='Meager' onclick='setRations(this.value)'>Meager</button> - Meals are small, but adequate.<br>\
+			<button value='Bare Bones' onclick='setRations(this.value)'>Bare Bones</button> - Meals are very small; everyone stays hungry.<br>\</div>";
+	document.getElementsByClassName("container")[0].innerHTML = t;
+}
+
 function locationInfo(){
-	//Do this later
-	mainGame();
+	var t = "";
+	//Checking if in town or on the trail
+	if(tempTraveled == 0)
+		t += "<h2>"+currLocation+"<br>"+months[month]+" "+day+", "+year+"</h2>";
+	else
+		t += "<h2>"+months[month]+" "+day+", "+year+"</h2>"
+	
+	t += "<p>Weather: "+currWeather+"<br>\
+			Health: "+currHealth+"<br>\
+			Pace: "+currPace+"<br>\
+			Rations: "+currRations+"<br>\</p>\
+			<div id='townOptions'>You may:<br><br>\
+			<button onclick='travelTrail()'>Continue on trail</button><br>\
+			<button onclick='checkSupplies()'>Check supplies</button><br>\
+			<button onclick=''>Look at map</button><br>\
+			<button onclick='changePace()'>Change pace</button><br>\
+			<button onclick='changeRations()'>Change food rations</button><br>\
+			<button onclick=''>Stop to rest</button><br>\
+			<button onclick=''>Attempt to trade</button><br>";
+	if(tempTraveled > 0)
+		t += "<button onclick=''>Go Fishing</button></div>";
+	else
+		t += "<button onclick=''>Talk to people</button>\
+		<br><button onclick=''>Buy supplies</button></div>";
+	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
 function stopLocation(){
 	var t = "<p>Do you want to stop at " +currLocation+"?</p>\
-			<button>Yes</button>&nbsp<button onclick='mainGame()'>No</button>";
+			<button onclick='locationInfo()'>Yes</button>&nbsp<button onclick='mainGame()'>No</button>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
@@ -503,7 +603,7 @@ function mainGame(){
 		currHealth = "Bad";
 	
 	var t = "<div id='msg'></div>\
-			<button onclick=''>Check Options</button>\
+			<button onclick='locationInfo()'>Check Options</button>\
 			<p id='info'>Date: "+months[month]+" "+day+", "+year+"<br>\
 			Weather: "+currWeather+"<br>\
 			Health: "+currHealth+"<br>\
