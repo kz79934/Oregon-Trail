@@ -483,7 +483,7 @@ function changePace(){
 			The pace at which you travel can change.<br>\
 			Your choices are:<br>\
 			<button value='Steady' onclick='setPace(this.value)'>Steady</button><br>\
-			<button value='Stenuous' onclick='setPace(this.value)'>Strenuous</button><br>\
+			<button value='Strenuous' onclick='setPace(this.value)'>Strenuous</button><br>\
 			<button value='Grueling' onclick='setPace(this.value)'>Grueling</button><br>\
 			<button onclick='paceInfo()'>Pace Information</button></div>"
 	document.getElementsByClassName("container")[0].innerHTML = t;
@@ -603,7 +603,7 @@ function mainGame(){
 		currHealth = "Bad";
 	
 	var t = "<div id='msg'></div>\
-			<button onclick='locationInfo()'>Check Options</button>\
+			<button id='checkOptions'>Check Options</button>\
 			<p id='info'>Date: "+months[month]+" "+day+", "+year+"<br>\
 			Weather: "+currWeather+"<br>\
 			Health: "+currHealth+"<br>\
@@ -619,6 +619,11 @@ function mainGame(){
 			$(this).unbind();
 			travelTrail();
 		}
+	});
+	$("#checkOptions").click(function(){
+		$(this).unbind();
+		$(document).unbind();
+		locationInfo();
 	});
 	
 }
