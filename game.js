@@ -542,11 +542,12 @@ function locationInfo(){
 
 function stopLocation(){
 	var t = "<p>Do you want to stop at " +currLocation+"?</p>\
-			<button onclick='locationInfo()'>Yes</button>&nbsp<button onclick='mainGame()'>No</button>";
+			<button onclick='locationInfo()'>Yes</button>&nbsp<button onclick='travelTrail()'>No</button>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
 function travelTrail(){
+	day++;
 	if(gameStatus[PACE] == STEADY){
 		totalTraveled += 6;
 		tempTraveled += 6;
@@ -583,7 +584,7 @@ function travelTrail(){
 function mainGame(){
 	//Adjusting the date
 	if(day > monthDays[month]){
-		day = 1;
+		day = day % monthDays[month];
 		if(month == 11){
 			month = 0;
 			year++;
