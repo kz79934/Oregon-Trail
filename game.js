@@ -398,6 +398,8 @@ function backToStore(){
 }
 
 function tempTransfer(){
+	supplies[MONEY] = supplies[MONEY] - ((price[OXEN_COST]*tempSupplies[OXEN]) + (price[CLOTHING_COST]*tempSupplies[CLOTHING]) + 
+	(price[FOOD_COST]*tempSupplies[FOOD]) + (price[BAIT_COST]*tempSupplies[BAIT]) + (price[WAGON_COST]*tempSupplies[PARTS]));
 	var i;
 	for(i = 0; i < supplies.length; i++)
 		supplies[i] += tempSupplies[i];
