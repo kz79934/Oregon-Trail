@@ -130,22 +130,6 @@ function displayOcc(occupation) {
 function getInfo(num = 0) {
     var gameInfo = ["Page 1 info", "Page 2 info", "Page 3 info", "Page 4 info"];
     var count = 1;
-    //Commented section uses a button instead
-    /*
-    document.getElementById("innerPage").innerHTML = "<p>"+ gameInfo[0] +"</p> <button id='info'>Next</button>"
-    $(document).ready(function(){
-    	$("#info").click(function(){
-    		if(count < 4){
-    			$("p").text(gameInfo[count]);
-    			count++;
-    		}
-    		else{
-    			$(this).unbind();
-    			welcome();
-    		}
-    	});
-    });
-    */
     document.getElementById("innerPage").innerHTML = "<p>" + gameInfo[0] + "</p>" + spaceTxt;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
@@ -217,7 +201,6 @@ function assignMonth(userMonth) {
 }
 
 function getAdvice() {
-    //document.getElementById("innerPage").innerHTML = "<p>Offer Advice Here</p> <button onclick='pickMonth()'>Back</button>"
     document.getElementById("innerPage").innerHTML = "<p>Offer Advice Here</p>" + spaceTxt;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
@@ -231,18 +214,9 @@ function finishIntro() {
     console.log(month);
     var info = ["Before leaving Independence you should buy equipment and supplies. You have $" + supplies[MONEY] + " in cash, but you don't have to spend it all now"
 				, "You can buy whatever you need at Krunal's General Store."];
-    //var t = "<p>"+ info[0] +"</p> <button id='toStore' onclick=''>Next</button>";
     var t = "<p>" + info[0] + "</p>" + spaceTxt;
     document.getElementsByClassName("container")[0].innerHTML = t;
-    /*
-    $(document).ready(function(){
-    	$("#toStore").click(function(){
-    		$("p").text(info[1]);
-    		document.getElementById("toStore").setAttribute("onclick", "initStore()");
-    		$(this).unbind();
-    	});
-    });
-    */
+ 
     var count = 0;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
@@ -339,7 +313,7 @@ function checkValid(index) {
             tempParts[WHEEL] = parseInt(tempInputs[0].value);
             tempParts[AXEL] = parseInt(tempInputs[1].value);
             tempParts[TONGUE] = parseInt(tempInputs[2].value);
-            backToStore();
+            initStore();
         }
     }
     else {
@@ -353,16 +327,12 @@ function checkValid(index) {
                 tempSupplies[index] = tempValue;
                 document.getElementById("errMsg").innerHTML = "<label>You do not have enough money to do that!</label>";
             }
-            else backToStore();
+            else initStore();
         }
         else document.getElementById("errMsg").innerHTML = "Please enter a number!";
     }
 }
 
-function backToStore() {
-    //Add if statements to figure out if going back to initStore or other general store.
-    initStore();
-}
 
 function tempTransfer() {
     supplies[MONEY] = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));
@@ -468,6 +438,91 @@ function changeRations() {
     document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
+function getIndex(str){
+	if(str == "OXEN") return OXEN;
+	if(str == "CLOTHING") return CLOTHING;
+	if(str == "BAIT") return BAIT;
+	if(str == "FOOD") return FOOD;
+	if(str == "WHEEL") return WHEEL;
+	if(str == "AXEL") return AXEL;
+	if(str == "TONGUE") return TONGUE;
+	if(str == "PARTS") return OXEN;
+}
+
+function buyItem(item){
+	var index = getIndex(item);
+	var amount = document.getElementById("buy").value;
+	var patt = /^\d+$/;
+	if(!(patt.test(amount)))
+		document.getElementById("errMsg").innerHTML = "Please enter a number!";
+	else if(item == "WHEEL" || item == "AXEL" || item == "TONGUE"){
+		amount = parseInt(amount);
+		if((price[WAGON_COST]*amount) <= supplies[MONEY]){
+			supplies[PARTS] += amount;
+			parts[index] += amount;
+			supplies[MONEY] -= (price[WAGON_COST]*amount);
+			buySupplies();
+		}
+		else
+			document.getElementById("errMsg").innerHTML = "You do not have enough money to do that!";
+	}
+	else{
+		amount = parseInt(amount);
+		var priceIndex;
+		if(item == "OXEN")
+			priceIndex = OXEN_COST;
+		else if(item == "CLOTHING")
+			priceIndex = CLOTHING_COST;
+		else if(item == "BAIT"){
+			priceIndex = BAIT_COST;
+			amount *= 20;
+		}
+		else if(item == "FOOD")
+			priceIndex = FOOD_COST;
+		if((price[priceIndex]*amount) <= supplies[MONEY]){
+			supplies[index] += amount;
+			supplies[MONEY] -= (price[priceIndex]*amount);
+			buySupplies();
+		}
+		else
+			document.getElementById("errMsg").innerHTML = "You do not have enough money to do that!";
+	}
+}
+
+function setItem(item){
+	if(item == "OXEN") 
+		document.getElementById("selectItem").innerHTML = "<label>How many oxen?</label> <input id='buy' value=''></input> <button class='button' value='OXEN' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+	else if(item == "CLOTHING") 
+		document.getElementById("selectItem").innerHTML = "<label>How many sets?</label> <input id='buy' value=''></input> <button class='button' value='CLOTHING' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+	else if(item == "BAIT") 
+		document.getElementById("selectItem").innerHTML = "<label>How many buckets?</label> <input id='buy' value=''></input> <button class='button' value='BAIT' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+	else if(item == "WHEEL") 
+		document.getElementById("selectItem").innerHTML = "<label>How many wheels?</label> <input id='buy' value=''></input> <button class='button' value='WHEEL' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+	else if(item == "AXEL") 
+		document.getElementById("selectItem").innerHTML = "<label>How many axels?</label> <input id='buy' value=''></input> <button class='button' value='AXEL' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+	else if(item == "TONGUE") 
+		document.getElementById("selectItem").innerHTML = "<label>How many tongues?</label> <input id='buy' value=''></input> <button class='button' value='TONGUE' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+	else if(item == "FOOD") 
+		document.getElementById("selectItem").innerHTML = "<label>How many pounds?</label> <input id='buy' value=''></input> <button class='button' value='FOOD' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+}
+
+function buySupplies(){
+	var t = "<h2>"+currLocation+"<br>"+months[month]+" "+day+", "+year+"</h2>\
+			You may buy:<br>\
+			<button class='button' value='OXEN' onclick='setItem(this.value)'><span>Oxen</span></button><label>- $20 per ox</label><br>\
+			<button class='button' value='CLOTHING' onclick='setItem(this.value)'><span>Clothing</span></button><label>- $10 per set</label><br>\
+			<button class='button' value='BAIT' onclick='setItem(this.value)'><span>Bait</span></button><label>- $2 per bucket</label><br>\
+			<button class='button' value='WHEEL' onclick='setItem(this.value)'><span>Wagon Wheels</span></button><label>- $10 per wheel</label><br>\
+			<button class='button' value='AXEL' onclick='setItem(this.value)'><span>Wagon Axels</span></button><label>- $10 per axel</label><br>\
+			<button class='button' value='TONGUE' onclick='setItem(this.value)'><span>Wagon Tongues</span></button><label>- $10 per tongue</label><br>\
+			<button class='button' value='FOOD' onclick='setItem(this.value)'><span>Food</span></button><label>- $0.20 per pound</label><br>\
+			<button class='button' onclick='locationInfo()'><span>Leave</span></button> <br>\
+			<div><label>You have $"+supplies[MONEY]+" to spend.</label></div><br>\
+			<div id='selectItem'><label>What would you like to buy?</label></div>\
+			<label id='errMsg'></label>";
+	document.getElementsByClassName("container")[0].innerHTML = t;
+}
+
 function locationInfo() {
     var t = "";
     //Checking if in town or on the trail
@@ -487,7 +542,7 @@ function locationInfo() {
 			<button class='button' onclick=''><span>Attempt to trade</span></button><br>";
     if (tempTraveled > 0) t += "<button class='button' onclick=''><span>Go Fishing</span></button></div>";
     else t += "<button class='button' onclick=''><span>Talk to people</span></button>\
-		<br><button class='button' onclick=''><span>Buy supplies</span></button></div>";
+		<br><button class='button' onclick='buySupplies()'><span>Buy supplies</span></button></div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
