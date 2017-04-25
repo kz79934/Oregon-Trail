@@ -594,13 +594,14 @@ function mainGame() {
         }
         else month++;
     }
+	//Will Probably remove the commented section as it might not be needed
     //Adjusting the Weather text
-    if (gameStatus[WEATHER] == COOL) currWeather = "Cool";
-    else if (gameStatus[WEATHER] == RAINY) currWeather = "Rainy";
+    //if (gameStatus[WEATHER] == COOL) currWeather = "Cool";
+    //else if (gameStatus[WEATHER] == RAINY) currWeather = "Rainy";
     //Adjusting the Health text
-    if (gameStatus[HEALTH] == GOOD) currHealth = "Good";
-    else if (gameStatus[HEALTH] == OKAY) currHealth = "Okay";
-    else if (gameStatus[HEALTH] == BAD) currHealth = "Bad";
+    //if (gameStatus[HEALTH] == GOOD) currHealth = "Good";
+    //else if (gameStatus[HEALTH] == OKAY) currHealth = "Okay";
+    //else if (gameStatus[HEALTH] == BAD) currHealth = "Bad";
     var t = "<div id='msg'></div>\
 			<button class='button' id='checkOptions'><span>Check Options</span></button>\
 			<p id='info'>Date: " + months[month] + " " + day + ", " + year + "<br>\
