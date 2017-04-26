@@ -322,25 +322,25 @@ function initBuy(item) {
     var t;
     if (item == "Oxen") {
         t = "<p>Advice on Oxen. How many yoke would you like to buy?</p>\
-			<input value=''></input><button class='button' onclick='checkValid(OXEN)'><span>Buy It!</span></button><div id='errMsg'></div>";
+			<input type='text' value='' placeholder='Number of Oxen'></input><br><button class='button' onclick='checkValid(OXEN)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Clothes") {
         t = "<p>Advice on Clothes. How many pairs of clothes would you like to buy?</p>\
-			<input value=''></input><button class='button' onclick='checkValid(CLOTHING)'><span>Buy It!</span></button><div id='errMsg'></div>";
+			<input type='text' value='' placeholder='Number of Clothes'></input><br><button class='button' onclick='checkValid(CLOTHING)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Food") {
         t = "<p>Advice on Food. How much food in pounds would you like to buy?</p>\
-			<input value=''></input><button class='button' onclick='checkValid(FOOD)'><span>Buy It!</span></button><div id='errMsg'></div>";
+			<input type='text' value='' placeholder='Number of Food'></input><br><button class='button' onclick='checkValid(FOOD)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Bait") {
         t = "<p>Advice on Bait. How many buckets of bait would you like to buy?</p>\
-			<input value=''></input><button class='button' onclick='checkValid(BAIT)'><span>Buy It!</span></button><div id='errMsg'></div>";
+			<input type='text' value='' placeholder='Number of Brait'></input><br><button class='button' onclick='checkValid(BAIT)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Wagon") {
         t = "<p>Advice on Wagon.<br><br>\
-		How many wheels would you like to buy? <input id='wheel' value=''></input><br>\
-		How many axels would you like to buy? <input id='axel' value=''></input><br>\
-		How many tongues would you like to buy? <input id='tongue' value=''></input><br></p>\
+		How many wheels would you like to buy? <input type='text' id='wheel' value='' placeholder='Number of Wheels'></input><br>\
+		How many axels would you like to buy? <input  type='text' id='axel' value='' placeholder='Number of Axels'></input><br>\
+		How many tongues would you like to buy? <input type='text' id='tongue' value='' placeholder='Number of Tongues'></input><br></p>\
 		<button class='button' onclick='checkValid(PARTS)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     document.getElementsByClassName("container")[0].innerHTML = t;
@@ -355,7 +355,7 @@ function checkValid(index) {
         var i;
         for (i = 0; i < tempInputs.length; i++) {
             if (!(patt.test(tempInputs[i].value))) {
-                document.getElementById("errMsg").innerHTML = "<label>Please enter a number for each part!</label>";
+                document.getElementById("errMsg").innerHTML = "<p>Please enter a number for each part!</p>";
                 return;
             }
             total += parseInt(tempInputs[i].value);
