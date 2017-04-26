@@ -266,14 +266,14 @@ function finishIntro() {
     console.log(month);
     var info = ["Before leaving Independence you should buy equipment and supplies. You have $" + supplies[MONEY] + " in cash, but you don't have to spend it all now"
 				, "You can buy whatever you need at Krunal's General Store."];
-    var t = "<p>" + info[0] + "</p>" + spaceTxt;
+    var t = "<p id='info'>" + info[0] + "</p>" + spaceTxt;
     document.getElementsByClassName("container")[0].innerHTML = t;
  
     var count = 0;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
             if (!count) {
-                $("p").text(info[1]);
+                $("#info").text(info[1]);
                 count++;
             }
             else {
