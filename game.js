@@ -33,9 +33,11 @@ const MEAGER = 1;
 const BAREBONES = 2;
 var spaceTxt = "<div><p>Press SPACE BAR to Continue</p></div>";
 //Distance is relative to the previous location (Ex: b is a 100 miles from a)
-var locations = ["a", "b", "c", "d", "e"];
-var distance = [50, 100, 150, 200, 250];
-var rivers = [];
+var locations = ["town a", "river 1", "town b", "river 2", "town c", "river 3", "town d", "end"];
+var distance = [50, 50, 100, 75, 150, 100, 200, 250];
+const TOWN = 1;
+const RIVER = 2;
+var locType = [TOWN, RIVER, TOWN, RIVER, TOWN, RIVER, TOWN, 0];
 var months = ["January", "Februrary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 var price = [.2, 10, 20, .1, 10]
@@ -66,6 +68,7 @@ var currHealth = "Good";
 var currPace = "Steady";
 var currRations = "Filling";
 var currLocation = "Independence";
+var currType = TOWN;
 var gameDone = 0;
 welcome();
 
@@ -599,14 +602,17 @@ function locationInfo() {
 			<button class='button' onclick='changeRations()'><span>Change food rations</span></button><br>\
 			<button class='button' onclick=''><span>Stop to rest</span></button><br>\
 			<button class='button' onclick=''><span>Attempt to trade</span></button><br>";
-    if (tempTraveled > 0) t += "<button class='button' onclick=''><span>Go Fishing</span></button></div>";
-    else t += "<button class='button' onclick=''><span>Talk to people</span></button>\
-		<br><button class='button' onclick='buySupplies()'><span>Buy supplies</span></button></div>";
+    if (tempTraveled == 0) {
+		t += "<button class='button' onclick=''><span>Talk to people</span></button><br>";
+		if(currType == TOWN) t += "<button class='button' onclick='buySupplies()'><span>Buy Supplies</span></button><br>";
+		else if(currType == RIVER) t += "<button class='button' onclick=''><span>Go Fishing</span></button><br>"
+	}
+    t += "</div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
 function stopLocation() {
-    var t = "<p>Do you want to stop at " + currLocation + "?</p>\
+    var t = "<p>You have reached " + currLocation + ".<br> Do you want to look around?</p>\
 			<button class='button' onclick='locationInfo()'><span>Yes</span></button>&nbsp<button class='button' onclick='travelTrail()'><span>No</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
 }
@@ -660,9 +666,9 @@ function travelTrail() {
         //Ask if they wish to stop here
         totalTraveled = totalTraveled - (tempTraveled - distance[0]);
         tempTraveled = 0;
-        currLocation = locations[0];
+        currLocation = locations.shift();
+		currType = locType.shift();
         distance.shift();
-        locations.shift();
         stopLocation();
         console.log(distance.length);
     }
