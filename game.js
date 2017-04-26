@@ -31,7 +31,7 @@ const RATIONS = 3;
 const FILLING = 0;
 const MEAGER = 1;
 const BAREBONES = 2;
-var spaceTxt = "<div><label>Press SPACE BAR to Continue</label></div>";
+var spaceTxt = "<div><p>Press SPACE BAR to Continue</p></div>";
 //Distance is relative to the previous location (Ex: b is a 100 miles from a)
 var locations = ["a", "b", "c", "d", "e"];
 var distance = [50, 100, 150, 200, 250];
