@@ -185,11 +185,11 @@ function displayOcc(occupation) {
 function getInfo(num = 0) {
     var gameInfo = ["Page 1 info", "Page 2 info", "Page 3 info", "Page 4 info"];
     var count = 1;
-    document.getElementById("innerPage").innerHTML = "<p>" + gameInfo[0] + "</p>" + spaceTxt;
+    document.getElementById("innerPage").innerHTML = "<p id='info'>" + gameInfo[0] + "</p>" + spaceTxt;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
             if (count < 4) {
-                $("p").text(gameInfo[count]);
+                $("#info").text(gameInfo[count]);
                 count++;
             }
             else {
