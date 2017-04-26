@@ -567,7 +567,7 @@ function setItem(item){
 
 function buySupplies(){
 	var t = "<h2>"+currLocation+"<br>"+months[month]+" "+day+", "+year+"</h2>\
-			You may buy:<br>\
+			<p>You may buy:</p><br>\
 			<button class='button' value='OXEN' onclick='setItem(this.value)'><span>Oxen</span></button><label>- $20 per ox</label><br>\
 			<button class='button' value='CLOTHING' onclick='setItem(this.value)'><span>Clothing</span></button><label>- $10 per set</label><br>\
 			<button class='button' value='BAIT' onclick='setItem(this.value)'><span>Bait</span></button><label>- $2 per bucket</label><br>\
@@ -591,7 +591,7 @@ function locationInfo() {
 			Health: " + currHealth + "<br>\
 			Pace: " + currPace + "<br>\
 			Rations: " + currRations + "<br>\</p>\
-			<div id='townOptions'><label>You may:</label><br><br>\
+			<div id='townOptions'><p>You may:</p><br><br>\
 			<button class='button' onclick='travelTrail()'><span>Continue on trail</span></button><br>\
 			<button class='button' onclick='checkSupplies()'><span>Check supplies</span></button><br>\
 			<button class='button' onclick=''><span>Look at map</span></button><br>\
