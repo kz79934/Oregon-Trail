@@ -161,10 +161,10 @@ function getNames() {
     if (leaderName.replace(/\s/g, "") != "") characters[0] = leaderName;
     var t = "<p>What are the first names of the other members in your party?<br>\
 			The leader's name is " + characters[0] + ".</p>\
-			<input class='names' type='text' value=''></input><br>\
-			<input class='names' type='text' value=''></input><br>\
-			<input class='names' type='text' value=''></input><br>\
-			<input class='names' type='text' value=''></input><br><br>\
+			<input class='names' type='text' value='' placeholder='First Member'></input><br>\
+			<input class='names' type='text' value='' placeholder='Second Member'></input><br>\
+			<input class='names' type='text' value='' placeholder='Third Member'></input><br>\
+			<input class='names' type='text' value='' placeholder='Fourth Member'></input><br><br>\
 			<button class='button' onclick='getLeaderName()'><span>Back</span></button><br>\
 			<button class='button' onclick='finalizeNames()'><span>Next</span></button>";
     document.getElementById("innerPage").innerHTML = t;
@@ -248,11 +248,11 @@ function storeGreeting() {
 function initStore() {
     var tempBalance = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));
     var t = "<h2>Krunal's General Store</h2><h4>Independence, Missouri</h4><h4>" + months[month] + " 1, 1848</h4>\
-			<button class='button' value='Oxen' onclick='initBuy(this.value)'><span>Oxen</span></button> <label>&nbsp $" + (price[OXEN_COST] * tempSupplies[OXEN]) + "</label><br>\
-			<button class='button' value='Clothes' onclick='initBuy(this.value)'><span>Clothes</span></button> <label>&nbsp $" + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + "</label><br>\
-			<button class='button' value='Food' onclick='initBuy(this.value)'><span>Food</span></button> <label>&nbsp $" + (price[FOOD_COST] * tempSupplies[FOOD]) + "</label><br>\
-			<button class='button' value='Bait' onclick='initBuy(this.value)'><span>Bait</span></button> <label>&nbsp $" + (price[BAIT_COST] * tempSupplies[BAIT]) + "</label><br>\
-			<button class='button' value='Wagon' onclick='initBuy(this.value)'><span>Spare Parts</span></button> <label>&nbsp $" + (price[WAGON_COST] * tempSupplies[PARTS]) + "</label><br><br>\
+			<button class='button' value='Oxen' onclick='initBuy(this.value)'><span>Oxen</span></button> <p1>&nbsp $" + (price[OXEN_COST] * tempSupplies[OXEN]) + "</p1><br>\
+			<button class='button' value='Clothes' onclick='initBuy(this.value)'><span>Clothes</span></button> <p1>&nbsp $" + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + "</p1><br>\
+			<button class='button' value='Food' onclick='initBuy(this.value)'><span>Food</span></button> <p1>&nbsp $" + (price[FOOD_COST] * tempSupplies[FOOD]) + "</p1><br>\
+			<button class='button' value='Bait' onclick='initBuy(this.value)'><span>Bait</span></button> <p1>&nbsp $" + (price[BAIT_COST] * tempSupplies[BAIT]) + "</p1><br>\
+			<button class='button' value='Wagon' onclick='initBuy(this.value)'><span>Spare Parts</span></button> <p1>&nbsp $" + (price[WAGON_COST] * tempSupplies[PARTS]) + "</p1><br><br>\
 			<div><label>Balance After Purchase: $" + tempBalance + "</label></div><br>\
 			<button class='button' id='startTrail' onclick=''><span>Start the Trail</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;

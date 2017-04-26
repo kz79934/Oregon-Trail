@@ -136,10 +136,26 @@ label{
     color:white;
 }
 
+label1{
+    
+    color:white;
+}
+
 p{
     color: white;
     text-align: center;
     line-height: 2;
+    font-family: courier;
+    font-size: 20px;
+}
+
+p1{
+    color: white;
+    position:relative;
+    bottom: 33px;
+    display: inline-block;
+    left: 500px;
+    left; 200px;
     font-family: courier;
     font-size: 20px;
 }
