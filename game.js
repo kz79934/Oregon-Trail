@@ -623,9 +623,9 @@ function eatFood(){
 	}
 	else{
 		var num;
-		if(gameStatus[RATIONS] == FILLING) num = 10;
-		else if(gameStatus[RATIONS] == MEAGER) num = 7;
-		else if(gameStatus[RATIONS] == BAREBONES) num = 5;
+		if(gameStatus[RATIONS] == FILLING) num = 3;
+		else if(gameStatus[RATIONS] == MEAGER) num = 2;
+		else if(gameStatus[RATIONS] == BAREBONES) num = 1;
 		var pounds = num * numCharacters;
 		if(pounds > supplies[FOOD]) supplies[FOOD] = 0;
 		else supplies[FOOD] -= pounds;
