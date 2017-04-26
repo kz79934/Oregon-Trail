@@ -300,11 +300,11 @@ function storeGreeting() {
 function initStore() {
     var tempBalance = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));
     var t = "<h2>Krunal's General Store</h2><h4>Independence, Missouri</h4><h4>" + months[month] + " 1, 1848</h4>\
-			<button class='button' value='Oxen' onclick='initBuy(this.value)'><span>Oxen</span></button> <p1>&nbsp $" + (price[OXEN_COST] * tempSupplies[OXEN]) + "</p1><br>\
-			<button class='button' value='Clothes' onclick='initBuy(this.value)'><span>Clothes</span></button> <p1>&nbsp $" + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + "</p1><br>\
-			<button class='button' value='Food' onclick='initBuy(this.value)'><span>Food</span></button> <p1>&nbsp $" + (price[FOOD_COST] * tempSupplies[FOOD]) + "</p1><br>\
-			<button class='button' value='Bait' onclick='initBuy(this.value)'><span>Bait</span></button> <p1>&nbsp $" + (price[BAIT_COST] * tempSupplies[BAIT]) + "</p1><br>\
-			<button class='button' value='Wagon' onclick='initBuy(this.value)'><span>Spare Parts</span></button> <p1>&nbsp $" + (price[WAGON_COST] * tempSupplies[PARTS]) + "</p1><br><br>\
+			<p2>1. Oxen = $" + (price[OXEN_COST] * tempSupplies[OXEN]) + " <button class='button button1' value='Oxen' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2><br>\
+            <p2>2. Clothes = $" + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + " <button class='button button1' value='Clothes' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2><br>\
+            <p2>3. Food = $" + (price[FOOD_COST] * tempSupplies[FOOD]) + " <button class='button button1' value='Food' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2><br>\
+            <p2>4. Bait = $" + (price[BAIT_COST] * tempSupplies[BAIT]) + " <button class='button button1' value='Bait' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2><br>\
+            <p2>5. Spare Parts = $" + (price[WAGON_COST] * tempSupplies[PARTS]) + " <button class='button button1' value='Wagon' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2><br><br>\
 			<div><label>Balance After Purchase: $" + tempBalance + "</label></div><br>\
 			<button class='button' id='startTrail' onclick=''><span>Start the Trail</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;

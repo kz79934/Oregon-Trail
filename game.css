@@ -162,6 +162,14 @@ p1{
     border-bottom: 1px solid #333;
 }
 
+p2{
+    color:white;
+    text-align: center;
+    line-height: 2;
+    font-family: courier;
+    font-size: 20px;
+}
+
 input[type=text]{
     width: 20%;
     padding: 5px 20px;
