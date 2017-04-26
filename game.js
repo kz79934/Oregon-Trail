@@ -99,30 +99,79 @@ function displayOcc(occupation) {
     if (occupation == "Banker") {
         document.getElementById("info1").innerHTML = "<p>Banker has the most starting money in the game but you get least amount of points playing him.</p>";
         supplies[MONEY] = 1600.00;
+		
+		document.getElementById("info2").innerHTML ="";
+		document.getElementById("info3").innerHTML ="";
+		document.getElementById("info4").innerHTML ="";
+		document.getElementById("info5").innerHTML ="";
+		document.getElementById("info6").innerHTML ="";
+		document.getElementById("info7").innerHTML ="";
     }
     else if (occupation == "Carpenter") {
         document.getElementById("info2").innerHTML = "<p>The Carpenter starts with an average amount of money, but get more points than the banker.</p>";
         supplies[MONEY] = 800.00;
+		
+		document.getElementById("info1").innerHTML ="";
+		document.getElementById("info3").innerHTML ="";
+		document.getElementById("info4").innerHTML ="";
+		document.getElementById("info5").innerHTML ="";
+		document.getElementById("info6").innerHTML ="";
+		document.getElementById("info7").innerHTML ="";
     }
     else if (occupation == "Farmer") {
         document.getElementById("info3").innerHTML = "<p>You get little starting money, but 3 times as many points has the farmer.</p>";
         supplies[MONEY] = 400.00;
+		
+		document.getElementById("info1").innerHTML ="";
+		document.getElementById("info2").innerHTML ="";
+		document.getElementById("info4").innerHTML ="";
+		document.getElementById("info5").innerHTML ="";
+		document.getElementById("info6").innerHTML ="";
+		document.getElementById("info7").innerHTML ="";
     }
     else if (occupation == "Outlaw") {
         document.getElementById("info4").innerHTML = "<p>You start with basically no money, but you can rob people. Be sure not to get arrested as there are dire consequences.</p>";
         supplies[MONEY] = 200.00;
+		
+		document.getElementById("info1").innerHTML ="";
+		document.getElementById("info2").innerHTML ="";
+		document.getElementById("info3").innerHTML ="";
+		document.getElementById("info5").innerHTML ="";
+		document.getElementById("info6").innerHTML ="";
+		document.getElementById("info7").innerHTML ="";
     }
     else if (occupation == "Cowboy") {
         document.getElementById("info5").innerHTML = "<p>The cowboy starts with a below average amount of money, but knows how to take care of it's cattle.</p>";
         supplies[MONEY] = 600.00;
+		
+		document.getElementById("info1").innerHTML ="";
+		document.getElementById("info2").innerHTML ="";
+		document.getElementById("info3").innerHTML ="";
+		document.getElementById("info4").innerHTML ="";
+		document.getElementById("info6").innerHTML ="";
+		document.getElementById("info7").innerHTML ="";
     }
     else if (occupation == "Merchant") {
         document.getElementById("info6").innerHTML = "<p>The Merchant starts with a below average amount of money, but gets better deals when trading.</p>";
         supplies[MONEY] = 600.00;
+		
+		document.getElementById("info1").innerHTML ="";
+		document.getElementById("info2").innerHTML ="";
+		document.getElementById("info3").innerHTML ="";
+		document.getElementById("info4").innerHTML ="";
+		document.getElementById("info5").innerHTML ="";
+		document.getElementById("info7").innerHTML ="";
     }
     else if (occupation == "Batman") {
         document.getElementById("info7").innerHTML = "<p>You're Batman!</p>";
         supplies[MONEY] = 99999.00;
+		
+		document.getElementById("info1").innerHTML ="";
+		document.getElementById("info2").innerHTML ="";
+		document.getElementById("info3").innerHTML ="";
+		document.getElementById("info4").innerHTML ="";
+		document.getElementById("info5").innerHTML ="";
+		document.getElementById("info6").innerHTML ="";
     }
     job = occupation;
     document.getElementById("CharNames").setAttribute("onclick", "getLeaderName()");
