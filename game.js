@@ -90,7 +90,7 @@ function getOccupation() {
 				<li><input type='radio' id='w-option' name='occupation' value='Merchant' onclick = 'displayOcc(this.value)' > <label for='w-option'>Merchant</label> <div class='check'><div class='inside'></div></div> </li> <div id='info6' ></div>\
 				<li><input type='radio' id='x-option' name='occupation' value='Batman' onclick = 'displayOcc(this.value)' > <label for='x-option'>Batman</label> <div class='check'><div class='inside'></div></div> </li> <div id='info7' ></div>\
 			</ul></div></form>\
-				<input type='button' id='CharNames' value = 'Next' onclick = ''>";
+				<button class='button button1' id='CharNames' onclick = ''><span>Next</span></button>";
     document.getElementById("innerPage").innerHTML = t;
 }
 
@@ -152,7 +152,7 @@ function quit() {
 function getLeaderName() {
     characters = ["Andrew", "Kathy", "LeBron", "Barbara", "Frank"];
     var t = "<p>What is the first name of your leader?</p>\
-			<input id='leader' type='text' value=''></input><button class='button' onclick='getNames()'><span>Next</span></button>"
+			<input id='leader' type='text' value='' placeholder='First Name'></input><br><button class='button' onclick='getNames()'><span>Next</span></button>"
     document.getElementById("innerPage").innerHTML = t;
 }
 
@@ -184,14 +184,14 @@ function finalizeNames() {
 
 function pickMonth() {
     var t = "<p>It is 1848. Your jump off place for Oregon is Independence, Missouri. You must decide which month to leave Independence.</p>\
-			<form>\
-			<input name='months' type='radio' value='March' onclick='assignMonth(this.value)'><label>March</label></input><br>\
-			<input name='months' type='radio' value='April' onclick='assignMonth(this.value)'><label>April</label></input><br>\
-			<input name='months' type='radio' value='May' onclick='assignMonth(this.value)'><label>May</label></input><br>\
-			<input name='months' type='radio' value='June' onclick='assignMonth(this.value)'><label>June</label></input><br>\
-			<input name='months' type='radio' value='July' onclick='assignMonth(this.value)'><label>July</label></input><br>\
-			</form><br>\
-			<button class='button' onclick='getAdvice()'><span>Ask for Advice</span></button><br> <button class='button' id='play' onclick=''>\<span>Play Game</span></button>"
+			<form><div class='container'><ul>\
+			<li><input name='months' id='f-option' type='radio' value='March' onclick='assignMonth(this.value)' checked><label for='f-option'>March</label> <div class='check'></div></li></input><br>\
+			<li><input name='months' id='s-option' type='radio' value='April' onclick='assignMonth(this.value)'><label for='s-option'>April</label><div class='check'><div class='inside'></div></div></li> </input><br>\
+			<li><input name='months' id='t-option' type='radio' value='May' onclick='assignMonth(this.value)'><label for='t-option'>May</label><div class='check'><div class='inside'></div></div></li> </input><br>\
+			<li><input name='months' id='u-option' type='radio' value='June' onclick='assignMonth(this.value)'><label for='u-option'>June</label><div class='check'><div class='inside'></div></div></li> </input><br>\
+			<li><input name='months' id='v-option' type='radio' value='July' onclick='assignMonth(this.value)'><label for='v-option'>July</label><div class='check'><div class='inside'></div></div></li> </input><br>\
+			</ul></div></form>\
+			<button class='button button1' onclick='getAdvice()'><span>Ask for Advice</span></button> <button class='button button1' id='play' onclick='finishIntro()'>\<span>Play Game</span></button>"
     document.getElementById("innerPage").innerHTML = t;
 }
 
