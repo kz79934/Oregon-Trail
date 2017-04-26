@@ -53,7 +53,7 @@ var tempParts = [0, 0, 0];
 var gameStatus = [0, 0, 0, 0];
 var job;
 var score = 0;
-var month;
+var month = 2;
 var day = 1;
 var year = 1848;
 var totalTraveled = 0;
