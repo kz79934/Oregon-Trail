@@ -631,6 +631,7 @@ function changeWeather(){
 function travelTrail() {
     day++;
 	eatFood();
+	changeWeather();
     if (gameStatus[PACE] == STEADY) {
         totalTraveled += 6;
         tempTraveled += 6;
