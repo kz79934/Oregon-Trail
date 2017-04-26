@@ -1,9 +1,16 @@
-h1{
+h1,h2{
     color: aliceblue;
     text-align: center;
     line-height: 1;
     font-size: 50px;
     font-family: courier;
+}
+
+h4{
+    color: white;
+    text-align: center;
+    font-family: courier;
+    font-size: 20px;
 }
 
 body {
@@ -132,11 +139,6 @@ input[type=radio]:checked ~ label{
 }
 
 label{
-    
-    color:white;
-}
-
-label1{
     
     color:white;
 }
