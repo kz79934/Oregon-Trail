@@ -44,6 +44,7 @@ const OXEN_COST = 2;
 const BAIT_COST = 3;
 const WAGON_COST = 4;
 var characters;
+var numCharacters = 5;
 var supplies = [0, 0, 0, 0, 0, 0];
 //Holder for supplies you want to buy
 var tempSupplies = [0, 0, 0, 0, 0, 0];
@@ -552,8 +553,24 @@ function stopLocation() {
     document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
+function eatFood(){
+	//Add code later. Probably reduce health if no food.
+	if(supplies[FOOD] == 0){
+	}
+	else{
+		var num;
+		if(gameStatus[RATIONS] == FILLING) num = 10;
+		else if(gameStatus[RATIONS] == MEAGER) num = 7;
+		else if(gameStatus[RATIONS] == BAREBONES) num = 5;
+		var pounds = num * numCharacters;
+		if(pounds > supplies[FOOD]) supplies[FOOD] = 0;
+		else supplies[FOOD] -= pounds;
+	}
+}
+
 function travelTrail() {
     day++;
+	eatFood();
     if (gameStatus[PACE] == STEADY) {
         totalTraveled += 6;
         tempTraveled += 6;
