@@ -154,10 +154,10 @@ p1{
     position:relative;
     bottom: 33px;
     display: inline-block;
-    left: 500px;
-    left; 200px;
+    left: 400px;
     font-family: courier;
     font-size: 20px;
+    border-bottom: 1px solid #333;
 }
 
 input[type=text]{
