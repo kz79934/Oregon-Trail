@@ -586,13 +586,29 @@ function buySupplies(){
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
+function ford(){
+        var t = "<img src='Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
+        <img src='Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
+        document.getElementsByClassName("container")[0].innerHTML = t;
+        var death = 10;
+        $(document).ready(function(){
+			death = (Math.floor(Math.random()*10));
+            if(death < 8)
+                $("#ok").animate({right: '10%'},10000,function(){alert("You made it across perfectly fine!"); mainGame();});
+            else{
+                $("#ok").animate({right: '600px'},5000,function(){$("#ok").attr("src", "Capsize.png");alert("You capsized!");});//add who dies and what supplies are lost here
+                $("#ok").delay(3000).animate({right: '10%'},10000,function(){mainGame();});
+            }
+        });
+}
+
 function riverOptions(){
 	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>\
 																<p id='river'>Info about crossing river.<br>Press SPACE BAR to Continue</p>";
 	var t = "<p>Weather: "+currWeather+"<br>\
 			River width: ?? feet <br>River depth: ?? feet<br>\
 			You may: <br>\
-			<button class='button' onclick='travelTrail()'><span>Ford the River</span></button><br>\
+			<button class='button' onclick='ford()'><span>Ford the River</span></button><br>\
 			<button class='button' onclick=''><span>Float the Wagon</span></button><br>\
 			<button class='button' onclick=''><span>Take a Ferry</span></button><br>\
 			<button class='button' onclick=''><span>Wait</span></button><br>\
