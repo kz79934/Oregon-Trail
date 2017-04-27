@@ -16,6 +16,7 @@ const COOL = 0;
 const RAINY = 1;
 const COLD = 2;
 const WARM = 3;
+const HOT = 4;
 const HEALTH = 1;
 //Health Options
 const GOOD = 0;
@@ -325,7 +326,7 @@ function initBuy(item) {
     var t;
     if (item == "Oxen") {
         t = "<p>Advice on Oxen. How many yoke would you like to buy?</p>\
-			<input type='text' value='' placeholder='Number of Oxen'></input><br><button class='button' onclick='checkValid(OXEN)'><span>Buy It!</span></button><div id='errMsg'></div>";
+			<input type='text' value='' placeholder='Number of Yoke'></input><br><button class='button' onclick='checkValid(OXEN)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Clothes") {
         t = "<p>Advice on Clothes. How many pairs of clothes would you like to buy?</p>\
@@ -585,6 +586,26 @@ function buySupplies(){
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
+function riverOptions(){
+	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>\
+																<p id='river'>Info about crossing river.<br>Press SPACE BAR to Continue</p>";
+	var t = "<p>Weather: "+currWeather+"<br>\
+			River width: ?? feet <br>River depth: ?? feet<br>\
+			You may: <br>\
+			<button class='button' onclick='travelTrail()'><span>Ford the River</span></button><br>\
+			<button class='button' onclick=''><span>Float the Wagon</span></button><br>\
+			<button class='button' onclick=''><span>Take a Ferry</span></button><br>\
+			<button class='button' onclick=''><span>Wait</span></button><br>\
+			<button class='button' onclick=''><span>Get Information</span></button></p>";
+			
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			document.getElementById("river").innerHTML = t;
+		}
+	});
+}
+
 function locationInfo() {
     var t = "";
     //Checking if in town or on the trail
@@ -595,7 +616,7 @@ function locationInfo() {
 			Pace: " + currPace + "<br>\
 			Rations: " + currRations + "<br>\</p>\
 			<div id='townOptions'><p>You may:</p><br><br>\
-			<button class='button' onclick='travelTrail()'><span>Continue on trail</span></button><br>\
+			<button class='button' onclick=''><span>Continue on trail</span></button><br>\
 			<button class='button' onclick='checkSupplies()'><span>Check supplies</span></button><br>\
 			<button class='button' onclick=''><span>Look at map</span></button><br>\
 			<button class='button' onclick='changePace()'><span>Change pace</span></button><br>\
@@ -605,16 +626,20 @@ function locationInfo() {
     if (tempTraveled == 0) {
 		t += "<button class='button' onclick=''><span>Talk to people</span></button><br>";
 		if(currType == TOWN) t += "<button class='button' onclick='buySupplies()'><span>Buy Supplies</span></button><br>";
-		else if(currType == RIVER) t += "<button class='button' onclick=''><span>Go Fishing</span></button><br>"
+		else if(currType == RIVER)t += "<button class='button' onclick=''><span>Go Fishing</span></button><br>"
 	}
     t += "</div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
+	if(currType == RIVER) document.getElementsByClassName("button")[0].setAttribute("onclick", "riverOptions()");
+	else document.getElementsByClassName("button")[0].setAttribute("onclick", "travelTrail()");
 }
 
 function stopLocation() {
     var t = "<p>You have reached " + currLocation + ".<br> Do you want to look around?</p>\
-			<button class='button' onclick='locationInfo()'><span>Yes</span></button>&nbsp<button class='button' onclick='travelTrail()'><span>No</span></button>";
+			<button class='button' onclick='locationInfo()'><span>Yes</span></button>&nbsp<button class='button' onclick=''><span>No</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
+	if(currType == RIVER) document.getElementsByClassName("button")[1].setAttribute("onclick", "riverOptions()");
+	else document.getElementsByClassName("button")[1].setAttribute("onclick", "travelTrail()");
 }
 
 function eatFood(){
@@ -633,12 +658,13 @@ function eatFood(){
 }
 
 function changeWeather(){
-	var num = Math.floor(Math.random() * (4));
+	var num = Math.floor(Math.random() * (5));
 	gameStatus[WEATHER] = num;
 	if(num == COLD) currWeather = "Cold";
 	else if(num == COOL) currWeather = "Cool";
 	else if(num == RAINY) currWeather = "Rainy";
 	else if(num == WARM) currWeather = "Warm";
+	else if(num == HOT) currWeather = "Hot";
 }
 
 function travelTrail() {
