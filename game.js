@@ -594,9 +594,9 @@ function ford(){
         $(document).ready(function(){
 			death = (Math.floor(Math.random()*10));
             if(death < 8)
-                $("#ok").animate({right: '10%'},10000,function(){alert("You made it across perfectly fine!"); mainGame();});
+                $("#ok").animate({right: '10%'},10000,function(){alert("You made it across perfectly fine!"); tempTraveled++; totalTraveled++; mainGame();});
             else{
-                $("#ok").animate({right: '600px'},5000,function(){$("#ok").attr("src", "Capsize.png");alert("You capsized!");});//add who dies and what supplies are lost here
+                $("#ok").animate({right: '600px'},5000,function(){$("#ok").attr("src", "Capsize.png"); tempTraveled++; totalTraveled++; alert("You capsized!");});//add who dies and what supplies are lost here
                 $("#ok").delay(3000).animate({right: '10%'},10000,function(){mainGame();});
             }
         });
@@ -646,7 +646,7 @@ function locationInfo() {
 	}
     t += "</div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
-	if(currType == RIVER) document.getElementsByClassName("button")[0].setAttribute("onclick", "riverOptions()");
+	if(currType == RIVER && tempTraveled == 0) document.getElementsByClassName("button")[0].setAttribute("onclick", "riverOptions()");
 	else document.getElementsByClassName("button")[0].setAttribute("onclick", "travelTrail()");
 }
 
