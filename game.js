@@ -661,7 +661,7 @@ function stopLocation() {
 			<button class='button' onclick='locationInfo()'><span>Yes</span></button>&nbsp<button class='button' onclick=''><span>No</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
 	if(currType == RIVER) document.getElementsByClassName("button")[1].setAttribute("onclick", "riverOptions()");
-	else document.getElementsByClassName("button")[1].setAttribute("onclick", "travelTrail()");
+	else document.getElementsByClassName("button")[1].setAttribute("onclick", "leaveTown()");
 }
 
 function eatFood(){
