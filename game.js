@@ -20,8 +20,9 @@ const HOT = 4;
 const HEALTH = 1;
 //Health Options
 const GOOD = 0;
-const OKAY = 1;
-const BAD = 2;
+const FAIR = 1;
+const POOR = 2;
+const VERYPOOR = 3;
 const PACE = 2;
 //Pace Options
 const STEADY = 0;
@@ -50,6 +51,7 @@ const BAIT_COST = 3;
 const WAGON_COST = 4;
 var characters;
 var numCharacters = 5;
+var hp = [100, 100, 100, 100, 100];
 var supplies = [0, 0, 0, 0, 0, 0];
 //Holder for supplies you want to buy
 var tempSupplies = [0, 0, 0, 0, 0, 0];
@@ -664,10 +666,32 @@ function stopLocation() {
 	else document.getElementsByClassName("button")[1].setAttribute("onclick", "leaveTown()");
 }
 
+function reduceTeamHP(num){
+	var i;
+	for(i = 0; i < hp.length; i++){
+		hp[i] -= num;
+		if(hp[i] <= 0) numCharacters--;
+	}
+}
+
+function reduceCharHP(index, num){ 
+	hp[index] -= num;
+	if(hp[index] <= 0) numCharacters--;
+}
+
+function setHealth(){
+	var totalHP = 0;
+	var i;
+	for(i = 0; i < hp.length; i++) {if(hp[i] > 0) totalHP += hp[i];}
+	if(totalHP >= 350) {gameStatus[HEALTH] = GOOD; currHealth = "Good";}
+	else if(totalHP >= 250) {gameStatus[HEALTH] = FAIR; currHealth = "Fair";}
+	else if(totalHP >= 150) {gameStatus[HEALTH] = POOR; currHealth = "Poor";}
+	else {gameStatus[HEALTH] = VERYPOOR; currHealth = "Very Poor";}
+}
+
 function eatFood(){
 	//Add code later. Probably reduce health if no food.
-	if(supplies[FOOD] == 0){
-	}
+	if(supplies[FOOD] == 0) reduceTeamHP(10);
 	else{
 		var num;
 		if(gameStatus[RATIONS] == FILLING) num = 3;
@@ -705,8 +729,10 @@ function travelTrail() {
         totalTraveled += 18;
         tempTraveled += 18;
     }
+	//Check if they lost
+	if(numCharacters == 0) lostGame();
     //Check if they won
-    if (tempTraveled >= distance[distance.length - 1]) {
+    else if (tempTraveled >= distance[distance.length - 1]) {
         gameDone = 1;
         endGame();
     }
@@ -733,7 +759,7 @@ function mainGame() {
         }
         else month++;
     }
-	
+	setHealth();
     var t = "<div id='msg'></div>\
 			<button class='button' id='checkOptions'><span>Check Options</span></button>\
 			<p id='info'>Date: " + months[month] + " " + day + ", " + year + "<br>\
@@ -755,6 +781,10 @@ function mainGame() {
         $(document).unbind();
         locationInfo();
     });
+}
+
+function lostGame(){
+	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU LOSE FUCKER!!!</h1>";
 }
 
 function endGame() {
