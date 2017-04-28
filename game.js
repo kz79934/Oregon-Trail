@@ -587,6 +587,7 @@ function buySupplies(){
 }
 
 function ford(){
+		currLocation = "";
         var t = "<img src='Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
         <img src='Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
         document.getElementsByClassName("container")[0].innerHTML = t;
@@ -622,10 +623,15 @@ function riverOptions(){
 	});
 }
 
+function leaveTown(){
+	currLocation = "";
+	mainGame();
+}
+
 function locationInfo() {
     var t = "";
     //Checking if in town or on the trail
-    if (tempTraveled == 0) t += "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>";
+    if (currLocation != "") t += "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>";
     else t += "<h2>" + months[month] + " " + day + ", " + year + "</h2>"
     t += "<p>Weather: " + currWeather + "<br>\
 			Health: " + currHealth + "<br>\
@@ -639,7 +645,7 @@ function locationInfo() {
 			<button class='button' onclick='changeRations()'><span>Change food rations</span></button><br>\
 			<button class='button' onclick=''><span>Stop to rest</span></button><br>\
 			<button class='button' onclick=''><span>Attempt to trade</span></button><br>";
-    if (tempTraveled == 0) {
+    if (currLocation != "") {
 		t += "<button class='button' onclick=''><span>Talk to people</span></button><br>";
 		if(currType == TOWN) t += "<button class='button' onclick='buySupplies()'><span>Buy Supplies</span></button><br>";
 		else if(currType == RIVER)t += "<button class='button' onclick=''><span>Go Fishing</span></button><br>"
@@ -647,7 +653,7 @@ function locationInfo() {
     t += "</div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
 	if(currType == RIVER && tempTraveled == 0) document.getElementsByClassName("button")[0].setAttribute("onclick", "riverOptions()");
-	else document.getElementsByClassName("button")[0].setAttribute("onclick", "travelTrail()");
+	else document.getElementsByClassName("button")[0].setAttribute("onclick", "leaveTown()");
 }
 
 function stopLocation() {
