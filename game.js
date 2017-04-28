@@ -223,6 +223,10 @@ function getLeaderName() {
 
 function getNames() {
     var leaderName = document.getElementById("leader").value;
+	var firstLetter = leaderName.charAt(0).toUpperCase();
+	var nameSlice = leaderName.slice(1).toLowerCase();
+	leaderName = firstLetter + nameSlice;
+	
     if (leaderName.replace(/\s/g, "") != "") characters[0] = leaderName;
     var t = "<p>What are the first names of the other members in your party?<br>\
 			The leader's name is " + characters[0] + ".</p>\
@@ -239,8 +243,13 @@ function finalizeNames() {
     var tempNames = document.getElementsByClassName("names");
     var i
     for (i = 1; i < 5; i++) {
-        if ((tempNames[i - 1].value).replace(/\s/g, "") != "") characters[i] = tempNames[i - 1].value;
-    }
+        if ((tempNames[i - 1].value).replace(/\s/g, "") != "") {
+			var tname = tempNames[i - 1].value;
+			var tfirstLetter = tname.charAt(0).toUpperCase();
+			var tnameSlice = tname.slice(1).toLowerCase();
+			characters[i] = tfirstLetter + tnameSlice;
+		}	
+    }	
     var t = "<p>The name of your leader is " + characters[0] + ".<br>\
 			The names of your party members are " + characters[1] + ", " + characters[2] + ", " + characters[3] + ", and " + characters[4] + ".</p>\
 			<button class='button' onclick='pickMonth()'><span>Next</span></button><br> <button class='button' onclick='getLeaderName()'><span>Change Names</span></button>";
