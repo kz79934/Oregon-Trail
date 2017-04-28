@@ -669,8 +669,10 @@ function stopLocation() {
 function reduceTeamHP(num){
 	var i;
 	for(i = 0; i < hp.length; i++){
-		hp[i] -= num;
-		if(hp[i] <= 0) numCharacters--;
+		if(hp[i] > 0){
+			hp[i] -= num;
+			if(hp[i] <= 0) numCharacters--;
+		}
 	}
 }
 
@@ -690,13 +692,12 @@ function setHealth(){
 }
 
 function eatFood(){
-	//Add code later. Probably reduce health if no food.
 	if(supplies[FOOD] == 0) reduceTeamHP(10);
 	else{
 		var num;
 		if(gameStatus[RATIONS] == FILLING) num = 3;
-		else if(gameStatus[RATIONS] == MEAGER) num = 2;
-		else if(gameStatus[RATIONS] == BAREBONES) num = 1;
+		else if(gameStatus[RATIONS] == MEAGER) {num = 2; reduceTeamHP(2);}
+		else if(gameStatus[RATIONS] == BAREBONES) {num = 1; reduceTeamHP(5);}
 		var pounds = num * numCharacters;
 		if(pounds > supplies[FOOD]) supplies[FOOD] = 0;
 		else supplies[FOOD] -= pounds;
@@ -724,10 +725,12 @@ function travelTrail() {
     else if (gameStatus[PACE] == STRENUOUS) {
         totalTraveled += 12;
         tempTraveled += 12;
+		reduceTeamHP(2);
     }
     else if (gameStatus[PACE] == GRUELING) {
         totalTraveled += 18;
         tempTraveled += 18;
+		reduceTeamHP(5);
     }
 	//Check if they lost
 	if(numCharacters == 0) lostGame();
