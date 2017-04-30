@@ -675,8 +675,6 @@ function rest(){
 		$("#rest").click(function(){
 			daysInput = $("#restDays").val();
 			day += parseInt(daysInput);
-			console.log(daysInput);
-			console.log(day);
 			setDate();
 			changeWeather();
 			var i;
