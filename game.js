@@ -79,11 +79,11 @@ function welcome() {
     var t = "<div class='container'>\
 				<h1>The Oregon Trail!</h1>\
 				<div id='innerPage'>\
-				<button class='button' onclick='getOccupation()'><span>Travel the Trail</span></button><br>\
-				<button class='button' onclick ='getInfo()'><span>Learn About the Trail</span></button><br>\
-				<button class='button' onclick=''><span>Top 10 Players</span></button><br>\
-				<button class='button' onclick=''><span>Toggle Sound</span></button><br>\
-				<button class='button' onclick='quit()'><span>Quit</span></button><br>\
+				<button class='button button2' onclick='getOccupation()'><span>Travel the Trail</span></button><br>\
+				<button class='button button2' onclick ='getInfo()'><span>Learn About the Trail</span></button><br>\
+				<button class='button button2' onclick=''><span>Top 10 Players</span></button><br>\
+				<button class='button button2' onclick=''><span>Toggle Sound</span></button><br>\
+				<button class='button button2' onclick='quit()'><span>Quit</span></button><br>\
 				</div>\
 			</div>";
     document.getElementById("main").innerHTML = t;

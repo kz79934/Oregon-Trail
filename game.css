@@ -37,6 +37,10 @@ body {
     
 }
 
+.button2{
+    width: 500px;
+}
+
 .button span {
   cursor: pointer;
   display: inline-block;
