@@ -346,9 +346,20 @@ function initStore() {
             <p2>4. Bait = $" + (price[BAIT_COST] * tempSupplies[BAIT]) + " <button class='button button1' value='Bait' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2><br>\
             <p2>5. Spare Parts = $" + (price[WAGON_COST] * tempSupplies[PARTS]) + " <button class='button button1' value='Wagon' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2></P><br><br>\
 			<div><label>Balance After Purchase: $" + tempBalance + "</label></div><br>\
-			<button class='button' id='startTrail' onclick=''><span>Start the Trail</span></button>";
+			<button class='button' id='startTrail' onclick='OxenValidation()'><span>Start the Trail</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
     if (tempSupplies[OXEN] > 0) document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
+}
+
+function OxenValidation(){
+
+    	if (tempSupplies[OXEN] > 0){
+			initOpening();
+			//document.getElementById("startTrail").setAttribute("target", "initOpening()");
+		} 
+		else{
+			alert("Don't forget, you'll need oxen to pull your wagon");
+		}
 }
 
 function initBuy(item) {
