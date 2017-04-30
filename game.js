@@ -706,10 +706,9 @@ function leaveTown(){
 }
 
 function locationInfo() {
+	if(randMsg != ""){alert(randMsg); randMsg = "";}
 	setHealth();
 	setDate();
-	if(randMsg != "")
-		alert(randMsg);
     var t = "";
     //Checking if in town or on the trail
     if (currLocation != "") t += "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>";
