@@ -666,18 +666,30 @@ function riverOptions(){
 function rest(){
 	var daysInput;
 	var t = "<p>How many days would you like to rest?</p>\
-			<input id='restDays' value=''></input><br>\
-			<button class='button' onclick='locationTown()'>Back</button><button id='rest' class='button'>Submit</button>"
-	$("#rest").click(function(){
-		$(this).unbind;
-		daysInput = $("#restdays").val();
-		day += daysInput;
-		setDate();
-		changeWeather();
-		var i;
-		for(i = 0; i < daysInput; i++) eatFood();
-		locationInfo();
-	});
+			<input id='restDays' value='' maxlength='1' size='4' onkeypress='return restInput(event)'><br>\
+			<button class='button' onclick='locationTown()'>Back</button><br>\
+			<button id='rest' class='button'>Submit</button>";
+			
+	document.getElementsByClassName("container")[0].innerHTML = t;
+		
+		$("#rest").click(function(){
+			daysInput = $("#restDays").val();
+			day += parseInt(daysInput);
+			console.log(daysInput);
+			console.log(day);
+			setDate();
+			changeWeather();
+			var i;
+			for(i = 0; i < daysInput; i++) eatFood();
+			locationInfo();
+		});	
+}
+
+//validate input for rest input
+function restInput(input){
+	var key;
+	document.getElementById ? key = input.keyCode: key = input.which;
+	return ((key > 47 && key < 58) || key == 8 || key == 13);
 }
 
 function leaveTown(){
@@ -700,7 +712,7 @@ function locationInfo() {
 			<button class='button' onclick=''><span>Look at map</span></button><br>\
 			<button class='button' onclick='changePace()'><span>Change pace</span></button><br>\
 			<button class='button' onclick='changeRations()'><span>Change food rations</span></button><br>\
-			<button class='button' onclick=''><span>Stop to rest</span></button><br>\
+			<button class='button' onclick='rest()'><span>Stop to rest</span></button><br>\
 			<button class='button' onclick=''><span>Attempt to trade</span></button><br>";
     if (currLocation != "") {
 		t += "<button class='button' onclick=''><span>Talk to people</span></button><br>";
