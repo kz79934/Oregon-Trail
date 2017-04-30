@@ -191,10 +191,20 @@ ol.a{
     color: white;
     font-family: courier;
     font-size: 20px;
-    position: relative;
-    left: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 23em
 }
 
+ol.b{
+    list-style-type: number;
+    color: white;
+    font-family: courier;
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 17em
+}
 
 h2{
     color:white;
