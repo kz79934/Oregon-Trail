@@ -348,7 +348,7 @@ function initStore() {
 			<div><p>Balance After Purchase: $" + tempBalance + "</p></div><br>\
 			<button class='button' id='startTrail' onclick=''><span>Start the Trail</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
-    if (tempSupplies[OXEN] > 0) document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
+   // if (tempSupplies[OXEN] > 0) document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
 }
 
 function OxenValidation(){
