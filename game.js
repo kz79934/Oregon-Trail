@@ -351,7 +351,7 @@ function initStore() {
     var t = "<h2>Krunal's General Store</h2><h4>Independence, Missouri</h4><h4>" + months[month] + " 1, 1848</h4>\
 			<ol class='b'><li1>1. Oxen = $" + (price[OXEN_COST] * tempSupplies[OXEN]) + "&nbsp&nbsp&nbsp <button class='button button1' value='Oxen' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>2. Clothes = $" + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + " <button class='button button1' value='Clothes' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
-            <li1>3. Food = $" + (price[FOOD_COST] * tempSupplies[FOOD]) + "&nbsp&nbsp&nbsp <button class='button button1' value='Food' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
+            <li1>3. Food = $" + Number(Math.round((price[FOOD_COST] * tempSupplies[FOOD]) + 'e2') + 'e-2') + "&nbsp&nbsp&nbsp <button class='button button1' value='Food' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>4. Bait = $" + (price[BAIT_COST] * tempSupplies[BAIT]) + "&nbsp&nbsp&nbsp <button class='button button1' value='Bait' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>5. Parts = $" + (price[WAGON_COST] * tempSupplies[PARTS]) + "&nbsp&nbsp <button class='button button1' value='Wagon' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1></ol><br>\
 			<div><p>Balance After Purchase: $" + tempBalance + "</p></div><br>\
@@ -375,28 +375,58 @@ function initBuy(item) {
     var t;
     if (item == "Oxen") {
         t = "<p>Advice on Oxen. How many yoke would you like to buy?</p>\
-			<input type='text' value='' placeholder='Number of Yoke'></input><br><button class='button' onclick='checkValid(OXEN)'><span>Buy It!</span></button><div id='errMsg'></div>";
+			<input type='text' value='' placeholder='Number of Yoke' onkeypress='return itemValidation(event)'></input><br><button class='button' id='oxenOption' onclick='checkValid(OXEN)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Clothes") {
         t = "<p>Advice on Clothes. How many pairs of clothes would you like to buy?</p>\
-			<input type='text' value='' placeholder='Number of Clothes'></input><br><button class='button' onclick='checkValid(CLOTHING)'><span>Buy It!</span></button><div id='errMsg'></div>";
+			<input type='text' value='' placeholder='Number of Clothes' onkeypress='return itemValidation(event)'></input><br><button class='button' id='clothingOption' onclick='checkValid(CLOTHING)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Food") {
         t = "<p>Advice on Food. How much food in pounds would you like to buy?</p>\
-			<input type='text' value='' placeholder='Number of Food'></input><br><button class='button' onclick='checkValid(FOOD)'><span>Buy It!</span></button><div id='errMsg'></div>";
+			<input type='text' value='' placeholder='Number of Food' onkeypress='return itemValidation(event)'></input><br><button class='button' id='foodOption' onclick='checkValid(FOOD)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Bait") {
         t = "<p>Advice on Bait. How many buckets of bait would you like to buy?</p>\
-			<input type='text' value='' placeholder='Number of Brait'></input><br><button class='button' onclick='checkValid(BAIT)'><span>Buy It!</span></button><div id='errMsg'></div>";
+			<input type='text' value='' placeholder='Number of Brait' onkeypress='return itemValidation(event)'></input><br><button class='button' id='baitOption' onclick='checkValid(BAIT)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Wagon") {
         t = "<p>Advice on Wagon.<br><br>\
-		How many wheels would you like to buy? <input type='text' id='wheel' value='' placeholder='Number of Wheels'></input><br>\
-		How many axels would you like to buy? <input  type='text' id='axel' value='' placeholder='Number of Axels'></input><br>\
-		How many tongues would you like to buy? <input type='text' id='tongue' value='' placeholder='Number of Tongues'></input><br></p>\
-		<button class='button' onclick='checkValid(PARTS)'><span>Buy It!</span></button><div id='errMsg'></div>";
+		How many wheels would you like to buy? <input type='text' id='wheel' value='' placeholder='Number of Wheels' onkeypress='return itemValidation(event)'></input><br>\
+		How many axels would you like to buy? <input  type='text' id='axel' value='' placeholder='Number of Axels' onkeypress='return itemValidation(event)'></input><br>\
+		How many tongues would you like to buy? <input type='text' id='tongue' value='' placeholder='Number of Tongues' onkeypress='return itemValidation(event)'></input><br></p>\
+		<button class='button' id='partsOption' onclick='checkValid(PARTS)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     document.getElementsByClassName("container")[0].innerHTML = t;
+}
+
+//validate input for buying items
+//user can enter a value and press enter button = buy it button
+function itemValidation(input){
+	var key;
+	document.getElementById ? key = input.keyCode: key = input.which;
+	
+	var id = document.getElementsByClassName("button")[0].id;
+	console.log(id);
+	if(event.keyCode == 13){
+		if(id == "oxenOption")
+			checkValid(OXEN);
+		
+		else if(id == "clothingOption")
+			checkValid(CLOTHING);
+		
+		else if(id == "foodOption")
+			checkValid(FOOD);
+			
+		
+		else if(id == "baitOption")
+			checkValid(BAIT);
+			
+		else if(id == "partsOption")
+			checkValid(PARTS);
+			
+	}
+
+	return ((key > 47 && key < 58) || key == 8 || key == 13);
 }
 
 function checkValid(index) {
