@@ -217,7 +217,7 @@ function alphaValLeader(input){
 	return ((key > 64 && key < 91) || (key > 96 && key < 123) || key == 8 || key == 39 || key == 16 || key == 13);
 }
 
-//validate input for alpha for leader
+//validate input for alpha for members
 function alphaValMembers(input){
 	var key;
 	document.getElementById ? key = input.keyCode: key = input.which;
@@ -346,7 +346,7 @@ function initStore() {
             <li1>4. Bait = $" + (price[BAIT_COST] * tempSupplies[BAIT]) + "&nbsp&nbsp&nbsp <button class='button button1' value='Bait' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>5. Parts = $" + (price[WAGON_COST] * tempSupplies[PARTS]) + "&nbsp&nbsp <button class='button button1' value='Wagon' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1></ol><br>\
 			<div><p>Balance After Purchase: $" + tempBalance + "</p></div><br>\
-			<button class='button' id='startTrail' onclick=''><span>Start the Trail</span></button>";
+			<button class='button' id='startTrail' onclick='OxenValidation()'><span>Start the Trail</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
    // if (tempSupplies[OXEN] > 0) document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
 }
