@@ -322,7 +322,12 @@ function finishIntro() {
 function storeGreeting() {
     console.log("test");
     var t = "<p>Hi, I'm Krunal! I see you're going to Oregon, and it just so happens that I have some very useful supplies you may need </p>\
-			<div><label>- A team of oxen to pull your wagon<br>- Clothing for both summer and winter<br>- Plenty of food for your trip<br>- Bait so you can fish<br>- Spare parts for your wagon</label></div><br>" + spaceTxt;
+			<ol class='a'>\
+                <li1>1. A team of oxen to pull your wagon</li1><br>\
+                <li1>2. Clothing for both summer and winter</li1><br>\
+                <li1>3. Plenty of food for your trip</li1><br>\
+                <li1>4. Bait so you can fish</li1><br>\
+                <li1>5. Spare parts for your wagon</li1></ol><br>" + spaceTxt;
     document.getElementsByClassName("container")[0].innerHTML = t;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {

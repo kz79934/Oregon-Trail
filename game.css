@@ -182,6 +182,15 @@ input[type=text]{
     box-sizing: border-box;
 }
 
+ol.a{
+    list-style-type: number;
+    color: white;
+    font-family: courier;
+    font-size: 20px;
+    position: relative;
+    left: 400px;
+}
+
 
 h2{
     color:white;
