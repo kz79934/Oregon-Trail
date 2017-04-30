@@ -72,6 +72,10 @@ var currPace = "Steady";
 var currRations = "Filling";
 var currLocation = "Independence";
 var currType = TOWN;
+var randMsg = "";
+var brokenPart;
+var canMove = 1;
+var soundOn = 1;
 var gameDone = 0;
 welcome();
 
@@ -82,11 +86,16 @@ function welcome() {
 				<button class='button button2' onclick='getOccupation()'><span>Travel the Trail</span></button><br>\
 				<button class='button button2' onclick ='getInfo()'><span>Learn About the Trail</span></button><br>\
 				<button class='button button2' onclick=''><span>Top 10 Players</span></button><br>\
-				<button class='button button2' onclick=''><span>Toggle Sound</span></button><br>\
+				<button id='sound' class='button button2' onclick='toggleSound()'><span>Turn Off Sound</span></button><br>\
 				<button class='button button2' onclick='quit()'><span>Quit</span></button><br>\
 				</div>\
 			</div>";
     document.getElementById("main").innerHTML = t;
+}
+
+function toggleSound(){
+	if(soundOn) {soundOn = 0; document.getElementById("sound").innerHTML = "Turn On Sound"}
+	else {soundOn = 1; document.getElementById("sound").innerHTML = "Turn Off Sound"}
 }
 
 function getOccupation() {
@@ -348,7 +357,7 @@ function initStore() {
 			<div><p>Balance After Purchase: $" + tempBalance + "</p></div><br>\
 			<button class='button' id='startTrail' onclick=''><span>Start the Trail</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
-   // if (tempSupplies[OXEN] > 0) document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
+   if (tempSupplies[OXEN] > 0) document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
 }
 
 function OxenValidation(){
@@ -675,17 +684,21 @@ function rest(){
 		setDate();
 		changeWeather();
 		var i;
-		for(i = 0; i < daysInput; i++) eatFood();
+		for(i = 0; i < daysInput; i++) {eatFood(); addTeamHP(5)};
 		locationInfo();
 	});
 }
 
 function leaveTown(){
+	randMsg = "";
 	currLocation = "";
 	mainGame();
 }
 
 function locationInfo() {
+	setDate();
+	if(randMsg != "")
+		alert(randMsg);
     var t = "";
     //Checking if in town or on the trail
     if (currLocation != "") t += "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>";
@@ -736,14 +749,14 @@ function reduceTeamHP(num){
 	for(i = 0; i < hp.length; i++){
 		if(hp[i] > 0){
 			hp[i] -= num;
-			if(hp[i] <= 0) numCharacters--;
+			if(hp[i] <= 0) {numCharacters--; alert(characters[i]+" has died!");}
 		}
 	}
 }
 
 function reduceCharHP(index, num){ 
 	hp[index] -= num;
-	if(hp[index] <= 0) numCharacters--;
+	if(hp[index] <= 0) {numCharacters--; alert(characters[index]+" has died!");}
 }
 
 //Adjusting the date
@@ -791,7 +804,62 @@ function changeWeather(){
 	else if(num == HOT) currWeather = "Hot";
 }
 
+function randomEvent(){
+	var rand = 4;
+	if(gameStatus[WEATHER] == RAINY) rand++;
+	var num = Math.floor(Math.random() * (rand));
+	console.log("num: " + num);
+	if(num == 0){
+		randMsg = "You get lost on the trail! Lose 1 day.";
+		eatFood();
+		day++;
+	}
+	else if(num == 1){
+		var tempMsg = "";
+		var diseases = ["Typhoid Fever", "Cholera", "Dysentery", "Measles", "Diphtheria"];
+		var tempIndicies = [];
+		var i;
+		var dChance = 1;
+		for(i = 0; i < hp.length; i++) {if(hp[i] > 0) tempIndicies.push(i);}
+		for(i = 0; i < tempIndicies.length; i++){
+			if(hp[tempIndicies[i]] < 50){ 
+				tempMsg += characters[tempIndicies[i]] + " has " + diseases[Math.floor(Math.random() * (5))] + ".<br>";
+				reduceCharHP(tempIndicies[i], 5);
+			}
+			else{
+				if(dChance == Math.floor(Math.random() * (2))){ 
+					tempMsg += characters[tempIndicies[i]] + " has " + diseases[Math.floor(Math.random() * (5))] + ".<br>";
+					reduceCharHP(tempIndicies[i], 5);
+				}
+			}
+		}
+		randMsg = tempMsg;
+	}
+	else if(num == 2){
+		var brokenPart = Math.floor(Math.random() * (3));
+		var tempMsg;
+		if(brokenPart == WHEEL) tempMsg = "The wagon's wheels broke!";
+		else if(brokenPart == AXEL) tempMsg = "The wagon's axel broke!";
+		else if(brokenPart == TONGUE) tempMsg = "The wagon's tongue broke!";
+		randMsg = tempMsg;
+	}
+	else if(num == 3){
+		var sOxen = Math.floor(Math.random() * (4)) + 1;
+		if(sOxen > supplies[OXEN]) sOxen = supplies[OXEN];
+		supplies[OXEN] -= sOxen;
+		randMsg = "A thief stole " + sOxen + " oxen!";
+	}
+	else if(num == 4){
+		randMsg = "There is a severe storm! Lose 3 days";
+		var i;
+		for(i = 0; i < 3; i++) eatFood();
+		changeWeather();
+		day += 3;
+	}
+}
+
 function travelTrail() {
+	randMsg = "";
     day++;
 	eatFood();
 	changeWeather();
@@ -809,6 +877,10 @@ function travelTrail() {
         tempTraveled += 18;
 		reduceTeamHP(5);
     }
+	//Random event 20% chance
+	if(Math.floor(Math.random() * (5)) == 0){
+		randomEvent();
+	}
 	//Check if they lost
 	if(numCharacters == 0) lostGame();
     //Check if they won
@@ -832,7 +904,7 @@ function travelTrail() {
 function mainGame() {
 	setDate();
 	setHealth();
-    var t = "<div id='msg'></div>\
+    var t = "<p id='msg'>"+randMsg+"</p>\
 			<button class='button' id='checkOptions'><span>Check Options</span></button>\
 			<p id='info'>Date: " + months[month] + " " + day + ", " + year + "<br>\
 			Weather: " + currWeather + "<br>\
