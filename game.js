@@ -340,6 +340,7 @@ function storeGreeting() {
 function initStore() {
     var tempBalance = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));
     var t = "<h2>Krunal's General Store</h2><h4>Independence, Missouri</h4><h4>" + months[month] + " 1, 1848</h4>\
+<<<<<<< HEAD
 			<ol class='b'><li1>1. Oxen = $" + (price[OXEN_COST] * tempSupplies[OXEN]) + "&nbsp&nbsp&nbsp <button class='button button1' value='Oxen' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>2. Clothes = $" + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + " <button class='button button1' value='Clothes' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>3. Food = $" + (price[FOOD_COST] * tempSupplies[FOOD]) + "&nbsp&nbsp&nbsp <button class='button button1' value='Food' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
@@ -347,8 +348,28 @@ function initStore() {
             <li1>5. Parts = $" + (price[WAGON_COST] * tempSupplies[PARTS]) + "&nbsp&nbsp <button class='button button1' value='Wagon' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1></ol><br>\
 			<div><p>Balance After Purchase: $" + tempBalance + "</p></div><br>\
 			<button class='button' id='startTrail' onclick=''><span>Start the Trail</span></button>";
+=======
+			<P class='blocktext'><p2>1. Oxen = $" + (price[OXEN_COST] * tempSupplies[OXEN]) + " <button class='button button1' value='Oxen' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2><br>\
+            <p2>2. Clothes = $" + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + " <button class='button button1' value='Clothes' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2><br>\
+            <p2>3. Food = $" + (price[FOOD_COST] * tempSupplies[FOOD]) + " <button class='button button1' value='Food' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2><br>\
+            <p2>4. Bait = $" + (price[BAIT_COST] * tempSupplies[BAIT]) + " <button class='button button1' value='Bait' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2><br>\
+            <p2>5. Spare Parts = $" + (price[WAGON_COST] * tempSupplies[PARTS]) + " <button class='button button1' value='Wagon' onclick='initBuy(this.value)'><span>Buy!</span></button> </p2></P><br><br>\
+			<div><label>Balance After Purchase: $" + tempBalance + "</label></div><br>\
+			<button class='button' id='startTrail' onclick='OxenValidation()'><span>Start the Trail</span></button>";
+>>>>>>> origin/master
     document.getElementsByClassName("container")[0].innerHTML = t;
     if (tempSupplies[OXEN] > 0) document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
+}
+
+function OxenValidation(){
+
+    	if (tempSupplies[OXEN] > 0){
+			initOpening();
+			//document.getElementById("startTrail").setAttribute("target", "initOpening()");
+		} 
+		else{
+			alert("Don't forget, you'll need oxen to pull your wagon");
+		}
 }
 
 function initBuy(item) {
