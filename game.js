@@ -357,7 +357,7 @@ function initStore() {
 			<div><p>Balance After Purchase: $" + tempBalance + "</p></div><br>\
 			<button class='button' id='startTrail' onclick='OxenValidation()'><span>Start the Trail</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
-   if (tempSupplies[OXEN] > 0) document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
+   //if (tempSupplies[OXEN] > 0) document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
 }
 
 function OxenValidation(){
@@ -636,6 +636,7 @@ function buySupplies(){
 }
 
 function ford(){
+		randMsg = "";
 		currLocation = "";
         var t = "<img src='Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
         <img src='Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
@@ -675,22 +676,7 @@ function riverOptions(){
 function rest(){
 	var daysInput;
 	var t = "<p>How many days would you like to rest?</p>\
-<<<<<<< HEAD
-			<input id='restDays' value=''></input><br>\
-			<button class='button' onclick='locationTown()'>Back</button><button id='rest' class='button'>Submit</button>"
-	$("#rest").click(function(){
-		$(this).unbind;
-		daysInput = $("#restdays").val();
-		day += daysInput;
-		setDate();
-		changeWeather();
-		var i;
-		for(i = 0; i < daysInput; i++) {eatFood(); addTeamHP(5)};
-		locationInfo();
-	});
-=======
 			<input id='restDays' value='' maxlength='1' size='4' onkeypress='return restInput(event)'><br>\
-			<button class='button' onclick='locationTown()'>Back</button><br>\
 			<button id='rest' class='button'>Submit</button>";
 			
 	document.getElementsByClassName("container")[0].innerHTML = t;
@@ -701,7 +687,7 @@ function rest(){
 			setDate();
 			changeWeather();
 			var i;
-			for(i = 0; i < daysInput; i++) eatFood();
+			for(i = 0; i < daysInput; i++) {eatFood(); addTeamHP(5);}
 			locationInfo();
 		});	
 }
@@ -711,7 +697,6 @@ function restInput(input){
 	var key;
 	document.getElementById ? key = input.keyCode: key = input.which;
 	return ((key > 47 && key < 58) || key == 8 || key == 13);
->>>>>>> origin/master
 }
 
 function leaveTown(){
@@ -721,6 +706,7 @@ function leaveTown(){
 }
 
 function locationInfo() {
+	setHealth();
 	setDate();
 	if(randMsg != "")
 		alert(randMsg);
