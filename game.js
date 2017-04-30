@@ -207,17 +207,30 @@ function quit() {
     document.getElementById("main").innerHTML = "<h1>THANKS FOR PLAYING FUCKER!!!</h1>";
 }
 
-//validate input for alpha
-function alphaVal(input){
+//validate input for alpha for leader
+function alphaValLeader(input){
 	var key;
 	document.getElementById ? key = input.keyCode: key = input.which;
-	return ((key > 64 && key < 91) || (key > 96 && key < 123) || key == 8 || key == 39 || key == 16);
+	if(event.keyCode == 13){
+		getNames();
+	}
+	return ((key > 64 && key < 91) || (key > 96 && key < 123) || key == 8 || key == 39 || key == 16 || key == 13);
+}
+
+//validate input for alpha for leader
+function alphaValMembers(input){
+	var key;
+	document.getElementById ? key = input.keyCode: key = input.which;
+	if(event.keyCode == 13){
+		finalizeNames();
+	}
+	return ((key > 64 && key < 91) || (key > 96 && key < 123) || key == 8 || key == 39 || key == 16 || key == 13);
 }
 
 function getLeaderName() {
     characters = ["Andrew", "Kathy", "LeBron", "Barbara", "Frank"];
     var t = "<p>What is the first name of your leader?</p>\
-			<input id='leader' type='text' value='' placeholder='First Name' onkeypress='return alphaVal(event)'></input><br><button class='button' onclick='getNames()'><span>Next</span></button>"
+			<input id='leader' type='text' value='' placeholder='First Name' onkeypress='return alphaValLeader(event)'></input><br><button class='button' onclick='getNames()'><span>Next</span></button>"
     document.getElementById("innerPage").innerHTML = t;
 }
 
@@ -230,10 +243,10 @@ function getNames() {
     if (leaderName.replace(/\s/g, "") != "") characters[0] = leaderName;
     var t = "<p>What are the first names of the other members in your party?<br>\
 			The leader's name is " + characters[0] + ".</p>\
-			<input class='names' type='text' value='' placeholder='First Member' onkeypress='return alphaVal(event)'></input><br>\
-			<input class='names' type='text' value='' placeholder='Second Member' onkeypress='return alphaVal(event)'></input><br>\
-			<input class='names' type='text' value='' placeholder='Third Member' onkeypress='return alphaVal(event)'></input><br>\
-			<input class='names' type='text' value='' placeholder='Fourth Member' onkeypress='return alphaVal(event)'></input><br><br>\
+			<input class='names' type='text' value='' placeholder='First Member' onkeypress='return alphaValMembers(event)'></input><br>\
+			<input class='names' type='text' value='' placeholder='Second Member' onkeypress='return alphaValMembers(event)'></input><br>\
+			<input class='names' type='text' value='' placeholder='Third Member' onkeypress='return alphaValMembers(event)'></input><br>\
+			<input class='names' type='text' value='' placeholder='Fourth Member' onkeypress='return alphaValMembers(event)'></input><br><br>\
 			<button class='button' onclick='getLeaderName()'><span>Back</span></button><br>\
 			<button class='button' onclick='finalizeNames()'><span>Next</span></button>";
     document.getElementById("innerPage").innerHTML = t;
