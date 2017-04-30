@@ -663,6 +663,20 @@ function riverOptions(){
 	});
 }
 
+function rest(){
+	var daysInput;
+	var t = "<p>How many days would you like to rest?</p>\
+			<input id='restDays' value=''></input><br>\
+			<button class='button' onclick='locationTown()'>Back</button><button id='rest' class='button'>Submit</button>"
+	$("#rest").click(function(){
+		$(this).unbind;
+		daysInput = $("#restdays").val();
+		day += daysInput;
+		setDate();
+		locationInfo();
+	});
+}
+
 function leaveTown(){
 	currLocation = "";
 	mainGame();
@@ -704,6 +718,16 @@ function stopLocation() {
 	else document.getElementsByClassName("button")[1].setAttribute("onclick", "leaveTown()");
 }
 
+function addTeamHP(num){
+	var i;
+	for(i = 0; i < hp.length; i++){
+		if(hp[i] > 0 && hp[i] < 100){
+			hp[i] += num;
+			if(hp[i] > 100) hp[i] = 100;
+		}
+	}
+}
+
 function reduceTeamHP(num){
 	var i;
 	for(i = 0; i < hp.length; i++){
@@ -719,6 +743,18 @@ function reduceCharHP(index, num){
 	if(hp[index] <= 0) numCharacters--;
 }
 
+//Adjusting the date
+function setDate(){
+    if (day > monthDays[month]) {
+        day = day % monthDays[month];
+        if (month == 11) {
+            month = 0;
+            year++;
+        }
+        else month++;
+    }
+}
+	
 function setHealth(){
 	var totalHP = 0;
 	var i;
@@ -791,15 +827,7 @@ function travelTrail() {
 }
 
 function mainGame() {
-    //Adjusting the date
-    if (day > monthDays[month]) {
-        day = day % monthDays[month];
-        if (month == 11) {
-            month = 0;
-            year++;
-        }
-        else month++;
-    }
+	setDate();
 	setHealth();
     var t = "<div id='msg'></div>\
 			<button class='button' id='checkOptions'><span>Check Options</span></button>\
