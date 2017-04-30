@@ -226,7 +226,7 @@ function alphaValLeader(input){
 	return ((key > 64 && key < 91) || (key > 96 && key < 123) || key == 8 || key == 39 || key == 16 || key == 13);
 }
 
-//validate input for alpha for leader
+//validate input for alpha for members
 function alphaValMembers(input){
 	var key;
 	document.getElementById ? key = input.keyCode: key = input.which;
@@ -355,7 +355,7 @@ function initStore() {
             <li1>4. Bait = $" + (price[BAIT_COST] * tempSupplies[BAIT]) + "&nbsp&nbsp&nbsp <button class='button button1' value='Bait' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>5. Parts = $" + (price[WAGON_COST] * tempSupplies[PARTS]) + "&nbsp&nbsp <button class='button button1' value='Wagon' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1></ol><br>\
 			<div><p>Balance After Purchase: $" + tempBalance + "</p></div><br>\
-			<button class='button' id='startTrail' onclick=''><span>Start the Trail</span></button>";
+			<button class='button' id='startTrail' onclick='OxenValidation()'><span>Start the Trail</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
    if (tempSupplies[OXEN] > 0) document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
 }
@@ -675,6 +675,7 @@ function riverOptions(){
 function rest(){
 	var daysInput;
 	var t = "<p>How many days would you like to rest?</p>\
+<<<<<<< HEAD
 			<input id='restDays' value=''></input><br>\
 			<button class='button' onclick='locationTown()'>Back</button><button id='rest' class='button'>Submit</button>"
 	$("#rest").click(function(){
@@ -687,6 +688,30 @@ function rest(){
 		for(i = 0; i < daysInput; i++) {eatFood(); addTeamHP(5)};
 		locationInfo();
 	});
+=======
+			<input id='restDays' value='' maxlength='1' size='4' onkeypress='return restInput(event)'><br>\
+			<button class='button' onclick='locationTown()'>Back</button><br>\
+			<button id='rest' class='button'>Submit</button>";
+			
+	document.getElementsByClassName("container")[0].innerHTML = t;
+		
+		$("#rest").click(function(){
+			daysInput = $("#restDays").val();
+			day += parseInt(daysInput);
+			setDate();
+			changeWeather();
+			var i;
+			for(i = 0; i < daysInput; i++) eatFood();
+			locationInfo();
+		});	
+}
+
+//validate input for rest input
+function restInput(input){
+	var key;
+	document.getElementById ? key = input.keyCode: key = input.which;
+	return ((key > 47 && key < 58) || key == 8 || key == 13);
+>>>>>>> origin/master
 }
 
 function leaveTown(){
@@ -713,7 +738,7 @@ function locationInfo() {
 			<button class='button' onclick=''><span>Look at map</span></button><br>\
 			<button class='button' onclick='changePace()'><span>Change pace</span></button><br>\
 			<button class='button' onclick='changeRations()'><span>Change food rations</span></button><br>\
-			<button class='button' onclick=''><span>Stop to rest</span></button><br>\
+			<button class='button' onclick='rest()'><span>Stop to rest</span></button><br>\
 			<button class='button' onclick=''><span>Attempt to trade</span></button><br>";
     if (currLocation != "") {
 		t += "<button class='button' onclick=''><span>Talk to people</span></button><br>";
