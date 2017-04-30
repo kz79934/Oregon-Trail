@@ -673,6 +673,9 @@ function rest(){
 		daysInput = $("#restdays").val();
 		day += daysInput;
 		setDate();
+		changeWeather();
+		var i;
+		for(i = 0; i < daysInput; i++) eatFood();
 		locationInfo();
 	});
 }
