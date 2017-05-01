@@ -471,7 +471,7 @@ function checkValid(index) {
             }
             else initStore();
         }
-        else document.getElementById("errMsg").innerHTML = "Please enter a number!";
+        else document.getElementById("errMsg").innerHTML = "<label>Please enter a number!</label>";
     }
 }
 
