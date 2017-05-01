@@ -17,6 +17,7 @@ const RAINY = 1;
 const COLD = 2;
 const WARM = 3;
 const HOT = 4;
+const VERYRAINY = 5;
 const HEALTH = 1;
 //Health Options
 const GOOD = 0;
@@ -736,7 +737,6 @@ function leaveTown(){
 }
 
 function locationInfo() {
-	if(randMsg != ""){alert(randMsg); randMsg = "";}
 	setHealth();
 	setDate();
     var t = "";
@@ -772,6 +772,7 @@ function stopLocation() {
     document.getElementsByClassName("container")[0].innerHTML = t;
 	if(currType == RIVER) document.getElementsByClassName("button")[1].setAttribute("onclick", "riverOptions()");
 	else document.getElementsByClassName("button")[1].setAttribute("onclick", "leaveTown()");
+	if(randMsg != ""){alert(randMsg); randMsg = "";}
 }
 
 function addTeamHP(num){
@@ -835,18 +836,20 @@ function eatFood(){
 }
 
 function changeWeather(){
-	var num = Math.floor(Math.random() * (5));
+	var num = Math.floor(Math.random() * (6));
 	gameStatus[WEATHER] = num;
 	if(num == COLD) currWeather = "Cold";
 	else if(num == COOL) currWeather = "Cool";
 	else if(num == RAINY) currWeather = "Rainy";
 	else if(num == WARM) currWeather = "Warm";
 	else if(num == HOT) currWeather = "Hot";
+	else if(num == VERYRAINY) currWeather = "Very Rainy";
 }
 
 function randomEvent(){
 	var rand = 4;
 	if(gameStatus[WEATHER] == RAINY) rand++;
+	else if(gameStatus[WEATHER] == VERYRAINY) rand += 2;
 	var num = Math.floor(Math.random() * (rand));
 	console.log("num: " + num);
 	if(num == 0){
@@ -858,21 +861,13 @@ function randomEvent(){
 		var tempMsg = "";
 		var diseases = ["Typhoid Fever", "Cholera", "Dysentery", "Measles", "Diphtheria"];
 		var tempIndicies = [];
-		var i;
-		var dChance = 1;
 		for(i = 0; i < hp.length; i++) {if(hp[i] > 0) tempIndicies.push(i);}
-		for(i = 0; i < tempIndicies.length; i++){
-			if(hp[tempIndicies[i]] < 50){ 
-				tempMsg += characters[tempIndicies[i]] + " has " + diseases[Math.floor(Math.random() * (5))] + ".<br>";
-				reduceCharHP(tempIndicies[i], 5);
-			}
-			else{
-				if(dChance == Math.floor(Math.random() * (2))){ 
-					tempMsg += characters[tempIndicies[i]] + " has " + diseases[Math.floor(Math.random() * (5))] + ".<br>";
-					reduceCharHP(tempIndicies[i], 5);
-				}
-			}
+		var randIndex = Math.floor(Math.random() * (tempIndicies.length));
+		if(hp[tempIndicies[randIndex]] < 40 || Math.floor(Math.random() * (2)) == 1){
+			tempMsg += characters[tempIndicies[randIndex]] + " has " + diseases[Math.floor(Math.random() * (5))] + ".<br>";
+			reduceCharHP(tempIndicies[randIndex], 15);
 		}
+
 		randMsg = tempMsg;
 	}
 	else if(num == 2){
@@ -889,12 +884,13 @@ function randomEvent(){
 		supplies[OXEN] -= sOxen;
 		randMsg = "A thief stole " + sOxen + " oxen!";
 	}
-	else if(num == 4){
-		randMsg = "There is a severe storm! Lose 3 days";
+	else if(num == 4 || num == 5){
+		randDay = Math.floor(Math.random() * (3)) + 1;
+		randMsg = "There is a severe storm! Lose "+randDay+" days";
 		var i;
-		for(i = 0; i < 3; i++) eatFood();
+		for(i = 0; i < randDay; i++) eatFood();
 		changeWeather();
-		day += 3;
+		day += randDay;
 	}
 }
 
@@ -906,6 +902,7 @@ function travelTrail() {
     if (gameStatus[PACE] == STEADY) {
         totalTraveled += 6;
         tempTraveled += 6;
+        addTeamHP(1);
     }
     else if (gameStatus[PACE] == STRENUOUS) {
         totalTraveled += 12;
