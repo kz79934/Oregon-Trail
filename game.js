@@ -730,6 +730,20 @@ function restInput(input){
 	return ((key > 47 && key < 58) || key == 8 || key == 13);
 }
 
+function trade(){
+	//If 1 then someone wants to trade
+	if(Math.floor(Math.random() * (2))){
+		
+	}
+	//No one wants to trade
+	else{
+		document.getElementsByClassName("container")[0].innerHTML = "<p>There is no trade offer today.</p><button onclick='locationInfo()' class='button'>Back</button>"
+	}
+	day++;
+	eatFood();
+	changeWeather();
+}
+
 function leaveTown(){
 	randMsg = "";
 	currLocation = "";
