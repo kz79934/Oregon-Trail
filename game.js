@@ -684,6 +684,42 @@ function ford(){
         });
 }
 
+function fishResults(foodAmt){
+	document.getElementsByClassName("container")[0].innerHTML = "<p>You were able to get "+foodAmt+" pounds of food from fishing." + spaceTxt + "</p>";
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			locationInfo();
+		}
+	});
+}
+
+function fish(){
+	var tempFood = 0;
+	var t = "<p>Amount of bait left: <span id='baitAmt'>"+supplies[BAIT]+"</span><br>\
+			<label id='fishMsg'></label></p>\
+			<button id='contFish' class='button'>Attempt to Fish</button><br>\
+			<button id='stopFish' class='button'>Stop Fishing</button>"
+	document.getElementsByClassName("container")[0].innerHTML = t;
+	$("#contFish").click(function(){
+		if(supplies[BAIT] == 0) $("#fishMsg").text("You have no more bait left.");
+		else if(Math.floor(Math.random() * (2))){
+			var typeFish = Math.floor(Math.random() * (3));
+			if(typeFish == 0){$("#fishMsg").text("You caught a fish! It is small, but at least it's something."); supplies[BAIT] -= 5; tempFood += 3;}
+			else if(typeFish == 1){$("#fishMsg").text("You caught a fish! It is average-sized."); supplies[BAIT] -= 5; tempFood += 5;}
+			else if(typeFish == 2){$("#fishMsg").text("You caught a huge fish! You are filled with determination."); supplies[BAIT] -= 5; tempFood += 10;}
+		}
+		else {$("#fishMsg").text("You were unable to catch anything. You fucking suck!"); supplies[BAIT] -= 5;}
+		if(supplies[BAIT] < 0) supplies[BAIT] = 0;
+		$("#baitAmt").text(supplies[BAIT]);
+	});
+	$("#stopFish").click(function(){
+		$("#contFish").unbind();
+		$(this).unbind();
+		fishResults(tempFood);
+	});
+}
+
 function riverOptions(){
 	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>\
 																<p id='river'>Info about crossing river.<br>Press SPACE BAR to Continue</p>";
@@ -810,7 +846,7 @@ function locationInfo() {
     if (currLocation != "") {
 		t += "<button class='button' onclick=''><span>Talk to people</span></button><br>";
 		if(currType == TOWN) t += "<button class='button' onclick='buySupplies()'><span>Buy Supplies</span></button><br>";
-		else if(currType == RIVER)t += "<button class='button' onclick=''><span>Go Fishing</span></button><br>"
+		else if(currType == RIVER)t += "<button class='button' onclick='fish()'><span>Go Fishing</span></button><br>"
 	}
     t += "</div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
