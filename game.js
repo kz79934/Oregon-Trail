@@ -388,7 +388,7 @@ function initBuy(item) {
     }
     else if (item == "Bait") {
         t = "<p>Advice on Bait. How many buckets of bait would you like to buy?</p>\
-			<input type='text' value='' placeholder='Number of Brait' onkeypress='return itemValidation(event)'></input><br><button class='button' id='baitOption' onclick='checkValid(BAIT)'><span>Buy It!</span></button><div id='errMsg'></div>";
+			<input type='text' value='' placeholder='Number of Bait' onkeypress='return itemValidation(event)'></input><br><button class='button' id='baitOption' onclick='checkValid(BAIT)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Wagon") {
         t = "<p>Advice on Wagon.<br><br>\
@@ -733,7 +733,35 @@ function restInput(input){
 function trade(){
 	//If 1 then someone wants to trade
 	if(Math.floor(Math.random() * (2))){
-		
+		var canTrade = 1;
+		var tradeAmt = [0,0];
+		var tradeItem = ["",""];
+		var rand = [0,0];
+		var randPart = [0,0];
+		var i;
+		for(i = 0; i < 2; i++){
+			rand[i] = Math.floor(Math.random() * (5)) + 1;
+			if(i == 1){
+				if(rand[1] == rand[0]){if(rand[1] == 5) rand[1]--; else rand[1]++;}
+			}
+			if(rand[i] == FOOD) {tradeAmt[i] = 100; tradeItem[i] = "pounds of food";}
+			else if(rand[i] == BAIT) {tradeAmt[i] = 200; tradeItem[i] = "bait";}
+			else if(rand[i] == OXEN) {tradeAmt[i] = 1; tradeItem[i] = "ox";}
+			else if(rand[i] == CLOTHING) {tradeAmt[i] = 2; tradeItem[i] = "sets of clothing";}
+			else if(rand[i] == PARTS){
+				randPart[i] = Math.floor(Math.random() * (3))
+				if(randPart[i] == WHEEL) {tradeAmt[i] = 1; tradeItem[i] = "wagon wheel";}
+				else if(randPart[i] == AXEL) {tradeAmt[i] = 1; tradeItem[i] = "wagon axel";}
+				else if(randPart[i] == TONGUE) {tradeAmt[i] = 1; tradeItem[i] = "wagon tongue";}
+			}
+		}
+		//Make sure you have enough to trade
+		if(rand[1] == PARTS){if(parts[randPart[1]] < 1) canTrade = 0;}
+		else if(supplies[rand[1]] < tradeAmt[1]) canTrade = 0;
+		var t = "<p>A fellow traveler would like to offer you " + tradeAmt[0] + " " + tradeItem[0] + " for " + tradeAmt[1] + " " + tradeItem[1];
+		if(canTrade) t += ".<br>Do you accept the offer?</p> <button class='button'>Yes</button><br><button class='button' onclick='locationInfo()'>No</button>";
+		else t += ",<br>but you do not have the supplies to trade.</p> <button onclick='locationInfo()' class='button'>Back</button>";
+		document.getElementsByClassName("container")[0].innerHTML = t;
 	}
 	//No one wants to trade
 	else{
@@ -768,7 +796,7 @@ function locationInfo() {
 			<button class='button' onclick='changePace()'><span>Change pace</span></button><br>\
 			<button class='button' onclick='changeRations()'><span>Change food rations</span></button><br>\
 			<button class='button' onclick='rest()'><span>Stop to rest</span></button><br>\
-			<button class='button' onclick=''><span>Attempt to trade</span></button><br>";
+			<button class='button' onclick='trade()'><span>Attempt to trade</span></button><br>";
     if (currLocation != "") {
 		t += "<button class='button' onclick=''><span>Talk to people</span></button><br>";
 		if(currType == TOWN) t += "<button class='button' onclick='buySupplies()'><span>Buy Supplies</span></button><br>";
