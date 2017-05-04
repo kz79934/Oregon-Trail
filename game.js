@@ -74,8 +74,7 @@ var currRations = "Filling";
 var currLocation = "Independence";
 var currType = TOWN;
 var randMsg = "";
-var brokenPart;
-var canMove = 1;
+var brokenPart = 3;
 var soundOn = 1;
 var gameDone = 0;
 welcome();
@@ -855,12 +854,13 @@ function locationInfo() {
 }
 
 function stopLocation() {
-    var t = "<p>You have reached " + currLocation + ".<br> Do you want to look around?</p>\
+    var t = "<p><label>"+randMsg+"</label><br>You have reached " + currLocation + ".<br> Do you want to look around?</p>\
 			<button class='button' onclick='locationInfo()'><span>Yes</span></button>&nbsp<button class='button' onclick=''><span>No</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
 	if(currType == RIVER) document.getElementsByClassName("button")[1].setAttribute("onclick", "riverOptions()");
 	else document.getElementsByClassName("button")[1].setAttribute("onclick", "leaveTown()");
-	if(randMsg != ""){alert(randMsg); randMsg = "";}
+	//if(randMsg != ""){alert(randMsg); randMsg = "";}
+	randMsg = "";
 }
 
 function addTeamHP(num){
@@ -959,7 +959,7 @@ function randomEvent(){
 		randMsg = tempMsg;
 	}
 	else if(num == 2){
-		var brokenPart = Math.floor(Math.random() * (3));
+		brokenPart = Math.floor(Math.random() * (3));
 		var tempMsg;
 		if(brokenPart == WHEEL) tempMsg = "The wagon's wheels broke!";
 		else if(brokenPart == AXEL) tempMsg = "The wagon's axel broke!";
@@ -982,7 +982,16 @@ function randomEvent(){
 	}
 }
 
+function checkMove(){
+	if(supplies[OXEN] <= 0) {alert("You have no oxen to pull your wagon!"); return 0;}
+	else if(brokenPart == WHEEL) {alert("Your wagon cannot move with a broken wheel!"); return 0;}
+	else if(brokenPart == AXEL) {alert("Your wagon cannot move with a broken axel!"); return 0;}
+	else if(brokenPart == TONGUE) {alert("Your wagon cannot move with a broken tongue!"); return 0;}
+	return 1;
+}
+
 function travelTrail() {
+	if(!checkMove()){ mainGame(); return;}
 	randMsg = "";
     day++;
 	eatFood();
@@ -1005,6 +1014,9 @@ function travelTrail() {
 	//Random event 20% chance
 	if(Math.floor(Math.random() * (5)) == 0){
 		randomEvent();
+		if(brokenPart < 3){
+			
+		}
 	}
 	//Check if they lost
 	if(numCharacters == 0) lostGame();
@@ -1041,6 +1053,7 @@ function mainGame() {
     document.getElementsByClassName("container")[0].innerHTML = t;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
+			$("#checkOptions").unbind();
             $(this).unbind();
             travelTrail();
         }
