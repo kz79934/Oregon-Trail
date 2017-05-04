@@ -730,14 +730,25 @@ function restInput(input){
 	return ((key > 47 && key < 58) || key == 8 || key == 13);
 }
 
+function tradeAccept(type, amt, typePart){
+	supplies[type[0]] += amt[0];
+	supplies[type[1]] -= amt[1];
+	if(type[0] == PARTS) parts[typePart[0]]++;
+	if(type[1] == PARTS) parts[typePart[1]]--;
+	locationInfo();
+}
+
 function trade(){
+	day++;
+	eatFood();
+	changeWeather();
+	var canTrade = 1;
+	var tradeAmt = [0,0];
+	var tradeItem = ["",""];
+	var rand = [0,0];
+	var randPart = [0,0];
 	//If 1 then someone wants to trade
 	if(Math.floor(Math.random() * (2))){
-		var canTrade = 1;
-		var tradeAmt = [0,0];
-		var tradeItem = ["",""];
-		var rand = [0,0];
-		var randPart = [0,0];
 		var i;
 		for(i = 0; i < 2; i++){
 			rand[i] = Math.floor(Math.random() * (5)) + 1;
@@ -759,17 +770,16 @@ function trade(){
 		if(rand[1] == PARTS){if(parts[randPart[1]] < 1) canTrade = 0;}
 		else if(supplies[rand[1]] < tradeAmt[1]) canTrade = 0;
 		var t = "<p>A fellow traveler would like to offer you " + tradeAmt[0] + " " + tradeItem[0] + " for " + tradeAmt[1] + " " + tradeItem[1];
-		if(canTrade) t += ".<br>Do you accept the offer?</p> <button class='button'>Yes</button><br><button class='button' onclick='locationInfo()'>No</button>";
-		else t += ",<br>but you do not have the supplies to trade.</p> <button onclick='locationInfo()' class='button'>Back</button>";
+		if(canTrade) t += ".<br>Do you accept the offer?</p> <button id='acceptTrade' class='button'>Yes</button><br><button id='back' class='button'>No</button>";
+		else t += ",<br>but you do not have the supplies to trade.</p> <button id='back' class='button'>Back</button>";
 		document.getElementsByClassName("container")[0].innerHTML = t;
 	}
 	//No one wants to trade
 	else{
-		document.getElementsByClassName("container")[0].innerHTML = "<p>There is no trade offer today.</p><button onclick='locationInfo()' class='button'>Back</button>"
+		document.getElementsByClassName("container")[0].innerHTML = "<p>There is no trade offer today.</p><button id='back' class='button'>Back</button>"
 	}
-	day++;
-	eatFood();
-	changeWeather();
+	$("#acceptTrade").click(function() {$(this).unbind(); $("#back").unbind(); tradeAccept(rand, tradeAmt, randPart);});
+	$("#back").click(function(){$(this).unbind(); $("#acceptTrade").unbind(); locationInfo();});
 }
 
 function leaveTown(){
