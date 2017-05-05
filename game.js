@@ -753,7 +753,7 @@ function ferryFinish(){
 	$(document).keypress(function(e){
 		$(this).unbind();
 		if(supplies[MONEY] < 5) riverOptions();
-		else {supplies[MONEY] -= 5; mainGame();}
+		else {supplies[MONEY] -= 5; currLocation=""; tempTraveled++; totalTraveled++; mainGame();}
 	});
 }
 
