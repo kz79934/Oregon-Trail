@@ -616,6 +616,7 @@ function buyItem(item){
 			supplies[PARTS] += amount;
 			parts[index] += amount;
 			supplies[MONEY] -= (price[WAGON_COST]*amount);
+			if(brokenPart == index){supplies[PARTS]--; parts[index]--; brokenPart = 3;}
 			buySupplies();
 		}
 		else
@@ -781,7 +782,7 @@ function restInput(input){
 function tradeAccept(type, amt, typePart){
 	supplies[type[0]] += amt[0];
 	supplies[type[1]] -= amt[1];
-	if(type[0] == PARTS) parts[typePart[0]]++;
+	if(type[0] == PARTS) {if(brokenPart == typePart[0]){brokenPart = 3; supplies[PARTS]--;} else parts[typePart[0]]++;}
 	if(type[1] == PARTS) parts[typePart[1]]--;
 	locationInfo();
 }
