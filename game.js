@@ -1017,10 +1017,25 @@ function randomEvent(){
 		randMsg = tempMsg;
 	}
 	else if(num == 3){
-		var sOxen = Math.floor(Math.random() * (3)) + 1;
-		if(sOxen > supplies[OXEN]) sOxen = supplies[OXEN];
-		supplies[OXEN] -= sOxen;
-		randMsg = "A thief stole " + sOxen + " oxen!";
+		var randThief = Math.floor(Math.random() * (4));
+		if(randThief == 0 && supplies[OXEN] > 0){
+			var sOxen = Math.floor(Math.random() * (3)) + 1;
+			if(sOxen > supplies[OXEN]) sOxen = supplies[OXEN];
+			supplies[OXEN] -= sOxen;
+			randMsg = "A thief stole " + sOxen + " oxen while you were sleeping!";
+		}
+		else if(randThief == 1 && supplies[CLOTHING] > 0){
+			var sClothing = Math.floor(Math.random() * (5)) + 2;
+			if(sClothing > supplies[CLOTHING]) sClothing = supplies[CLOTHING];
+			supplies[CLOTHING] -= sOxen;
+			randMsg = "A thief stole " + sClothing + " sets of clothes while you were sleeping!";
+		}
+		else if(randThief == 2 && supplies[FOOD] > 0){
+			var sFood = Math.floor(Math.random() * (151)) + 50;
+			if(sFood > supplies[FOOD]) sFood = supplies[FOOD];
+			supplies[FOOD] -= sFood;
+			randMsg = "A thief stole " + sFood + " pounds of food while you were sleeping!";
+		}
 	}
 	else if(num == 4 || num == 5){
 		randDay = Math.floor(Math.random() * (3)) + 1;
@@ -1066,7 +1081,7 @@ function travelTrail() {
 		randomEvent();
 		if(brokenPart < 3){
 			if(parts[brokenPart] > 0) {parts[brokenPart]--; supplies[PARTS]--; brokenPart = 3; randMsg += "<br>You replace it with a spare part.";}
-			else randMsg+= "You have no spare parts to replace it!";
+			else randMsg+= "<br>You have no spare parts to replace it!";
 		}
 	}
 	//Check if they lost
