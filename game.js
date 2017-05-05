@@ -73,6 +73,8 @@ var parts = [0, 0, 0];
 //Holder for parts you want to buy
 var tempParts = [0, 0, 0];
 var gameStatus = [0, 0, 0, 0];
+var riverWidth = 0;
+var riverDepth = 0;
 var job;
 var score = 0;
 var month = 2;
@@ -751,9 +753,11 @@ function ferryFinish(){
 		ferryWait = 0;
 	}
 	$(document).keypress(function(e){
-		$(this).unbind();
-		if(supplies[MONEY] < 5) riverOptions();
-		else {supplies[MONEY] -= 5; currLocation=""; tempTraveled++; totalTraveled++; mainGame();}
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			if(supplies[MONEY] < 5) riverOptions();
+			else {supplies[MONEY] -= 5; currLocation=""; tempTraveled++; totalTraveled++; mainGame();}
+		}
 	});
 }
 
@@ -763,8 +767,16 @@ function ferry(){
 																Do you want to take the ferry?</p> <button onclick='ferryFinish()' class='button'><span>Yes</span></button><br><button onclick='riverOptions()' class='button'><span>No</span></button>";
 }
 
+function setRiver(){
+	if(currLocation == "Kansas River crossing") {riverWidth = 628; riverDepth = 4.8;}
+	else if(currLocation == "Big Blue River crossing") {riverWidth = 235; riverDepth = 3.0;}
+	else if(currLocation == "Green River crossing") {riverWidth = 0; riverDepth = 0;}
+	else if(currLocation == "Snake River crossing") {riverWidth = 0; riverDepth = 0;}
+}
+
 function riverOptions(){
 	randMsg = "";
+	if(riverDepth == 0) setRiver();
 	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>\
 																<p id='river'>Info about crossing river.<br>Press SPACE BAR to Continue</p>";
 	var t = "<p>Weather: "+currWeather+"<br>\
@@ -887,6 +899,45 @@ function secondDRoute2(){
 	mainGame();
 }
 
+function talk(){
+	var t;
+	if(currLocation == "Independence") t = "<p>A town resident tells you:<br>\"Some folks seem to think that two oxen are enough to get them to Oregon!<br>\
+	Two oxen can barely move a fully loaded wagon, and if one of them gets sick or dies,<br>you won't be going anywhere. I wouldn't go overland with less than six.\"";
+	else if(currLocation == "Kansas River crossing") t = "<p>Aunt Rebecca Sims tells you:<br>\"With the crowds of people waiting to get on the ferry,<br>\
+	we could be stranded here for days! Hope there's enough graze for all those animals --<br>not many people carry feed! I'd rather wait, though, than cross in a rickety wagon boat!\"";
+	else if(currLocation == "Big Blue River crossing") t = "<p>A lady, Marnie Stewart, tells you:<br>\"This prairie is mighty pretty with all the wild flowers and tall grasses.<br>\
+	But there's too much of it! I miss not having a town nearby. I wonder how many days until I see a town --<br>a town with real shops, a church, people...\"";
+	else if(currLocation == "Fort Kearny") t = "<p>A fort soldier tells you:<br>\"The trails from the jumping off places -- Independence, St. Joseph, Council Bluffs --<br>\
+	come together at Fort Kearney. This new fort was built by the U.S. Army<br>to protect those bound for California and Oregon.\"";
+	else if(currLocation == "Chimney Rock") t = "<p>Celinda Hines tells you:<br>\"Chimney Rock by moonlight is awfully sublime. Many Indians came<br>\
+	to our wagon with fish to exchange for clothing. We bought a number.<br>They understand \'swap\' and \'no swap.\' Seem most anxious to get shirts and socks.\"";
+	else if(currLocation == "Fort Laramie") t = "<p>A woman traveler tells you:<br>\"Be warned, stranger. Don't dig a water hole! Drink only river water.<br>\
+	Salty as the Platte River is -- it's better than the cholera. We buried my husband last week.<br>Could use some help with this harness, if you can spare the time.\"";
+	else if(currLocation == "Independence Rock") t = "<p>Aunt Rebecca Sims tells you:<br>\"No butter or cheese or fresh fruit since Fort Laramie! Bless me,<br>\
+	but I'd rather have my larder full of food back East then have our names carved on that rock!<br>Well, tis a sight more cheery than all the graves we passed.\"";
+	else if(currLocation == "South Pass") t = "<p>An Arapho Indian tells you:<br>\"When the white man first crossed our lands their wagons were few.<br>\
+	Now they crowd the trail in great numbers. The land is overgrazed with their many animals.<br>Do any white men still live in the East? My people talk of moving.\"";
+	else if(currLocation == "Green River crossing") t = "<p>";
+	else if(currLocation == "Fort Bridger") t = "<p>A trader tells you:<br>\"This fort was built by Jim Bridger. Jim was a mountain man before<br>\
+	he put in this blacksmith shop and small store to supply the overlanders.<br>Does a big trade in horses, Jim and his partner, Vasquez.\"";
+	else if(currLocation == "Soda Springs") t = "<p>Celinda Hines tells you:<br>\"My, the Soda Springs are so pretty! Seem to spout at regular intervals.<br>\
+	Felt good to just rest and not be jostled in the wagon all day. When I get to Oregon,<br>I'll have a soft feather bed and never sleep in a wagon again!\"";
+	else if(currLocation == "Fort Hall") t = "<p>";
+	else if(currLocation == "Snake River crossing") t = "<p>";
+	else if(currLocation == "Fort Boise") t = "<p>";
+	else if(currLocation == "Blue Mountains") t = "<p>";
+	else if(currLocation == "Fort Walla Walla") t = "<p>";
+	else if(currLocation == "The Dalles") t = "<p>";
+	t += "</p>" + spaceTxt;
+	document.getElementsByClassName("container")[0].innerHTML = t;
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			locationInfo();
+		}
+	});
+}
+
 function leaveTown(){
 	if(supplies[OXEN] <= 0){alert("You need oxen to continue on the trail!"); return;}
 	else if(brokenPart == WHEEL){alert("You need to replace your broken wheel to continue on the trail!"); return;}
@@ -924,7 +975,7 @@ function locationInfo() {
 			<button class='button' onclick='rest()'><span>Stop to rest</span></button><br>\
 			<button class='button' onclick='trade()'><span>Attempt to trade</span></button><br>";
     if (currLocation != "") {
-		t += "<button class='button' onclick=''><span>Talk to people</span></button><br>";
+		t += "<button class='button' onclick='talk()'><span>Talk to people</span></button><br>";
 		if(currType == TOWN) t += "<button class='button' onclick='buySupplies()'><span>Buy Supplies</span></button><br>";
 		else if(currType == RIVER)t += "<button class='button' onclick='fish()'><span>Go Fishing</span></button><br>"
 	}
@@ -1028,13 +1079,13 @@ function randomEvent(){
 	}
 	else if(num == 1){
 		var tempMsg = "";
-		var diseases = ["Typhoid Fever", "Cholera", "Dysentery", "Measles", "Diphtheria"];
+		var diseases = ["Typhoid Fever", "Cholera", "Dysentery", "Measles", "Diphtheria", "a broken arm", "a broken leg"];
 		var tempIndicies = [];
 		for(i = 0; i < hp.length; i++) {if(hp[i] > 0) tempIndicies.push(i);}
 		var randIndex = Math.floor(Math.random() * (tempIndicies.length));
 		if(hp[tempIndicies[randIndex]] < 40 || Math.floor(Math.random() * (2)) == 1){
-			tempMsg += characters[tempIndicies[randIndex]] + " has " + diseases[Math.floor(Math.random() * (5))] + ".";
-			reduceCharHP(tempIndicies[randIndex], 15);
+			tempMsg += characters[tempIndicies[randIndex]] + " has " + diseases[Math.floor(Math.random() * (7))] + ".";
+			reduceCharHP(tempIndicies[randIndex], 25);
 		}
 
 		randMsg = tempMsg;
@@ -1058,7 +1109,7 @@ function randomEvent(){
 		else if(randThief == 1 && supplies[CLOTHING] > 0){
 			var sClothing = Math.floor(Math.random() * (5)) + 2;
 			if(sClothing > supplies[CLOTHING]) sClothing = supplies[CLOTHING];
-			supplies[CLOTHING] -= sOxen;
+			supplies[CLOTHING] -= sClothing;
 			randMsg = "A thief stole " + sClothing + " sets of clothes while you were sleeping!";
 		}
 		else if(randThief == 2 && supplies[FOOD] > 0){
