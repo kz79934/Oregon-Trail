@@ -87,6 +87,7 @@ var currRations = "Filling";
 var currLocation = "Independence";
 var currType = TOWN;
 var randMsg = "";
+var ferryWait = 0;
 var brokenPart = 3;
 var soundOn = 1;
 var gameDone = 0;
@@ -680,7 +681,6 @@ function buySupplies(){
 }
 
 function ford(){
-		randMsg = "";
 		currLocation = "";
         var t = "<img src='Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
         <img src='Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
@@ -741,7 +741,30 @@ function fish(){
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
+function ferryFinish(){
+	if(supplies[MONEY] < 5) document.getElementsByClassName("container")[0].innerHTML = "<p>You do not have enough money to ride the ferry!"+spaceTxt+"</p>";
+	else{
+		document.getElementsByClassName("container")[0].innerHTML = "<p>You wait "+ferryWait+" days and take the ferry across the river."+spaceTxt+"</p>";
+		changeWeather();
+		var i;
+		for(i = 0; i < ferryWait; i++) eatFood();
+		ferryWait = 0;
+	}
+	$(document).keypress(function(e){
+		$(this).unbind();
+		if(supplies[MONEY] < 5) riverOptions();
+		else {supplies[MONEY] -= 5; mainGame();}
+	});
+}
+
+function ferry(){
+	if(ferryWait == 0) ferryWait = Math.floor(Math.random() * (5)) + 1;
+	document.getElementsByClassName("container")[0].innerHTML = "<p>The ferry can take you across the river safely. It will cost $5, and you will have to wait for "+ferryWait+" days.<br>\
+																Do you want to take the ferry?</p> <button onclick='ferryFinish()' class='button'><span>Yes</span></button><br><button onclick='riverOptions()' class='button'><span>No</span></button>";
+}
+
 function riverOptions(){
+	randMsg = "";
 	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>\
 																<p id='river'>Info about crossing river.<br>Press SPACE BAR to Continue</p>";
 	var t = "<p>Weather: "+currWeather+"<br>\
@@ -749,7 +772,7 @@ function riverOptions(){
 			You may: <br><br>\
 			<button class='button' onclick='ford()'><span>Ford the River</span></button><br>\
 			<button class='button' onclick=''><span>Float the Wagon</span></button><br>\
-			<button class='button' onclick=''><span>Take a Ferry</span></button><br>\
+			<button class='button' onclick='ferry()'><span>Take a Ferry</span></button><br>\
 			<button class='button' onclick=''><span>Wait</span></button><br>\
 			<button class='button' onclick=''><span>Get Information</span></button></p>";
 			
