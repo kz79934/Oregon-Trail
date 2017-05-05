@@ -116,7 +116,7 @@ function getOccupation() {
 				<li><input type='radio' id='f-option' name='occupation' value='Banker' onclick = 'displayOcc(this.value)'> <label for='f-option'>Banker</label> <div class='check'></div></li> <div id='info1' ></div>\
 				<li><input type='radio' id='s-option' name='occupation' value='Carpenter' onclick = 'displayOcc(this.value)'> <label for='s-option'>Carpenter</label> <div class='check'><div class='inside'></div></div></li> <div id='info2' ></div>\
 				<li><input type='radio' id='t-option' name='occupation' value='Farmer' onclick = 'displayOcc(this.value)' > <label for='t-option'>Farmer</label> <div class='check'><div class='inside'></div></div> </li> <div id='info3' ></div>\
-				<li><input type='radio' id='u-option' name='occupation' value='Outlaw' onclick = 'displayOcc(this.value)' > <label for='u-option'>Outlaw</label> <div class='check'><div class='inside'></div></div> </li> <div id='info4' ></div>\
+				<li><input type='radio' id='u-option' name='occupation' value='Fisher' onclick = 'displayOcc(this.value)' > <label for='u-option'>Fisher</label> <div class='check'><div class='inside'></div></div> </li> <div id='info4' ></div>\
 				<li><input type='radio' id='v-option' name='occupation' value='Cowboy' onclick = 'displayOcc(this.value)' > <label for='v-option'>Cowboy</label> <div class='check'><div class='inside'></div></div> </li> <div id='info5' ></div>\
 				<li><input type='radio' id='w-option' name='occupation' value='Merchant' onclick = 'displayOcc(this.value)' > <label for='w-option'>Merchant</label> <div class='check'><div class='inside'></div></div> </li> <div id='info6' ></div>\
 				<li><input type='radio' id='x-option' name='occupation' value='Batman' onclick = 'displayOcc(this.value)' > <label for='x-option'>Batman</label> <div class='check'><div class='inside'></div></div> </li> <div id='info7' ></div>\
@@ -159,9 +159,9 @@ function displayOcc(occupation) {
 		document.getElementById("info6").innerHTML ="";
 		document.getElementById("info7").innerHTML ="";
     }
-    else if (occupation == "Outlaw") {
-        document.getElementById("info4").innerHTML = "<p>You start with basically no money, but you can rob people. Be sure not to get arrested as there are dire consequences.</p>";
-        supplies[MONEY] = 200.00;
+    else if (occupation == "Fisher") {
+        document.getElementById("info4").innerHTML = "<p>You start with an average amount of money but have a better chance at catching fish.</p>";
+        supplies[MONEY] = 600.00;
 		
 		document.getElementById("info1").innerHTML ="";
 		document.getElementById("info2").innerHTML ="";
@@ -716,7 +716,10 @@ function castLine(){
 	setTimeout(function(){document.getElementById("fishMsg").innerHTML += ".";}, 3000); 
 	
 	setTimeout(function(){
-		if(Math.floor(Math.random() * (2))){
+		var randNum = 2;
+		if(job == "Fisher") randNum++;
+		var randFish = Math.floor(Math.random() * (randNum));
+		if(randFish == 1 || randFish == 2){
 			var typeFish = Math.floor(Math.random() * (3));
 			if(typeFish == 0){document.getElementById("fishMsg").innerHTML = "You caught a fish! It is small, but at least it's something."; supplies[BAIT] -= 5; supplies[FOOD] += 3;}
 			else if(typeFish == 1){document.getElementById("fishMsg").innerHTML = "You caught a fish! It is average-sized."; supplies[BAIT] -= 5; supplies[FOOD] += 5;}
