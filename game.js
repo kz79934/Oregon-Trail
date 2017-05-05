@@ -4,7 +4,7 @@ const MONEY = 0;
 const FOOD = 1;
 const PARTS = 2;
 const WHEEL = 0;
-const AXEL = 1;
+const AXLE = 1;
 const TONGUE = 2;
 const BAIT = 3;
 const OXEN = 4;
@@ -35,12 +35,25 @@ const FILLING = 0;
 const MEAGER = 1;
 const BAREBONES = 2;
 var spaceTxt = "<div><p>Press SPACE BAR to Continue</p></div>";
-//Distance is relative to the previous location (Ex: b is a 100 miles from a)
-var locations = ["town a", "river 1", "town b", "river 2", "town c", "river 3", "town d", "end"];
-var distance = [50, 50, 100, 75, 150, 100, 200, 250];
+var locations = ["Kansas River crossing", "Big Blue River crossing", "Fort Kearny", "Chimney Rock", "Fort Laramie", "Independence Rock", "South Pass"];
+var distance = [102, 82, 118, 250, 86, 190, 102];
+//var route1 = ["Green River crossing", "Soda Springs", "Fort Hall", "Snake River crossing", "Fort Boise", "Blue Mountains"];
+//var altroute1 = ["Fort Bridger", "Soda Springs"];
+//var distance1 = [57, 143, 57, 182, 113, 160];
+//var altdistance1 = [125, 162];
+//var locType1 = [RIVER, 0, TOWN, RIVER, TOWN, DIVIDE];
+//var altlocType1 = [TOWN, 0];
+//var route2 = ["Fort Walla Walla", "The Dalles", "Willamette Valley"];
+//var altroute2 = ["The Dalles"]; (distance = 125)
+//var distance2 = [55, 120, 100];
+//var locType2 = [TOWN, DIVIDE, END];
+//Last decision is Barlow Toll Road (cost $8.50) or Columbia River (Finishes Game)
 const TOWN = 1;
 const RIVER = 2;
-var locType = [TOWN, RIVER, TOWN, RIVER, TOWN, RIVER, TOWN, 0];
+const DIVIDE1 = 3;
+const DIVIDE2 = 4
+const END = 5;
+var locType = [RIVER, RIVER, TOWN, 0, TOWN, 0, DIVIDE1];
 var months = ["January", "Februrary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 var price = [.2, 10, 20, .1, 10]
@@ -387,12 +400,12 @@ function initBuy(item) {
     }
     else if (item == "Bait") {
         t = "<p>Advice on Bait. How many buckets of bait would you like to buy?</p>\
-			<input type='text' value='' placeholder='Number of Bait' onkeypress='return itemValidation(event)'></input><br><button class='button' id='baitOption' onclick='checkValid(BAIT)'><span>Buy It!</span></button><div id='errMsg'></div>";
+			<input type='text' value='' placeholder='Number of Buckets' onkeypress='return itemValidation(event)'></input><br><button class='button' id='baitOption' onclick='checkValid(BAIT)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Wagon") {
         t = "<p>Advice on Wagon.<br><br>\
 		How many wheels would you like to buy? <input type='text' id='wheel' value='' placeholder='Number of Wheels' onkeypress='return itemValidation(event)'></input><br>\
-		How many axels would you like to buy? <input  type='text' id='axel' value='' placeholder='Number of Axels' onkeypress='return itemValidation(event)'></input><br>\
+		How many axles would you like to buy? <input  type='text' id='axle' value='' placeholder='Number of Axles' onkeypress='return itemValidation(event)'></input><br>\
 		How many tongues would you like to buy? <input type='text' id='tongue' value='' placeholder='Number of Tongues' onkeypress='return itemValidation(event)'></input><br></p>\
 		<button class='button' id='partsOption' onclick='checkValid(PARTS)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
@@ -453,7 +466,7 @@ function checkValid(index) {
         }
         else {
             tempParts[WHEEL] = parseInt(tempInputs[0].value);
-            tempParts[AXEL] = parseInt(tempInputs[1].value);
+            tempParts[AXLE] = parseInt(tempInputs[1].value);
             tempParts[TONGUE] = parseInt(tempInputs[2].value);
             initStore();
         }
@@ -517,7 +530,7 @@ function checkSupplies() {
 			Sets of Clothing: " + supplies[CLOTHING] + "<br>\
 			Bait: " + supplies[BAIT] + "<br>\
 			Wagon Wheels: " + parts[WHEEL] + "<br>\
-			Wagon Axels: " + parts[AXEL] + "<br>\
+			Wagon Axles: " + parts[AXLE] + "<br>\
 			Wagon Tongues: " + parts[TONGUE] + "<br>\
 			Pounds of Food: " + supplies[FOOD] + "<br>\
 			Money Left: $" + supplies[MONEY] + "</p>\
@@ -586,7 +599,7 @@ function getIndex(str){
 	if(str == "BAIT") return BAIT;
 	if(str == "FOOD") return FOOD;
 	if(str == "WHEEL") return WHEEL;
-	if(str == "AXEL") return AXEL;
+	if(str == "AXLE") return AXLE;
 	if(str == "TONGUE") return TONGUE;
 	if(str == "PARTS") return OXEN;
 }
@@ -597,7 +610,7 @@ function buyItem(item){
 	var patt = /^\d+$/;
 	if(!(patt.test(amount)))
 		document.getElementById("errMsg").innerHTML = "Please enter a number!";
-	else if(item == "WHEEL" || item == "AXEL" || item == "TONGUE"){
+	else if(item == "WHEEL" || item == "AXLE" || item == "TONGUE"){
 		amount = parseInt(amount);
 		if((price[WAGON_COST]*amount) <= supplies[MONEY]){
 			supplies[PARTS] += amount;
@@ -640,8 +653,8 @@ function setItem(item){
 		document.getElementById("selectItem").innerHTML = "<label>How many buckets?</label> <input id='buy' value=''></input> <button class='button' value='BAIT' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
 	else if(item == "WHEEL") 
 		document.getElementById("selectItem").innerHTML = "<label>How many wheels?</label> <input id='buy' value=''></input> <button class='button' value='WHEEL' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
-	else if(item == "AXEL") 
-		document.getElementById("selectItem").innerHTML = "<label>How many axels?</label> <input id='buy' value=''></input> <button class='button' value='AXEL' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+	else if(item == "AXLE") 
+		document.getElementById("selectItem").innerHTML = "<label>How many axles?</label> <input id='buy' value=''></input> <button class='button' value='AXLE' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
 	else if(item == "TONGUE") 
 		document.getElementById("selectItem").innerHTML = "<label>How many tongues?</label> <input id='buy' value=''></input> <button class='button' value='TONGUE' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
 	else if(item == "FOOD") 
@@ -655,7 +668,7 @@ function buySupplies(){
 			<button class='button' value='CLOTHING' onclick='setItem(this.value)'><span>Clothing</span></button><label>- $10 per set</label><br>\
 			<button class='button' value='BAIT' onclick='setItem(this.value)'><span>Bait</span></button><label>- $2 per bucket</label><br>\
 			<button class='button' value='WHEEL' onclick='setItem(this.value)'><span>Wagon Wheels</span></button><label>- $10 per wheel</label><br>\
-			<button class='button' value='AXEL' onclick='setItem(this.value)'><span>Wagon Axels</span></button><label>- $10 per axel</label><br>\
+			<button class='button' value='AXLE' onclick='setItem(this.value)'><span>Wagon Axles</span></button><label>- $10 per axle</label><br>\
 			<button class='button' value='TONGUE' onclick='setItem(this.value)'><span>Wagon Tongues</span></button><label>- $10 per tongue</label><br>\
 			<button class='button' value='FOOD' onclick='setItem(this.value)'><span>Food</span></button><label>- $0.20 per pound</label><br>\
 			<button class='button' onclick='locationInfo()'><span>Leave</span></button> <br>\
@@ -724,7 +737,7 @@ function riverOptions(){
 																<p id='river'>Info about crossing river.<br>Press SPACE BAR to Continue</p>";
 	var t = "<p>Weather: "+currWeather+"<br>\
 			River width: ?? feet <br>River depth: ?? feet<br>\
-			You may: <br>\
+			You may: <br><br>\
 			<button class='button' onclick='ford()'><span>Ford the River</span></button><br>\
 			<button class='button' onclick=''><span>Float the Wagon</span></button><br>\
 			<button class='button' onclick=''><span>Take a Ferry</span></button><br>\
@@ -797,7 +810,7 @@ function trade(){
 			else if(rand[i] == PARTS){
 				randPart[i] = Math.floor(Math.random() * (3))
 				if(randPart[i] == WHEEL) {tradeAmt[i] = 1; tradeItem[i] = "wagon wheel";}
-				else if(randPart[i] == AXEL) {tradeAmt[i] = 1; tradeItem[i] = "wagon axel";}
+				else if(randPart[i] == AXLE) {tradeAmt[i] = 1; tradeItem[i] = "wagon axle";}
 				else if(randPart[i] == TONGUE) {tradeAmt[i] = 1; tradeItem[i] = "wagon tongue";}
 			}
 		}
@@ -817,10 +830,46 @@ function trade(){
 	$("#back").click(function(){$(this).unbind(); $("#acceptTrade").unbind(); locationInfo();});
 }
 
+function firstDRoute1(){
+	locations.push.apply(locations, ["Green River crossing", "Soda Springs", "Fort Hall", "Snake River crossing", "Fort Boise", "Blue Mountains"]);
+	distance.push.apply(distance, [57, 143, 57, 182, 113, 160]);
+	locType.push.apply(locType, [RIVER, 0, TOWN, RIVER, TOWN, DIVIDE2]);
+	mainGame();
+}
+function firstDRoute2(){
+	locations.push.apply(locations, ["Fort Bridger", "Soda Springs", "Fort Hall", "Snake River crossing", "Fort Boise", "Blue Mountains"]);
+	distance.push.apply(distance, [125, 162, 57, 182, 113, 160]);
+	locType.push.apply(locType, [TOWN, 0, TOWN, RIVER, TOWN, DIVIDE2]);
+	mainGame();
+}
+function secondDRoute1(){
+	locations.push.apply(locations, ["Fort Walla Walla", "The Dalles", "Willamette Valley"]);
+	distance.push.apply(distance, [55, 120, 100]);
+	locType.push.apply(locType, [TOWN, 0, END]);
+	mainGame();
+}
+function secondDRoute2(){
+	locations.push.apply(locations, ["The Dalles", "Willamette Valley"]);
+	distance.push.apply(distance, [125, 100]);
+	locType.push.apply(locType, [0, END]);
+	mainGame();
+}
+
 function leaveTown(){
+	if(supplies[OXEN] <= 0){alert("You need oxen to continue on the trail!"); return;}
+	else if(brokenPart == WHEEL){alert("You need to replace your broken wheel to continue on the trail!"); return;}
+	else if(brokenPart == AXLE){alert("You need to replace your broken axle to continue on the trail!"); return;}
+	else if(brokenPart == TONGUE){alert("You need to replace your broken tongue to continue on the trail!"); return;}
+	
 	randMsg = "";
 	currLocation = "";
-	mainGame();
+	if(currType == DIVIDE1) document.getElementsByClassName("container")[0].innerHTML = "<p>There are two different routes to take.<br>Where would you like to go to next?<br><br>\
+																						<button onclick='firstDRoute1()' class='button'><span>Green River crossing</span></button><br>\
+																						<button onclick='firstDRoute2()' class='button'><span>Fort Bridger</span></button></p>";
+	else if(currType == DIVIDE2) document.getElementsByClassName("container")[0].innerHTML = "<p>There are two different routes to take.<br>Where would you like to go to next?<br><br>\
+																						<button onclick='secondDRoute1()' class='button'><span>Fort Walla Walla</span></button><br>\
+																						<button onclick='secondDRoute2()' class='button'><span>The Dalles</span></button></p>";
+	else{mainGame();}
 }
 
 function locationInfo() {
@@ -952,7 +1001,7 @@ function randomEvent(){
 		for(i = 0; i < hp.length; i++) {if(hp[i] > 0) tempIndicies.push(i);}
 		var randIndex = Math.floor(Math.random() * (tempIndicies.length));
 		if(hp[tempIndicies[randIndex]] < 40 || Math.floor(Math.random() * (2)) == 1){
-			tempMsg += characters[tempIndicies[randIndex]] + " has " + diseases[Math.floor(Math.random() * (5))] + ".<br>";
+			tempMsg += characters[tempIndicies[randIndex]] + " has " + diseases[Math.floor(Math.random() * (5))] + ".";
 			reduceCharHP(tempIndicies[randIndex], 15);
 		}
 
@@ -961,13 +1010,13 @@ function randomEvent(){
 	else if(num == 2){
 		brokenPart = Math.floor(Math.random() * (3));
 		var tempMsg;
-		if(brokenPart == WHEEL) tempMsg = "The wagon's wheels broke!";
-		else if(brokenPart == AXEL) tempMsg = "The wagon's axel broke!";
+		if(brokenPart == WHEEL) tempMsg = "The wagon's wheel broke!";
+		else if(brokenPart == AXLE) tempMsg = "The wagon's axle broke!";
 		else if(brokenPart == TONGUE) tempMsg = "The wagon's tongue broke!";
 		randMsg = tempMsg;
 	}
 	else if(num == 3){
-		var sOxen = Math.floor(Math.random() * (4)) + 1;
+		var sOxen = Math.floor(Math.random() * (3)) + 1;
 		if(sOxen > supplies[OXEN]) sOxen = supplies[OXEN];
 		supplies[OXEN] -= sOxen;
 		randMsg = "A thief stole " + sOxen + " oxen!";
@@ -985,7 +1034,7 @@ function randomEvent(){
 function checkMove(){
 	if(supplies[OXEN] <= 0) {alert("You have no oxen to pull your wagon!"); return 0;}
 	else if(brokenPart == WHEEL) {alert("Your wagon cannot move with a broken wheel!"); return 0;}
-	else if(brokenPart == AXEL) {alert("Your wagon cannot move with a broken axel!"); return 0;}
+	else if(brokenPart == AXLE) {alert("Your wagon cannot move with a broken axle!"); return 0;}
 	else if(brokenPart == TONGUE) {alert("Your wagon cannot move with a broken tongue!"); return 0;}
 	return 1;
 }
@@ -997,44 +1046,44 @@ function travelTrail() {
 	eatFood();
 	changeWeather();
     if (gameStatus[PACE] == STEADY) {
-        totalTraveled += 6;
-        tempTraveled += 6;
+        totalTraveled += 20;
+        tempTraveled += 20;
         addTeamHP(1);
     }
     else if (gameStatus[PACE] == STRENUOUS) {
-        totalTraveled += 12;
-        tempTraveled += 12;
+        totalTraveled += 30;
+        tempTraveled += 30;
 		reduceTeamHP(2);
     }
     else if (gameStatus[PACE] == GRUELING) {
-        totalTraveled += 18;
-        tempTraveled += 18;
+        totalTraveled += 40;
+        tempTraveled += 40;
 		reduceTeamHP(5);
     }
 	//Random event 20% chance
 	if(Math.floor(Math.random() * (5)) == 0){
 		randomEvent();
 		if(brokenPart < 3){
-			
+			if(parts[brokenPart] > 0) {parts[brokenPart]--; supplies[PARTS]--; brokenPart = 3; randMsg += "<br>You replace it with a spare part.";}
+			else randMsg+= "You have no spare parts to replace it!";
 		}
 	}
 	//Check if they lost
 	if(numCharacters == 0) lostGame();
-    //Check if they won
-    else if (tempTraveled >= distance[distance.length - 1]) {
-        gameDone = 1;
-        endGame();
-    }
     else if (tempTraveled >= distance[0]) {
-        //Ask if they wish to stop here
-        totalTraveled = totalTraveled - (tempTraveled - distance[0]);
-        tempTraveled = 0;
-        currLocation = locations.shift();
-		currType = locType.shift();
-        distance.shift();
-        stopLocation();
-        console.log(distance.length);
-    }
+		//Check if they won
+		if(locType[0] == END){gameDone = 1; endGame();}
+		else{
+			//Ask if they wish to stop here
+			totalTraveled = totalTraveled - (tempTraveled - distance[0]);
+			tempTraveled = 0;
+			currLocation = locations.shift();
+			currType = locType.shift();
+			distance.shift();
+			stopLocation();
+			console.log(distance.length);
+		}
+	}
     else if (!gameDone) mainGame();
 }
 
