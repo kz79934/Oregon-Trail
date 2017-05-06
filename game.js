@@ -701,6 +701,8 @@ function ford(){
                 $("#ok").delay(3000).animate({right: '10%'},10000,function(){mainGame();});
             }
         });
+		riverDepth = 0;
+		riverWidth = 0;
 }
 
 function fishResults(){
@@ -755,11 +757,14 @@ function ferryFinish(){
 		var i;
 		for(i = 0; i < ferryWait; i++) eatFood();
 		ferryWait = 0;
+		riverDepth = 0;
+		riverWidth = 0;
 	}
 	$(document).keypress(function(e){
 		if(e.keyCode == SPACEBAR){
 			$(this).unbind();
 			if(supplies[MONEY] < 5) riverOptions();
+			else if(numCharacters == 0) lostGame();
 			else {supplies[MONEY] -= 5; currLocation=""; tempTraveled++; totalTraveled++; mainGame();}
 		}
 	});
@@ -774,7 +779,7 @@ function ferry(){
 function setRiver(){
 	if(currLocation == "Kansas River crossing") {riverWidth = 628; riverDepth = 4.8;}
 	else if(currLocation == "Big Blue River crossing") {riverWidth = 235; riverDepth = 3.0;}
-	else if(currLocation == "Green River crossing") {riverWidth = 0; riverDepth = 0;}
+	else if(currLocation == "Green River crossing") {riverWidth = 400; riverDepth = 20.0;}
 	else if(currLocation == "Snake River crossing") {riverWidth = 0; riverDepth = 0;}
 }
 
@@ -784,7 +789,7 @@ function riverOptions(){
 	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>\
 																<p id='river'>Info about crossing river.<br>Press SPACE BAR to Continue</p>";
 	var t = "<p>Weather: "+currWeather+"<br>\
-			River width: ?? feet <br>River depth: ?? feet<br>\
+			River width: "+riverWidth+" feet <br>River depth: "+riverDepth+" feet<br>\
 			You may: <br><br>\
 			<button class='button' onclick='ford()'><span>Ford the River</span></button><br>\
 			<button class='button' onclick=''><span>Float the Wagon</span></button><br>\
@@ -960,6 +965,7 @@ function leaveTown(){
 }
 
 function locationInfo() {
+	if(numCharacters == 0){lostGame(); return;}
 	setHealth();
 	setDate();
     var t = "";
@@ -1060,14 +1066,14 @@ function eatFood(){
 }
 
 function changeWeather(){
-	var num = Math.floor(Math.random() * (6));
+	var num = Math.floor(Math.random() * (10));
 	gameStatus[WEATHER] = num;
-	if(num == COLD) currWeather = "Cold";
-	else if(num == COOL) currWeather = "Cool";
-	else if(num == RAINY) currWeather = "Rainy";
-	else if(num == WARM) currWeather = "Warm";
-	else if(num == HOT) currWeather = "Hot";
-	else if(num == VERYRAINY) currWeather = "Very Rainy";
+	if(num == 0) currWeather = "Cold";
+	else if(num == 1) currWeather = "Cool";
+	else if(num == 2) currWeather = "Rainy";
+	else if(num >= 4 && num <= 6) currWeather = "Warm";
+	else if(num >= 7 && num <= 9) currWeather = "Hot";
+	else if(num == 3) currWeather = "Very Rainy";
 }
 
 function randomEvent(){
