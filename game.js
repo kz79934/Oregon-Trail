@@ -271,12 +271,13 @@ function getNames() {
 	leaderName = firstLetter + nameSlice;
 	
     if (leaderName.replace(/\s/g, "") != "") characters[0] = leaderName;
-    var t = "<p>What are the first names of the other members in your party?<br>\
+    var t = "<img src='p1.png' alt='HTML5 Icon' style='display: block; margin-left: 300px; width: 50%;'></img>\
+            <p>What are the first names of the other members in your party?<br>\
 			The leader's name is " + characters[0] + ".</p>\
-			<input class='names' type='text' value='' placeholder='First Member' onkeypress='return alphaValMembers(event)'></input><br>\
-			<input class='names' type='text' value='' placeholder='Second Member' onkeypress='return alphaValMembers(event)'></input><br>\
-			<input class='names' type='text' value='' placeholder='Third Member' onkeypress='return alphaValMembers(event)'></input><br>\
-			<input class='names' type='text' value='' placeholder='Fourth Member' onkeypress='return alphaValMembers(event)'></input><br><br>\
+			<input class='names' type='text1' value='' placeholder='First Member' onkeypress='return alphaValMembers(event)'></input>\
+			<input class='names' type='text1' value='' placeholder='Second Member' onkeypress='return alphaValMembers(event)'></input>\
+			<input class='names' type='text1' value='' placeholder='Third Member' onkeypress='return alphaValMembers(event)'></input>\
+			<input class='names' type='text1' value='' placeholder='Fourth Member' onkeypress='return alphaValMembers(event)'></input><br><br>\
 			<button class='button' onclick='getLeaderName()'><span>Back</span></button><br>\
 			<button class='button' onclick='finalizeNames()'><span>Next</span></button>";
     document.getElementById("innerPage").innerHTML = t;
