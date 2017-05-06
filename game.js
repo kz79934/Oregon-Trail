@@ -790,7 +790,7 @@ function setRiver(){
 	if(currLocation == "Kansas River crossing") {riverWidth = 628; riverDepth = 4.8;}
 	else if(currLocation == "Big Blue River crossing") {riverWidth = 235; riverDepth = 3.0;}
 	else if(currLocation == "Green River crossing") {riverWidth = 400; riverDepth = 20.0;}
-	else if(currLocation == "Snake River crossing") {riverWidth = 0; riverDepth = 0;}
+	else if(currLocation == "Snake River crossing") {riverWidth = 1000; riverDepth = 6.0;}
 }
 
 function riverOptions(){
@@ -938,14 +938,18 @@ function talk(){
 	but I'd rather have my larder full of food back East then have our names carved on that rock!<br>Well, tis a sight more cheery than all the graves we passed.\"";
 	else if(currLocation == "South Pass") t = "<p>An Arapho Indian tells you:<br>\"When the white man first crossed our lands their wagons were few.<br>\
 	Now they crowd the trail in great numbers. The land is overgrazed with their many animals.<br>Do any white men still live in the East? My people talk of moving.\"";
-	else if(currLocation == "Green River crossing") t = "<p>";
+	else if(currLocation == "Green River crossing") t = "<p>A young boy tells you:<br>\"My family didn't buy enough food in Independence. We have been eating very small rations since Fort Laramie.<br>\
+	Because of that our health is poor. My sister has mountain fever, so we're stopped here for a while.\"";
 	else if(currLocation == "Fort Bridger") t = "<p>A trader tells you:<br>\"This fort was built by Jim Bridger. Jim was a mountain man before<br>\
 	he put in this blacksmith shop and small store to supply the overlanders.<br>Does a big trade in horses, Jim and his partner, Vasquez.\"";
 	else if(currLocation == "Soda Springs") t = "<p>Celinda Hines tells you:<br>\"My, the Soda Springs are so pretty! Seem to spout at regular intervals.<br>\
 	Felt good to just rest and not be jostled in the wagon all day. When I get to Oregon,<br>I'll have a soft feather bed and never sleep in a wagon again!\"";
-	else if(currLocation == "Fort Hall") t = "<p>";
-	else if(currLocation == "Snake River crossing") t = "<p>";
-	else if(currLocation == "Fort Boise") t = "<p>";
+	else if(currLocation == "Fort Hall") t = "<p>Aunt Rebecca tells you:<br>\"Hear there's mountain sheep around here. Enough water too, but hardly a stick of wood.<br>\
+	Thank heaven for Fort Hall! But I'm real sorry to be saying goodbye to cousin Miles and all the folks heading for California.\"";
+	else if(currLocation == "Snake River crossing") t = "<p>Big Louie tells you:<br>\"See that wild river? That's the Snake. Many a raft's been swamped in her foaming rapids.<br>\
+	Her waters travel all the way to Oregon! We'll be crossing her soon,<br>and then again after Fort Boise. Take care at the crossing!\"";
+	else if(currLocation == "Fort Boise") t = "<p>A trader with 6 mules tells you:<br>\"You'll not get yer wagon over them Blue Mountains, mister. Leave it!<br>\
+	Cross yer goods over with pack animals. Get yerself a couple of good mules.<br>Pieces of wagons litter the trail -- left by them folks who don't heed good advice!\"";
 	else if(currLocation == "Blue Mountains") t = "<p>";
 	else if(currLocation == "Fort Walla Walla") t = "<p>";
 	else if(currLocation == "The Dalles") t = "<p>";
