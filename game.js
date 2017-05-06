@@ -318,7 +318,8 @@ function assignMonth(userMonth) {
 }
 
 function getAdvice() {
-    document.getElementById("innerPage").innerHTML = "<p>Offer Advice Here</p>" + spaceTxt;
+    document.getElementById("innerPage").innerHTML = "<p>You attend a public meeting held for \"folks with the California - Oregon fever.\" You're told:<br>\
+	If you leave too early, there won't be any grass for your oxen to eat. If you leave too late, you may not get to Oregon before winter comes.<br>If you leave at just the right time, there will be green grass and the weather will still be cool.</p>" + spaceTxt;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
             $(this).unbind();
@@ -1068,13 +1069,34 @@ function eatFood(){
 
 function changeWeather(){
 	var num = Math.floor(Math.random() * (10));
-	gameStatus[WEATHER] = num;
-	if(num == 0) currWeather = "Cold";
-	else if(num == 1) currWeather = "Cool";
-	else if(num == 2) currWeather = "Rainy";
-	else if(num >= 4 && num <= 6) currWeather = "Warm";
-	else if(num >= 7 && num <= 9) currWeather = "Hot";
-	else if(num == 3) currWeather = "Very Rainy";
+	//Weather patterns based on months
+	//Mostly Cold
+	if(month >= 9 || month <= 1){
+		if(num >= 4 && num <= 6) {currWeather = "Cold"; gameStatus[WEATHER] = COLD;}
+		else if(num >= 7 && num <= 9) {currWeather = "Cool"; gameStatus[WEATHER] = COOL;}
+		else if(num == 2) {currWeather = "Rainy"; gameStatus[WEATHER] = RAINY;}
+		else if(num == 0) {currWeather = "Warm"; gameStatus[WEATHER] = WARM;}
+		else if(num == 1) {currWeather = "Hot"; gameStatus[WEATHER] = HOT;}
+		else if(num == 3) {currWeather = "Very Rainy"; gameStatus[WEATHER] = VERYRAINY;}
+	}
+	//Mostly Hot
+	else if(month >= 4 && month <= 7){
+		if(num == 0) {currWeather = "Cold"; gameStatus[WEATHER] = COLD;}
+		else if(num == 1) {currWeather = "Cool"; gameStatus[WEATHER] = COOL;}
+		else if(num == 2) {currWeather = "Rainy"; gameStatus[WEATHER] = RAINY;}
+		else if(num >= 4 && num <= 6) {currWeather = "Warm"; gameStatus[WEATHER] = WARM;}
+		else if(num >= 7 && num <= 9) {currWeather = "Hot"; gameStatus[WEATHER] = HOT;}
+		else if(num == 3) {currWeather = "Very Rainy"; gameStatus[WEATHER] = VERYRAINY;}
+	}
+	//In Between
+	else{
+		if(num == 0) {currWeather = "Cold"; gameStatus[WEATHER] = COLD;}
+		else if(num == 1 || num == 6 || num == 9) {currWeather = "Cool"; gameStatus[WEATHER] = COOL;}
+		else if(num == 2 || num == 7) {currWeather = "Rainy"; gameStatus[WEATHER] = RAINY;}
+		else if(num == 3 || num == 8) {currWeather = "Warm"; gameStatus[WEATHER] = WARM;}
+		else if(num == 4) {currWeather = "Hot"; gameStatus[WEATHER] = HOT;}
+		else if(num == 5) {currWeather = "Very Rainy"; gameStatus[WEATHER] = VERYRAINY;}
+	}
 }
 
 function randomEvent(){
