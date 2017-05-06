@@ -752,6 +752,13 @@ function fish(){
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
+function ferryAnimation(){
+	var t = "<img src='Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
+	<img src='Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
+	document.getElementsByClassName("container")[0].innerHTML = t;
+    $(document).ready(function(){$("#ok").animate({right: '10%'},10000,function(){alert("The ferry takes you across the river safely."); mainGame();});});
+}
+
 function ferryFinish(){
 	if(supplies[MONEY] < 5) document.getElementsByClassName("container")[0].innerHTML = "<p>You do not have enough money to ride the ferry!"+spaceTxt+"</p>";
 	else{
@@ -768,7 +775,7 @@ function ferryFinish(){
 			$(this).unbind();
 			if(supplies[MONEY] < 5) riverOptions();
 			else if(numCharacters == 0) lostGame();
-			else {supplies[MONEY] -= 5; currLocation=""; tempTraveled++; totalTraveled++; mainGame();}
+			else {supplies[MONEY] -= 5; currLocation=""; tempTraveled++; totalTraveled++; ferryAnimation();}
 		}
 	});
 }
@@ -790,7 +797,8 @@ function riverOptions(){
 	randMsg = "";
 	if(riverDepth == 0) setRiver();
 	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>\
-																<p id='river'>Info about crossing river.<br>Press SPACE BAR to Continue</p>";
+																<p id='river'>You must cross the river in order to continue.<br>\
+																The river at this point is currently "+riverWidth+" feet across, and "+riverDepth+" feet deep in the middle.<br><br>Press SPACE BAR to Continue</p>";
 	var t = "<p>Weather: "+currWeather+"<br>\
 			River width: "+riverWidth+" feet <br>River depth: "+riverDepth+" feet<br>\
 			You may: <br><br>\
@@ -1102,7 +1110,7 @@ function changeWeather(){
 }
 
 function randomEvent(){
-	var rand = 4;
+	var rand = 5;
 	if(gameStatus[WEATHER] == RAINY) rand++;
 	else if(gameStatus[WEATHER] == VERYRAINY) rand += 2;
 	var num = Math.floor(Math.random() * (rand));
@@ -1114,7 +1122,7 @@ function randomEvent(){
 	}
 	else if(num == 1){
 		var tempMsg = "";
-		var diseases = ["Typhoid Fever", "Cholera", "Dysentery", "Measles", "Diphtheria", "a broken arm", "a broken leg"];
+		var diseases = ["Typhoid Fever", "Cholera", "Dysentery", "Measles", "Diphtheria", "a fever", "a broken arm", "a broken leg"];
 		var tempIndicies = [];
 		for(i = 0; i < hp.length; i++) {if(hp[i] > 0) tempIndicies.push(i);}
 		var randIndex = Math.floor(Math.random() * (tempIndicies.length));
@@ -1154,7 +1162,15 @@ function randomEvent(){
 			randMsg = "A thief stole " + sFood + " pounds of food while you were sleeping!";
 		}
 	}
-	else if(num == 4 || num == 5){
+	else if(num == 4){
+		randMsg = "You spot an abandoned wagon";
+		var randPart = Math.floor(Math.random() * (6))
+		if(randPart == WHEEL){parts[WHEEL]++; supplies[PARTS]++; randMsg += ". It has a spare wheel.";}
+		else if(randPart == AXLE){parts[AXLE]++; supplies[PARTS]++; randMsg += ". It has a spare axle.";}
+		else if(randPart == TONGUE){parts[TONGUE]++; supplies[PARTS]++; randMsg += ". It has a spare tongue.";}
+		else randMsg += ", but it is empty.";
+	}
+	else if(num == 5 || num == 6){
 		randDay = Math.floor(Math.random() * (3)) + 1;
 		randMsg = "There is a severe storm! Lose "+randDay+" days";
 		var i;
