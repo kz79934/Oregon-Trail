@@ -211,13 +211,17 @@ function displayOcc(occupation) {
 }
 
 function getInfo(num = 0) {
-    var gameInfo = ["Page 1 info", "Page 2 info", "Page 3 info", "Page 4 info"];
+    var gameInfo = ["Try taking a journey by covered wagon across 2000 miles of plains, rivers, and mountains.<br>Try! On the plains, will you slosh your oxen through mud and water-filled ruts<br>or will you plod through dust six inches deep?", 
+	"How will you cross the rivers? If you have money, you might take a ferry.<br>Or, you can ford the river and hope you and your wagon aren't swallowed alive!", 
+	"What about supplies? Well, if you're low on food you can fish.<br>There are various different fish to catch that can satisfy your crew.", 
+	"At the Dalles, you can try navigating the Columbia River, but if running<br>the rapids with a makeshift raft makes you queasy, better take the Barlow Road.",
+	"If for some reason you don't survive -- thieves steal your oxen, you run out of food, or die of diesease --<br>don't give up! Try again... and again... until your name is up with the others on The Oregon Top Ten."];
     var count = 1;
     document.getElementById("innerPage").innerHTML = "<p id='info'>" + gameInfo[0] + "</p>" + spaceTxt;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
-            if (count < 4) {
-                $("#info").text(gameInfo[count]);
+            if (count < 5) {
+				document.getElementById("info").innerHTML = gameInfo[count];
                 count++;
             }
             else {
