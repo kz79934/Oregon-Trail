@@ -258,7 +258,8 @@ function alphaValMembers(input){
 
 function getLeaderName() {
     characters = ["Andrew", "Kathy", "LeBron", "Barbara", "Frank"];
-    var t = "<p>What is the first name of your leader?</p>\
+    var t = "<img src='p1.png' alt='HTML5 Icon' style='display: block; margin-left: 300px; width: 50%;'></img>\
+            <p>What is the first name of your leader?</p>\
 			<input id='leader' type='text' value='' placeholder='First Name' onkeypress='return alphaValLeader(event)'></input><br><button class='button' onclick='getNames()'><span>Next</span></button>"
     document.getElementById("innerPage").innerHTML = t;
 }
@@ -571,10 +572,10 @@ function setPace(pace) {
 }
 
 function changePace() {
-    var t = "<div id='paceOptions'><label>Change pace<br>\
+    var t = "<div id='paceOptions'><p>Change pace<br>\
 			(currently: " + currPace + ")<br><br>\
 			The pace at which you travel can change.<br>\
-			Your choices are:</label><br>\
+			Your choices are:</p><br>\
 			<button class='button' value='Steady' onclick='setPace(this.value)'><span>Steady</span></button><br>\
 			<button class='button' value='Strenuous' onclick='setPace(this.value)'><span>Strenuous</span></button><br>\
 			<button class='button' value='Grueling' onclick='setPace(this.value)'><span>Grueling</span></button><br>\
@@ -591,12 +592,12 @@ function setRations(rations) {
 }
 
 function changeRations() {
-    var t = "<div id='foodOptions'><label>Change food rations<br>\
+    var t = "<div id='foodOptions'><p>Change food rations<br>\
 			(currently: " + currRations + ")<br><br>\
-			The amount of food the people in your party eat each day can change.</label><br>\
-			<button class='button' value='Filling' onclick='setRations(this.value)'><span>Filling</span></button> <label>- Meals are large and generous.</label><br>\
-			<button class='button' value='Meager' onclick='setRations(this.value)'><span>Meager</span></button> <label>- Meals are small, but adequate.</label><br>\
-			<button class='button' value='Bare Bones' onclick='setRations(this.value)'><span>Bare Bones</span></button> <label>- Meals are very small; everyone stays hungry.</label><br>\</div>";
+			The amount of food the people in your party eat each day can change.</p><br>\
+			<button class='button' value='Filling' onclick='setRations(this.value)'><span>Filling</span></button> <p>- Meals are large and generous.</p><br>\
+			<button class='button' value='Meager' onclick='setRations(this.value)'><span>Meager</span></button> <p>- Meals are small, but adequate.</p><br>\
+			<button class='button' value='Bare Bones' onclick='setRations(this.value)'><span>Bare Bones</span></button> <p>- Meals are very small; everyone stays hungry.</p><br>\</div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
