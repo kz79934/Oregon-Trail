@@ -817,6 +817,7 @@ function rest(){
 		
 		$("#rest").click(function(){
 			daysInput = $("#restDays").val();
+			if(daysInput == "") daysInput = 0;
 			day += parseInt(daysInput);
 			setDate();
 			changeWeather();
