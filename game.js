@@ -1129,8 +1129,8 @@ function changeWeather(){
 
 function randomEvent(){
 	var rand = 6;
-	if(gameStatus[WEATHER] == RAINY) rand++;
-	else if(gameStatus[WEATHER] == VERYRAINY) rand += 2;
+	if(gameStatus[WEATHER] == RAINY) rand += 3;
+	else if(gameStatus[WEATHER] == VERYRAINY) rand += 6;
 	var num = Math.floor(Math.random() * (rand));
 	console.log("num: " + num);
 	if(num == 0){
@@ -1189,7 +1189,8 @@ function randomEvent(){
 		else randMsg += ", but it is empty.";
 	}
 	else if(num == 5){randMsg = "You find wild fruit."; supplies[FOOD] += 50;}
-	else if(num == 6 || num == 7){
+	//Storms only happen if it is raining.
+	else{
 		randDay = Math.floor(Math.random() * (3)) + 1;
 		randMsg = "There is a severe storm! Lose "+randDay+" days";
 		var i;
@@ -1212,7 +1213,10 @@ function travelTrail() {
 	randMsg = "";
     day++;
 	eatFood();
-	changeWeather();
+	//No clothing and bad weather
+	if(gameStatus[WEATHER] == COLD || gameStatus[WEATHER] == VERYRAINY){
+		if(supplies[CLOTHING] < 5) reduceTeamHP(2*(5-supplies[CLOTHING]));
+	}
     if (gameStatus[PACE] == STEADY) {
         totalTraveled += 20;
         tempTraveled += 20;
@@ -1239,7 +1243,7 @@ function travelTrail() {
 	//For injured and dying oxen
 	else{
 		var rand = 7;
-		var heal = 3;
+		var heal = 5;
 		if(job == "Cowboy") {rand++; heal--;}
 		if(Math.floor(Math.random() * (heal)) == 0) oxenInjured = 0;
 		if(Math.floor(Math.random() * (rand)) == 0){
@@ -1247,6 +1251,7 @@ function travelTrail() {
 			else {oxenInjured = 1; randMsg = "One of your oxen is injured!"}
 		}
 	}
+	changeWeather();
 	//Check if they lost
 	if(numCharacters == 0) lostGame();
     else if (tempTraveled >= distance[0]) {
