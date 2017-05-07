@@ -1208,7 +1208,7 @@ function checkMove(){
 }
 
 function travelTrail() {
-	if(!checkMove()){ mainGame(); return;}
+	//if(!checkMove()){ mainGame(); return;}
 	randMsg = "";
     day++;
 	eatFood();
@@ -1266,36 +1266,41 @@ function travelTrail() {
     else if (!gameDone) mainGame();
 }
 
-function walkAnimation(){
+function walk(){
 	$(document).ready(function(){
-		var f = 0;
-		if(gameStatus[PACE] == STEADY) pace == 2;
-		else if (gameStatus[PACE] == STRENUOUS) pace == 1;
-		else if (gameStatus[PACE] == GRUELING) pace == .5;
-		var pace = .5;
-		var id = setInterval(frame, 5);
-		function frame() {
-			if (f == 0){
-				$("#ok").attr("src", "Frame1.png");
-			}
-			else if (f == (50 * pace)){
-				$("#ok").attr("src", "Frame2.png");
-			}
-			else if (f == (100 * pace)){
-				$("#ok").attr("src", "Frame1.png");
-			}
-			else if (f == (150 * pace)){
-				$("#ok").attr("src", "Frame4.png");
-			}
-			if (f == 550) {
-				clearInterval(id);
-			} 
-			else {
-				f ++;
-				if(f == (200*pace))
-					f = 0;
-			}
+	if(!checkMove()){ mainGame(); return;}
+	document.getElementById("msg").innerHTML = "";
+	var f = 0;
+	var pace = .5;
+	if(gameStatus[PACE] == STEADY)
+		pace == 2;
+	else if (gameStatus[PACE] == STRENUOUS)
+		pace == 1;
+	else if (gameStatus[PACE] == GRUELING)
+		pace == .5;
+	var id = setInterval(frame, 5);
+    function frame() {
+		if (f == 0 || f == 200* pace){
+			$("#ok").attr("src", "Frame1.png");
 		}
+		else if (f == (50 * pace) || f == (250 * pace)){
+			$("#ok").attr("src", "Frame2.png");
+		}
+		else if (f == (100 * pace)|| f == (300 * pace)){
+			$("#ok").attr("src", "Frame1.png");
+		}
+		else if (f == (150 * pace)|| f == (350 * pace)){
+			$("#ok").attr("src", "Frame4.png");
+		}
+        if (f == 400) {
+			$("#ok").attr("src", "Frame1.png");
+            clearInterval(id);
+			travelTrail();
+        } 
+		else {
+			f ++;
+        }
+    }
 	});
 }
 
@@ -1312,14 +1317,15 @@ function mainGame() {
 			Next Landmark: " + (distance[0] - tempTraveled) + "<br>\
 			Miles Traveled: " + totalTraveled + "</p>\
 			" + spaceTxt + "\
-			<div id='walking'><img src='mountain.JPG' id = 'col' alt='Mountain View' style='width:50%; height:50%; left:25%; position:absolute; background-color: black;'>\
-			<img src='Frame1.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:4%; left: 40%;' alt='Mountain View'><div>";
+			<div id='walking'><img src='mountain.JPG' id = 'col' alt='Mountain View' style='width:900px; height:500px; left:50%; margin-left: -450; position:absolute; background-color: black;'>\
+			<img src='Frame1.png' id='ok' style = 'position:absolute; width: 300px; length: 300px; left: 50%; margin-left:-150px; margin-top:250px' alt='Mountain View'><div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
 			$("#checkOptions").unbind();
             $(this).unbind();
-            travelTrail();
+            //travelTrail();
+			walk();
         }
     });
     $("#checkOptions").click(function () {
