@@ -75,6 +75,7 @@ var tempParts = [0, 0, 0];
 var gameStatus = [0, 0, 0, 0];
 var riverWidth = 0;
 var riverDepth = 0;
+var riverChange = 2;
 var job;
 var score = 0;
 var month = 2;
@@ -704,8 +705,7 @@ function ford(){
                 $("#ok").delay(3000).animate({right: '10%'},10000,function(){mainGame();});
             }
         });
-		riverDepth = 0;
-		riverWidth = 0;
+		riverDepth = 0; riverWidth = 0; ferryWait = 0; riverChange = 2;
 }
 
 function fishResults(){
@@ -766,9 +766,7 @@ function ferryFinish(){
 		changeWeather();
 		var i;
 		for(i = 0; i < ferryWait; i++) eatFood();
-		ferryWait = 0;
-		riverDepth = 0;
-		riverWidth = 0;
+		ferryWait = 0; riverDepth = 0; riverWidth = 0; riverChange = 2;
 	}
 	$(document).keypress(function(e){
 		if(e.keyCode == SPACEBAR){
@@ -784,6 +782,17 @@ function ferry(){
 	if(ferryWait == 0) ferryWait = Math.floor(Math.random() * (5)) + 1;
 	document.getElementsByClassName("container")[0].innerHTML = "<p>The ferry can take you across the river safely. It will cost $5, and you will have to wait for "+ferryWait+" days.<br>\
 																Do you want to take the ferry?</p> <button onclick='ferryFinish()' class='button'><span>Yes</span></button><br><button onclick='riverOptions()' class='button'><span>No</span></button>";
+}
+
+function riverWait(){
+	document.getElementsByClassName("container")[0].innerHTML = "<p>You camp near the river for a day.</p>" + spaceTxt;
+	eatFood(); changeWeather();
+	if(numCharacters == 0){lostGame(); return;}
+	if(gameStatus[WEATHER] == RAINY || gameStatus[WEATHER] == VERYRAINY){if(riverChange < 4) {Math.round((riverDepth += .2) * 10) / 10; Math.round((riverChange += .2) * 10) / 10;}}
+	else{if(riverChange > 0){Math.round((riverDepth -= .2) * 10) / 10; Math.round((riverChange -= .2) * 10) / 10;}}
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){$(this).unbind(); riverOptions();}
+	});
 }
 
 function setRiver(){
@@ -805,7 +814,7 @@ function riverOptions(){
 			<button class='button' onclick='ford()'><span>Ford the River</span></button><br>\
 			<button class='button' onclick=''><span>Float the Wagon</span></button><br>\
 			<button class='button' onclick='ferry()'><span>Take a Ferry</span></button><br>\
-			<button class='button' onclick=''><span>Wait</span></button><br>\
+			<button class='button' onclick='riverWait()'><span>Wait</span></button><br>\
 			<button class='button' onclick=''><span>Get Information</span></button></p>";
 			
 	$(document).keypress(function(e){
@@ -950,9 +959,12 @@ function talk(){
 	Her waters travel all the way to Oregon! We'll be crossing her soon,<br>and then again after Fort Boise. Take care at the crossing!\"";
 	else if(currLocation == "Fort Boise") t = "<p>A trader with 6 mules tells you:<br>\"You'll not get yer wagon over them Blue Mountains, mister. Leave it!<br>\
 	Cross yer goods over with pack animals. Get yerself a couple of good mules.<br>Pieces of wagons litter the trail -- left by them folks who don't heed good advice!\"";
-	else if(currLocation == "Blue Mountains") t = "<p>";
-	else if(currLocation == "Fort Walla Walla") t = "<p>";
-	else if(currLocation == "The Dalles") t = "<p>";
+	else if(currLocation == "Blue Mountains") t = "<p>Jacob Hofsteader tells you:<br>\"This valley of the Grande Ronde is the most beautiful sight in months.<br>\
+	Water and graze in abundance! And if this valley is so fine,<br>the Willamette must be twice as fine! We'll be sittin' pretty in our new homestead!\"";
+	else if(currLocation == "Fort Walla Walla") t = "<p>A Cayuse Indian tells you:<br>\"You ask about the Whitman massacre. I ask you why Doctor Whitman's<br>\
+	medicine did not cure my people's children? Many caught measles from the strangers.<br>Why did the medicine poison our children and cure the children of white people?\"";
+	else if(currLocation == "The Dalles") t = "<p>A mountain man tells you:<br>\"These last hundred miles to Willamette are the roughest -- either rafting down<br>\
+	the swift and turbulent Columbia River or driving your wagon over<br>the steep Cascade Mountains. Hire an Indian guide if you take the river.\"";
 	t += "</p>" + spaceTxt;
 	document.getElementsByClassName("container")[0].innerHTML = t;
 	$(document).keypress(function(e){
@@ -1012,6 +1024,7 @@ function locationInfo() {
 }
 
 function stopLocation() {
+	if(numCharacters == 0){lostGame(); return;}
     var t = "<p><label>"+randMsg+"</label><br>You have reached " + currLocation + ".<br> Do you want to look around?</p>\
 			<button class='button' onclick='locationInfo()'><span>Yes</span></button>&nbsp<button class='button' onclick=''><span>No</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
@@ -1114,7 +1127,7 @@ function changeWeather(){
 }
 
 function randomEvent(){
-	var rand = 5;
+	var rand = 6;
 	if(gameStatus[WEATHER] == RAINY) rand++;
 	else if(gameStatus[WEATHER] == VERYRAINY) rand += 2;
 	var num = Math.floor(Math.random() * (rand));
@@ -1126,12 +1139,12 @@ function randomEvent(){
 	}
 	else if(num == 1){
 		var tempMsg = "";
-		var diseases = ["Typhoid Fever", "Cholera", "Dysentery", "Measles", "Diphtheria", "a fever", "a broken arm", "a broken leg"];
+		var diseases = ["Typhoid Fever", "Cholera", "Dysentery", "Measles", "Diphtheria", "exhaustion", "a fever", "a broken arm", "a broken leg"];
 		var tempIndicies = [];
 		for(i = 0; i < hp.length; i++) {if(hp[i] > 0) tempIndicies.push(i);}
 		var randIndex = Math.floor(Math.random() * (tempIndicies.length));
 		if(hp[tempIndicies[randIndex]] < 40 || Math.floor(Math.random() * (2)) == 1){
-			tempMsg += characters[tempIndicies[randIndex]] + " has " + diseases[Math.floor(Math.random() * (7))] + ".";
+			tempMsg += characters[tempIndicies[randIndex]] + " has " + diseases[Math.floor(Math.random() * (9))] + ".";
 			reduceCharHP(tempIndicies[randIndex], 25);
 		}
 
@@ -1174,7 +1187,8 @@ function randomEvent(){
 		else if(randPart == TONGUE){parts[TONGUE]++; supplies[PARTS]++; randMsg += ". It has a spare tongue.";}
 		else randMsg += ", but it is empty.";
 	}
-	else if(num == 5 || num == 6){
+	else if(num == 5){randMsg = "You find wild fruit."; supplies[FOOD] += 50;}
+	else if(num == 6 || num == 7){
 		randDay = Math.floor(Math.random() * (3)) + 1;
 		randMsg = "There is a severe storm! Lose "+randDay+" days";
 		var i;
@@ -1241,6 +1255,7 @@ function travelTrail() {
 }
 
 function mainGame() {
+	if(numCharacters == 0){lostGame(); return;}
 	setDate();
 	setHealth();
     var t = "<p id='msg'>"+randMsg+"</p>\
