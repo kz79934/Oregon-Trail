@@ -1137,7 +1137,7 @@ function randomEvent(){
 		eatFood();
 		day++;
 	}
-	else if(num == 1){
+	else if(num == 1 || gameStatus[HEALTH] == VERYPOOR){
 		var tempMsg = "";
 		var diseases = ["Typhoid Fever", "Cholera", "Dysentery", "Measles", "Diphtheria", "exhaustion", "a fever", "a broken arm", "a broken leg"];
 		var tempIndicies = [];
@@ -1283,9 +1283,12 @@ function mainGame() {
 }
 
 function lostGame(){
-	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU LOSE FUCKER!!!</h1>";
+	//Store totalTraveled in the database with the player's name and his tombstone msg that comes from user input, the leaders name is at characters[0]
+	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU LOSE FUCKER!!!</h1> <input type='text' val=''></input><br><button class='button'>Submit</button>";
 }
 
 function endGame() {
-    document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU WIN FUCKER!!!</h1>";
+	var i;
+	for(i = 0; i < supplies.length; i++) score += supplies[i];
+    document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU WIN FUCKER!!!</h1> <p>Your score: "+score+"</p> <input type='text' val=''></input><br><button class='button'>Submit</button>";
 }
