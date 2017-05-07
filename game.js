@@ -1266,6 +1266,39 @@ function travelTrail() {
     else if (!gameDone) mainGame();
 }
 
+function walkAnimation(){
+	$(document).ready(function(){
+		var f = 0;
+		if(gameStatus[PACE] == STEADY) pace == 2;
+		else if (gameStatus[PACE] == STRENUOUS) pace == 1;
+		else if (gameStatus[PACE] == GRUELING) pace == .5;
+		var pace = .5;
+		var id = setInterval(frame, 5);
+		function frame() {
+			if (f == 0){
+				$("#ok").attr("src", "Frame1.png");
+			}
+			else if (f == (50 * pace)){
+				$("#ok").attr("src", "Frame2.png");
+			}
+			else if (f == (100 * pace)){
+				$("#ok").attr("src", "Frame1.png");
+			}
+			else if (f == (150 * pace)){
+				$("#ok").attr("src", "Frame4.png");
+			}
+			if (f == 550) {
+				clearInterval(id);
+			} 
+			else {
+				f ++;
+				if(f == (200*pace))
+					f = 0;
+			}
+		}
+	});
+}
+
 function mainGame() {
 	if(numCharacters == 0){lostGame(); return;}
 	setDate();
@@ -1278,7 +1311,9 @@ function mainGame() {
 			Food: " + supplies[FOOD] + " pounds<br>\
 			Next Landmark: " + (distance[0] - tempTraveled) + "<br>\
 			Miles Traveled: " + totalTraveled + "</p>\
-			" + spaceTxt;
+			" + spaceTxt + "\
+			<div id='walking'><img src='mountain.JPG' id = 'col' alt='Mountain View' style='width:50%; height:50%; position:absolute; top:50%, left:50% background-color: black;'>\
+			<img src='Frame1.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:4%; left: 20%;' alt='Mountain View'><div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
