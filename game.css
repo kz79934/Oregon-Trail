@@ -1,5 +1,5 @@
-h1,h2{
-    color: aliceblue;
+h1,h2,h3{
+    color: white;
     text-align: center;
     line-height: 1;
     font-size: 50px;
@@ -11,6 +11,11 @@ h4{
     text-align: center;
     font-family: courier;
     font-size: 20px;
+    position: relative;
+    bottom: 20px;
+    border-bottom: 6px solid red;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 body {
@@ -222,22 +227,13 @@ ol.b{
     width: 17em
 }
 
-h2{
+h3{
     color:white;
     position: relative;
     top: 10px;
     border-top: 6px solid red;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-}
-
-h4{
-    color:white;
-    position: relative;
-    bottom: 20px;
-    border-bottom: 6px solid red;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
 
 P.blocktext {
