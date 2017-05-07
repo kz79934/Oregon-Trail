@@ -92,6 +92,7 @@ var currType = TOWN;
 var randMsg = "";
 var ferryWait = 0;
 var brokenPart = 3;
+var oxenInjured = 0;
 var soundOn = 1;
 var gameDone = 0;
 welcome();
@@ -840,7 +841,7 @@ function rest(){
 			setDate();
 			changeWeather();
 			var i;
-			for(i = 0; i < daysInput; i++) {eatFood(); addTeamHP(5);}
+			for(i = 0; i < daysInput; i++) {eatFood(); addTeamHP(5); if(oxenInjured && Math.floor(Math.random() * (2)) == 0) oxenInjured = 0;}
 			locationInfo();
 		});	
 }
@@ -1233,6 +1234,17 @@ function travelTrail() {
 		if(brokenPart < 3){
 			if(parts[brokenPart] > 0) {parts[brokenPart]--; supplies[PARTS]--; brokenPart = 3; randMsg += "<br>You replace it with a spare part.";}
 			else randMsg+= "<br>You have no spare parts to replace it!";
+		}
+	}
+	//For injured and dying oxen
+	else{
+		var rand = 7;
+		var heal = 3;
+		if(job == "Cowboy") {rand++; heal--;}
+		if(Math.floor(Math.random() * (heal)) == 0) oxenInjured = 0;
+		if(Math.floor(Math.random() * (rand)) == 0){
+			if(oxenInjured) {randMsg = "One of your oxen has died!"; supplies[OXEN]--; oxenInjured = 0;}
+			else {oxenInjured = 1; randMsg = "One of your oxen is injured!"}
 		}
 	}
 	//Check if they lost
