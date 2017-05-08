@@ -1324,8 +1324,8 @@ function mainGame() {
 			Next Landmark: " + (distance[0] - tempTraveled) + "<br>\
 			Miles Traveled: " + totalTraveled + "</p>\
 			" + spaceTxt + "\
-			<div id='walking'><img src='mountain.JPG' id = 'col' alt='Mountain View' style='width:900px; height:500px; left:50%; margin-left: -450; position:absolute; background-color: black;'>\
-			<img src='Frame1.png' id='ok' style = 'position:absolute; width: 300px; length: 300px; left: 50%; margin-left:-150px; margin-top:250px' alt='Mountain View'><div>";
+			<div id='walking'><img src='mountain.JPG' id = 'col' alt='Mountain View' style='width:700px; height:400px; left:50%; margin-left: -350; position:absolute; background-color: black;'>\
+			<img src='Frame1.png' id='ok' style = 'position:absolute; width: 180px; length: 180px; left: 50%; margin-left:-90px; margin-top:250px' alt='Mountain View'><div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
