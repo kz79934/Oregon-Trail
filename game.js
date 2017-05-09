@@ -165,7 +165,7 @@ function displayOcc(occupation) {
 		document.getElementById("info7").innerHTML ="";
     }
     else if (occupation == "Fisher") {
-        document.getElementById("info4").innerHTML = "<p>You start with an average amount of money but have a better chance at catching fish.</p>";
+        document.getElementById("info4").innerHTML = "<p>You start with an average amount of money but get a better reward when fishing.</p>";
         supplies[MONEY] = 600.00;
 		
 		document.getElementById("info1").innerHTML ="";
@@ -944,17 +944,20 @@ function catchfish(){
 				if(id == "clicktarget"){
 					$("#clicktarget").hide();
 					smallfish++;
-					supplies[FOOD] += 3;
+					if(job == "Fisher") supplies[FOOD] += 5;
+					else supplies[FOOD] += 3;
 				}	
 				else if(id == "clicktarget1"){
 					$("#clicktarget1").hide();
 					mediumfish++;
-					supplies[FOOD] += 5;
+					if(job == "Fisher") supplies[FOOD] += 8;
+					else supplies[FOOD] += 5;
 				}
 				else{
 					$("#clicktarget2").hide();
 					largefish++;
-					supplies[FOOD] += 10;
+					if(job == "Fisher") supplies[FOOD] += 15;
+					else supplies[FOOD] += 10;
 				}
 			
 				fishcount++;
