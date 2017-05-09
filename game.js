@@ -710,7 +710,7 @@ function ford(){
         });
 		riverDepth = 0; riverWidth = 0; ferryWait = 0; riverChange = 2;
 }
-
+/*
 function fishResults(){
 	document.getElementsByClassName("container")[0].innerHTML = "<p>You were able to get "+(supplies[FOOD]-tempSupplies[FOOD])+" pounds of food from fishing." + spaceTxt + "</p>";
 	$(document).keypress(function(e){
@@ -745,15 +745,239 @@ function castLine(){
 		document.getElementById("contFish").setAttribute("onclick", "castLine()"); document.getElementById("stopFish").setAttribute("onclick", "fishResults()");
 	}, 4000);
 }
+*/
+function fishResults(){
+	document.getElementsByClassName("container")[0].innerHTML = "<p>You were able to get "+(supplies[FOOD]-tempSupplies[FOOD])+" pounds of food from fishing." + spaceTxt + "</p>";
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			locationInfo();
+		}
+	});
+}
 
 function fish(){
 	tempSupplies[FOOD] = supplies[FOOD];
 	var t = "<p>Amount of bait left: <span id='baitAmt'>"+supplies[BAIT]+"</span><br>\
 			<label id='fishMsg'></label></p>\
-			<button onclick='castLine()' id='contFish' class='button'><span>Attempt to Fish</span></button><br>\
+			<button onclick='catchfish()' id='contFish' class='button'><span>Attempt to Fish</span></button><br>\
 			<button onclick='fishResults()' id='stopFish' class='button'><span>Stop Fishing</span></button>"
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
+
+function catchfish(){
+	var animate, fish = 0, left=0, imgObj=null;
+	var right=1819, imbObj1=null;
+	var right2=150, imbObj2=null;
+
+	var fishcount = 0;
+	var smallfish = 0, mediumfish = 0, largefish = 0;
+	var fishtime;
+	
+	var t ="<style>\
+			.droptarget {\
+				float: left; \
+				width: 97%; \
+				height: 650px;\
+				margin: 15px;\
+				padding: 10px;\
+			   // border: 1px solid #aaaaaa;\
+				background: url(fishbackground.png);\
+				background-repeat: no-repeat;\
+				background-size: 100%;\
+			}\
+			#basket{\
+				margin:0% 50%;\
+				height:120px;\
+				width:120px;\
+				//border: 1px solid #aaaaaa;\
+			}\
+			#clicktarget{\
+				height: 90px;\
+				width: 90px;\
+			}\
+			#clicktarget1{\
+				height: 90px;\
+				width: 90px;\
+			}	\
+			#clicktarget2{\
+				height: 90px;\
+				width: 90px;\
+			}	\
+			#fishbasket{\
+				height: 100%;\
+				width: 100%;\
+			}	\
+			p{\
+				color: yellow;\
+			}\
+			</style>\
+			<p id='fishcount'></p>\
+			<p id='fishsort'></p>\
+			<p id='fishsupply'></p>\
+			<p id='timer'></p>\
+				<div class='droptarget'>\
+				<div id='basket' >\
+					<img id='fishbasket' src='fishbasket.png'>\
+				</div>\
+				  <img id='clicktarget' src='fish1.gif'>\
+				  <img id='clicktarget1' src='fish2.gif'>\
+				  <img id='clicktarget2' src='fish3.gif'>\
+			</div>\
+			<button onclick='fishResults()' id='stopFish2' class='button'><span>Stop Fishing</span></button>";
+	document.getElementsByClassName("container")[0].innerHTML = t;
+				
+				
+	document.getElementsByTagName("body")[0].style.cursor = "url('http://userpages.umbc.edu/~mmilbo1/cursor.cur'), auto";
+
+	var timeLeft = 15;
+	var elem = document.getElementById('timer');
+
+	var timerId = setInterval(countdown, 1000);
+
+	function countdown() {
+		if (timeLeft == 0) {
+			clearTimeout(timerId);
+			fishResults();
+		} 
+		else {
+			document.getElementById('timer').innerHTML ="Time Remaining: " + timeLeft + " seconds";
+			timeLeft--;
+		}
+	}
+	
+	initfish();
+	
+	function initfish(){
+		
+		if(supplies[BAIT] == 0){
+			alert("You do not have any bait to fish");
+			fishResults();
+		}
+		
+	   $("#clicktarget").show();
+	   imgObj = document.getElementById('clicktarget');
+	   imgObj.style.position= 'absolute';
+	   imgObj.style.top = (Math.floor(Math.random()*(650-250+1)+250) +'px');
+	   imgObj.style.left = '0px';
+	   imgObj.style.visibility='hidden';
+
+	   $("#clicktarget1").show();
+	   imgObj1 = document.getElementById('clicktarget1');
+	   imgObj1.style.position= 'absolute';
+	   imgObj1.style.top = (Math.floor(Math.random()*(650-250+1)+250) +'px');
+	   imgObj1.style.left = '1819px';
+	   imgObj1.style.visibility='hidden';
+	   
+	   $("#clicktarget2").show();
+	   imgObj2 = document.getElementById('clicktarget2');
+	   imgObj2.style.position= 'absolute';
+	   imgObj2.style.top = (Math.floor(Math.random()*(650-250+1)+250) +'px');
+	   imgObj2.style.left = '1819px';
+	   imgObj2.style.visibility='hidden';
+	   
+	   movefish();
+	}
+	
+	function movefish(){
+		left = parseInt(imgObj.style.left, 10);
+		right = parseInt(imgObj1.style.left, 10);
+		right2 = parseInt(imgObj2.style.left, 10);
+		//console.log(right);
+		if (1819>= left) {
+
+			imgObj.style.left = (left + 5) + 'px';
+			imgObj.style.visibility='visible';
+			
+			imgObj1.style.left = (right - 5) + 'px';
+			imgObj1.style.visibility='visible';
+			
+			imgObj2.style.left = (right2 - 10) + 'px';
+			imgObj2.style.visibility='visible';
+			
+			animate = setTimeout(function(){movefish();},10); // call movefish  in 20msec
+			
+		}
+		else {
+				if(fish < 9999){
+					console.log("1");
+					left=0, imgObj=null;
+					right=1819, imgObj1=null;
+					right2=1819, imgObj2=null;
+					fish = fish +1;
+					$("#clicktarget").hide();
+					$("#clicktarget1").hide();
+					$("#clicktarget2").hide();
+					initfish();
+				}	
+				else{
+				
+					imgObj.style.visibility='hidden';
+					imgObj1.style.visibility='hidden';
+					imgObj2.style.visibility='hidden';
+					stopfish();
+				}
+		}
+
+	}
+
+	function stopfish(){
+	   clearTimeout(animate);
+	}
+
+	document.getElementById('fishcount').innerHTML ="Number of fish caught: " + fishcount;
+	document.getElementById('fishsort').innerHTML ="Small fish: " + smallfish +"  | Medium fish: " + mediumfish +"  | Large fish: " + largefish;
+	document.getElementById('fishsupply').innerHTML ="Amount of bait left: " + supplies[BAIT];
+	document.getElementById('timer').innerHTML ="Time Remaining: " + timeLeft + " seconds";
+	
+	$(function() {
+		$( "#clicktarget" ).draggable();
+		$( "#clicktarget1" ).draggable();
+		$( "#clicktarget2" ).draggable();
+		
+		$( "#basket" ).droppable({
+		
+			drop: function( event, ui ) {
+			
+				var id = ui.draggable.attr("id");
+				
+				if(id == "clicktarget"){
+					$("#clicktarget").hide();
+					smallfish++;
+					supplies[FOOD] += 3;
+				}	
+				else if(id == "clicktarget1"){
+					$("#clicktarget1").hide();
+					mediumfish++;
+					supplies[FOOD] += 5;
+				}
+				else{
+					$("#clicktarget2").hide();
+					largefish++;
+					supplies[FOOD] += 10;
+				}
+			
+				fishcount++;
+				supplies[BAIT]--;
+				
+
+				document.getElementById('fishcount').innerHTML ="Number of fish caught: " + fishcount;
+				document.getElementById('fishsort').innerHTML ="Small fish: " + smallfish +" Medium fish: " + mediumfish +" Large fish: " + largefish;
+				document.getElementById('fishsupply').innerHTML ="Amount of bait left: " + supplies[BAIT];
+				document.getElementById('timer').innerHTML ="Time Remaining: " + timeLeft + " seconds";
+				
+				if(supplies[BAIT] == 0){
+					fishResults();
+				}
+			}	
+
+		
+		});
+
+	});
+	
+}
+
 
 function ferryAnimation(){
 	var t = "<img src='Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
