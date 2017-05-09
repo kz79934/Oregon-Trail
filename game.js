@@ -1212,15 +1212,19 @@ function leaveTown(){
 	else if(brokenPart == AXLE){alert("You need to replace your broken axle to continue on the trail!"); return;}
 	else if(brokenPart == TONGUE){alert("You need to replace your broken tongue to continue on the trail!"); return;}
 	
-	randMsg = "";
-	currLocation = "";
+
 	if(currType == DIVIDE1) document.getElementsByClassName("container")[0].innerHTML = "<p>There are two different routes to take.<br>Where would you like to go to next?<br><br>\
 																						<button onclick='firstDRoute1()' class='button'><span>Green River crossing</span></button><br>\
 																						<button onclick='firstDRoute2()' class='button'><span>Fort Bridger</span></button></p>";
 	else if(currType == DIVIDE2) document.getElementsByClassName("container")[0].innerHTML = "<p>There are two different routes to take.<br>Where would you like to go to next?<br><br>\
 																						<button onclick='secondDRoute1()' class='button'><span>Fort Walla Walla</span></button><br>\
 																						<button onclick='secondDRoute2()' class='button'><span>The Dalles</span></button></p>";
+	else if(currLocation == "The Dalles") document.getElementsByClassName("container")[0].innerHTML = "<p>There are two different routes to take.<br>Where would you like to go to next?<br><br>\
+																						<button onclick='columRiver()' class='button'><span>The Columbia River</span></button><br>\
+																						<button onclick='mainGame()' class='button'><span>The Barlow Road</span></button></p>";
 	else{mainGame();}
+	randMsg = "";
+	currLocation = "";
 }
 
 function locationInfo() {
