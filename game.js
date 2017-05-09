@@ -747,6 +747,7 @@ function castLine(){
 }
 */
 function fishResults(){
+	$('body').css('cursor', 'default');
 	document.getElementsByClassName("container")[0].innerHTML = "<p>You were able to get "+(supplies[FOOD]-tempSupplies[FOOD])+" pounds of food from fishing." + spaceTxt + "</p>";
 	$(document).keypress(function(e){
 		if(e.keyCode == SPACEBAR){
