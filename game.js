@@ -758,6 +758,7 @@ function fishResults(){
 }
 
 function fish(){
+	if(supplies[BAIT] <= 0) {document.getElementsByClassName("container")[0].innerHTML = "<p>You have no bait to fish. You must buy some first.</p> <button onclick='locationInfo()' class='button'><span>Back</span></button>"; return;}
 	tempSupplies[FOOD] = supplies[FOOD];
 	var t = "<p>Amount of bait left: <span id='baitAmt'>"+supplies[BAIT]+"</span><br>\
 			<label id='fishMsg'></label></p>\
