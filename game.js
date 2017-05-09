@@ -1060,7 +1060,7 @@ function riverOptions(){
 function rest(){
 	var daysInput;
 	var t = "<p>How many days would you like to rest?</p>\
-			<input id='restDays' value='' maxlength='1' size='4' onkeypress='return restInput(event)'><br>\
+			<input class='names' type='text' id='restDays' value='' maxlength='1' size='4' placeholder='Number of Days' onkeypress='return restInput(event)'><br>\
 			<button id='rest' class='button'>Submit</button>";
 			
 	document.getElementsByClassName("container")[0].innerHTML = t;
