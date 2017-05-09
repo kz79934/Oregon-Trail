@@ -1476,9 +1476,9 @@ function travelTrail() {
 	}
 	//For injured and dying oxen
 	else{
-		var rand = 7;
+		var rand = 8;
 		var heal = 5;
-		if(job == "Cowboy") {rand++; heal--;}
+		if(job == "Cowboy") {rand+=2; heal-=2;}
 		if(Math.floor(Math.random() * (heal)) == 0) oxenInjured = 0;
 		if(Math.floor(Math.random() * (rand)) == 0){
 			if(oxenInjured) {randMsg = "One of your oxen has died!"; supplies[OXEN]--; oxenInjured = 0;}
