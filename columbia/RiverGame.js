@@ -9,7 +9,7 @@ var r3start = false;//indicates if rock three is in play
 var colom = false;// used of river animation
 var fin = false;//indicates it game is over
 var pos = [0,45,15,60,30,75];//possible rock positions
-var riverHP = 50;
+var riverHP = 12;
 var hit = new Audio("columbia/hit.WAV");//damage sound fx
 var river = new Audio("columbia/river.mp3");//background music
 
@@ -112,8 +112,10 @@ function check2(){
 			$("#ok").animate({opacity: '.5'},100,function(){$("#ok").animate({opacity: '1'},100);});
 			hit.play();
 			riverHP--;
-			if(riverHP == 0)
-				alert("dead");//replace with endgame();
+			if(riverHP == 0){
+				river.pause();
+				riverFail();
+			}
 		}
 	}
 }
@@ -261,11 +263,30 @@ function finish(){
 		else{
 			river.pause();
 			$("#ok").css("opacity", "0");
-			//exit game function
+			riverWin();
 		}
 	});
 }
 
+function riverFail(){
+	document.getElementsByClassName("container")[0].innerHTML = "<p>Your wagon got completely destoryed while floating down the Columbia River!<br> Everyone died and all supplies were lost!</p>" + spaceTxt;
+	$(document).keypress(function (e) {
+        if (e.keyCode == SPACEBAR) {
+            $(this).unbind();
+            lostGame();
+        }
+    });
+}
+
+function riverWin(){
+	document.getElementsByClassName("container")[0].innerHTML = "<h2>Congratulations!</h2><p>You successfully made it across the Columbia River!</p>" + spaceTxt;
+	$(document).keypress(function (e) {
+        if (e.keyCode == SPACEBAR) {
+            $(this).unbind();
+            endGame();
+        }
+    });
+}
 
 	
 
