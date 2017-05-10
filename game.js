@@ -693,23 +693,96 @@ function buySupplies(){
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
+function riverLoss(){
+	var msg = "You were unable to cross the river! What you lost:";
+	if(gameStatus[HEALTH] == POOR || gameStatus[HEALTH] == POOR || Math.floor(Math.random() * 2) == 0){
+		var tempIndicies = [];
+		var i;
+		for(i = 0; i < hp.length; i++){if(hp[i] > 0) tempIndicies.push(i);}
+		var charIndex = tempIndicies[Math.floor(Math.random() * (tempIndicies.length))];
+		hp[charIndex] = 0;
+		numCharacters--;
+		msg += "\n" + characters[charIndex] + " (drowned)";
+	}
+	if(supplies[OXEN] > 0){supplies[OXEN]--; msg += "\n1 ox";}
+	var lostPart = Math.floor(Math.random() * 3);
+	var partStr
+	if(lostPart == WHEEL) partStr = "wheel";
+	else if(lostPart == AXLE) partStr = "axle";
+	else if(lostPart == TONGUE) partStr = "tongue";
+	if(parts[lostPart] > 0){parts[lostPart]--; supplies[PARTS]--; msg += "\n1 wagon " + partStr;}
+	if(Math.floor(Math.random() * 2) == 0 && supplies[FOOD] > 0){
+		var foodLoss = Math.floor(Math.random() * 100) + 101;
+		if(foodLoss > supplies[FOOD]) foodLoss = supplies[FOOD];
+		supplies[FOOD] -= foodLoss;
+		msg += "\n" + foodLoss + " pounds of food";
+	}
+	else if(Math.floor(Math.random() * 2) == 0 && supplies[BAIT] > 0){
+		var baitLoss = Math.floor(Math.random() * 100) + 51;
+		if(baitLoss > supplies[BAIT]) baitLoss = supplies[BAIT];
+		supplies[BAIT] -= baitLoss;
+		msg += "\n" + baitLoss + " bait";
+	}
+	else if(Math.floor(Math.random() * 2) == 0 && supplies[CLOTHING] > 0){
+		var clothingLoss = Math.floor(Math.random() * 4) + 2;
+		if(clothingLoss > supplies[CLOTHING]) clothingLoss = supplies[CLOTHING];
+		supplies[CLOTHING] -= clothingLoss;
+		msg += "\n" + clothingLoss + " sets of clothing";
+	}
+	return msg;
+}
+
 function ford(){
 		currLocation = "";
         var t = "<img src='image/Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
         <img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
         document.getElementsByClassName("container")[0].innerHTML = t;
         var death = 10;
+		var cross;
+		if(riverDepth < 4) cross = 10;
+		else if(riverDepth < 5) cross = 8;
+		else if(riverDepth < 6) cross = 5;
+		else if(riverDepth < 7) cross = 3;
+		else cross = 0;
+		var msg;
         $(document).ready(function(){
 			death = (Math.floor(Math.random()*10));
-            if(death < 8)
-                $("#ok").animate({right: '10%'},10000,function(){alert("You made it across perfectly fine!"); tempTraveled++; totalTraveled++; mainGame();});
-            else{
-                $("#ok").animate({right: '600px'},5000,function(){$("#ok").attr("src", "image/Capsize.png"); tempTraveled++; totalTraveled++; alert("You capsized!");});//add who dies and what supplies are lost here
+            if(death < cross){
+				if(Math.floor(Math.random()*2) == 0) msg = "You made it across perfectly fine!";
+				else {msg = "Your supplies got wet. Lose 1 day."; day++; changeWeather(); eatFood();}
+                $("#ok").animate({right: '10%'},10000,function(){alert(msg); tempTraveled++; totalTraveled++; mainGame();});
+            }
+			else{
+				msg = riverLoss();
+                $("#ok").animate({right: '600px'},5000,function(){$("#ok").attr("src", "image/Capsize.png"); tempTraveled++; totalTraveled++; alert(msg);});//add who dies and what supplies are lost here
                 $("#ok").delay(3000).animate({right: '10%'},10000,function(){mainGame();});
             }
         });
 		riverDepth = 0; riverWidth = 0; ferryWait = 0; riverChange = 2;
 }
+
+function floatWagon(){
+	currLocation = "";
+        var t = "<img src='image/Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
+        <img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
+        document.getElementsByClassName("container")[0].innerHTML = t;
+        var death = 10;
+		var msg;
+        $(document).ready(function(){
+			death = (Math.floor(Math.random()*10));
+            if(death < 6){
+				msg = "You made it across perfectly fine!";
+                $("#ok").animate({right: '10%'},10000,function(){alert(msg); tempTraveled++; totalTraveled++; mainGame();});
+            }
+			else{
+				msg = riverLoss();
+                $("#ok").animate({right: '600px'},5000,function(){$("#ok").attr("src", "image/Capsize.png"); tempTraveled++; totalTraveled++; alert(msg);});//add who dies and what supplies are lost here
+                $("#ok").delay(3000).animate({right: '10%'},10000,function(){mainGame();});
+            }
+        });
+		riverDepth = 0; riverWidth = 0; ferryWait = 0; riverChange = 2;
+}
+
 /*
 function fishResults(){
 	document.getElementsByClassName("container")[0].innerHTML = "<p>You were able to get "+(supplies[FOOD]-tempSupplies[FOOD])+" pounds of food from fishing." + spaceTxt + "</p>";
@@ -1044,7 +1117,7 @@ function riverOptions(){
 			River width: "+riverWidth+" feet <br>River depth: "+riverDepth+" feet<br>\
 			You may: <br><br>\
 			<button class='button' onclick='ford()'><span>Ford the River</span></button><br>\
-			<button class='button' onclick=''><span>Float the Wagon</span></button><br>\
+			<button class='button' onclick='floatWagon()'><span>Float the Wagon</span></button><br>\
 			<button class='button' onclick='ferry()'><span>Take a Ferry</span></button><br>\
 			<button class='button' onclick='riverWait()'><span>Wait</span></button><br>\
 			<button class='button' onclick=''><span>Get Information</span></button></p>";
