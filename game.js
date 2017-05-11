@@ -1339,18 +1339,34 @@ function displayLocation(){
 	else if(currLocation == "Big Blue River crossing") locImg = "image/locations/Big_Blue_River.PNG";
 	else if(currLocation == "Fort Kearney") locImg = "image/locations/Fort_Kearney.PNG"
 	else if(currLocation == "Chimney Rock") locImg = "image/locations/Chimney_Rock.JPG"
-	else if(currLocation == "Fort Laramie") locImg = "";
-	else if(currLocation == "Independence Rock") locImg = "";
+	else if(currLocation == "Fort Laramie") locImg = "image/locations/Fort_Laramie.JPG";
+	else if(currLocation == "Independence Rock") locImg = "image/locations/Independence_Rock.PNG";
 	else if(currLocation == "South Pass") locImg = "image/locations/South_Pass.JPG";
+	else if(currLocation == "Fort Bridger") locImg = "image/locations/Fort_Bridger.JPG";
+	else if(currLocation == "Green River crossing") locImg = "image/locations/Green_River.PNG";
+	else if(currLocation == "Soda Springs") locImg = "image/locations/Soda_Springs.JPG";
+	else if(currLocation == "Snake River crossing") locImg = "image/locations/Snake_River.JPG";
+	else if(currLocation == "Fort Boise") locImg = "image/locations/Fort_Boise.JPG";
+	else if(currLocation == "Blue Mountains") locImg = "image/locations/Blue_Mountains.JPG";
+	else if(currLocation == "Fort Walla Walla") locImg = "image/locations/Fort_Walla_Walla.JPG";
+	else if(currLocation == "The Dalles") locImg = "image/locations/The_Dalles.JPG";
+	else if(currLocation == "Willamette Valley") locImg = "image/locations/Willamette_Valley.PNG";
 	var t = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>\
-			<img src='"+locImg+"' style='width:700px; height:400px; left:50%; margin-left: -350; position:absolute; background-color: black'></img>";
+			"+spaceTxt+"<img src='"+locImg+"' style='width:700px; height:400px; left:50%; margin-left: -350; position:absolute; background-color: black'></img>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			if(currLocation == "Willamette Valley") endGame();
+			else locationInfo();
+		}
+	});
 }
 
 function stopLocation() {
 	if(numCharacters == 0){lostGame(); return;}
     var t = "<p><label>"+randMsg+"</label><br>You have reached " + currLocation + ".<br> Do you want to look around?</p>\
-			<button class='button' onclick='locationInfo()'><span>Yes</span></button>&nbsp<button class='button' onclick=''><span>No</span></button>";
+			<button class='button' onclick='displayLocation()'><span>Yes</span></button>&nbsp<button class='button' onclick=''><span>No</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
 	if(currType == RIVER) document.getElementsByClassName("button")[1].setAttribute("onclick", "riverOptions()");
 	else document.getElementsByClassName("button")[1].setAttribute("onclick", "leaveTown()");
@@ -1409,7 +1425,7 @@ function eatFood(){
 	if(supplies[FOOD] == 0) reduceTeamHP(10);
 	else{
 		var num;
-		if(gameStatus[RATIONS] == FILLING) num = 3;
+		if(gameStatus[RATIONS] == FILLING) {num = 3; addTeamHP(1);}
 		else if(gameStatus[RATIONS] == MEAGER) {num = 2; reduceTeamHP(2);}
 		else if(gameStatus[RATIONS] == BAREBONES) {num = 1; reduceTeamHP(5);}
 		var pounds = num * numCharacters;
@@ -1579,7 +1595,7 @@ function travelTrail() {
 	if(numCharacters == 0) lostGame();
     else if (tempTraveled >= distance[0]) {
 		//Check if they won
-		if(locType[0] == END){gameDone = 1; endGame();}
+		if(locType[0] == END){gameDone = 1; currLocation = "Willamette Valley"; displayLocation();}
 		else{
 			//Ask if they wish to stop here
 			totalTraveled = totalTraveled - (tempTraveled - distance[0]);

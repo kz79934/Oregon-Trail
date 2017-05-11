@@ -279,11 +279,12 @@ function riverFail(){
 }
 
 function riverWin(){
+	currLocation = "Willamette Valley";
 	document.getElementsByClassName("container")[0].innerHTML = "<h2>Congratulations!</h2><p>You successfully made it across the Columbia River!</p>" + spaceTxt;
 	$(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
             $(this).unbind();
-            endGame();
+            displayLocation();
         }
     });
 }
