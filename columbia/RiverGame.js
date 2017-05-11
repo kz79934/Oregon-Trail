@@ -243,7 +243,7 @@ function rock3(){
 				fin = true;
 				var finMsg;
 				if(riverHP < 12) finMsg = "You completed the river but took some damages!\n" + riverLoss(1);
-				else finMsg = "You flawlessly navigated the river!"
+				else finMsg = "You flawlessly navigated the river!";
 				alert(finMsg);
 				finish();
 			}
