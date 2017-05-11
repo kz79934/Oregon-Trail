@@ -1186,15 +1186,15 @@ function trade(){
 			if(i == 1){
 				if(rand[1] == rand[0]){if(rand[1] == 5) rand[1]--; else rand[1]++;}
 			}
-			if(rand[i] == FOOD) {tradeAmt[i] = 100; tradeItem[i] = "pounds of food";}
-			else if(rand[i] == BAIT) {tradeAmt[i] = 200; tradeItem[i] = "bait";}
-			else if(rand[i] == OXEN) {tradeAmt[i] = 1; tradeItem[i] = "ox";}
-			else if(rand[i] == CLOTHING) {tradeAmt[i] = 2; tradeItem[i] = "sets of clothing";}
+			if(rand[i] == FOOD) {tradeAmt[i] = 100; tradeItem[i] = "pounds of food"; if(i == 0 && job == "Merchant") tradeAmt[i] += 50;}
+			else if(rand[i] == BAIT) {tradeAmt[i] = 200; tradeItem[i] = "bait"; if(i == 0 && job == "Merchant") tradeAmt[i] += 100;}
+			else if(rand[i] == OXEN) {tradeAmt[i] = 1; tradeItem[i] = "ox"; if(i == 0 && job == "Merchant") tradeAmt[i]++;}
+			else if(rand[i] == CLOTHING) {tradeAmt[i] = 2; tradeItem[i] = "sets of clothing"; if(i == 0 && job == "Merchant") tradeAmt[i] += 2;}
 			else if(rand[i] == PARTS){
 				randPart[i] = Math.floor(Math.random() * (3))
-				if(randPart[i] == WHEEL) {tradeAmt[i] = 1; tradeItem[i] = "wagon wheel";}
-				else if(randPart[i] == AXLE) {tradeAmt[i] = 1; tradeItem[i] = "wagon axle";}
-				else if(randPart[i] == TONGUE) {tradeAmt[i] = 1; tradeItem[i] = "wagon tongue";}
+				if(randPart[i] == WHEEL) {tradeAmt[i] = 1; tradeItem[i] = "wagon wheel"; if(i == 0 && job == "Merchant") tradeAmt[i]++;}
+				else if(randPart[i] == AXLE) {tradeAmt[i] = 1; tradeItem[i] = "wagon axle"; if(i == 0 && job == "Merchant") tradeAmt[i]++;}
+				else if(randPart[i] == TONGUE) {tradeAmt[i] = 1; tradeItem[i] = "wagon tongue"; if(i == 0 && job == "Merchant") tradeAmt[i]++;}
 			}
 		}
 		//Make sure you have enough to trade
