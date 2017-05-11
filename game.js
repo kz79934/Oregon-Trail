@@ -694,16 +694,19 @@ function buySupplies(){
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
-function riverLoss(){
-	var msg = "You were unable to cross the river! What you lost:";
-	if(gameStatus[HEALTH] == POOR || gameStatus[HEALTH] == POOR || Math.floor(Math.random() * 2) == 0){
-		var tempIndicies = [];
-		var i;
-		for(i = 0; i < hp.length; i++){if(hp[i] > 0) tempIndicies.push(i);}
-		var charIndex = tempIndicies[Math.floor(Math.random() * (tempIndicies.length))];
-		hp[charIndex] = 0;
-		numCharacters--;
-		msg += "\n" + characters[charIndex] + " (drowned)";
+//0 means called from ford or float wagon. 1 means called from columbia river game.
+function riverLoss(num = 0){
+	var msg = "What you lost:";
+	if((num == 1 && numCharacters > 1) || num == 0){
+		if(num == 1 || Math.floor(Math.random() * 2) == 0){
+			var tempIndicies = [];
+			var i;
+			for(i = 0; i < hp.length; i++){if(hp[i] > 0) tempIndicies.push(i);}
+			var charIndex = tempIndicies[Math.floor(Math.random() * (tempIndicies.length))];
+			hp[charIndex] = 0;
+			numCharacters--;
+			msg += "\n" + characters[charIndex] + " (drowned)";
+		}
 	}
 	if(supplies[OXEN] > 0){supplies[OXEN]--; msg += "\n1 ox";}
 	var lostPart = Math.floor(Math.random() * 3);
@@ -754,7 +757,7 @@ function ford(){
                 $("#ok").animate({right: '10%'},10000,function(){alert(msg); tempTraveled++; totalTraveled++; mainGame();});
             }
 			else{
-				msg = riverLoss();
+				msg = "You were unable to ford the river! " + riverLoss();
                 $("#ok").animate({right: '600px'},5000,function(){$("#ok").attr("src", "image/Capsize.png"); tempTraveled++; totalTraveled++; alert(msg);});//add who dies and what supplies are lost here
                 $("#ok").delay(3000).animate({right: '10%'},10000,function(){mainGame();});
             }
@@ -776,7 +779,7 @@ function floatWagon(){
                 $("#ok").animate({right: '10%'},10000,function(){alert(msg); tempTraveled++; totalTraveled++; mainGame();});
             }
 			else{
-				msg = riverLoss();
+				msg = "Your wagon tipped over! " + riverLoss();
                 $("#ok").animate({right: '600px'},5000,function(){$("#ok").attr("src", "image/Capsize.png"); tempTraveled++; totalTraveled++; alert(msg);});//add who dies and what supplies are lost here
                 $("#ok").delay(3000).animate({right: '10%'},10000,function(){mainGame();});
             }
@@ -1385,10 +1388,12 @@ function addTeamHP(num){
 }
 
 function reduceTeamHP(num){
+	var randNum = 0;
 	var i;
 	for(i = 0; i < hp.length; i++){
 		if(hp[i] > 0){
-			hp[i] -= num;
+			randNum = Math.floor(Math.random() * 3) + num;
+			hp[i] -= randNum;
 			if(hp[i] <= 0) {numCharacters--; alert(characters[i]+" has died!");}
 		}
 	}
@@ -1427,7 +1432,7 @@ function eatFood(){
 		var num;
 		if(gameStatus[RATIONS] == FILLING) {num = 3; addTeamHP(1);}
 		else if(gameStatus[RATIONS] == MEAGER) {num = 2; reduceTeamHP(2);}
-		else if(gameStatus[RATIONS] == BAREBONES) {num = 1; reduceTeamHP(5);}
+		else if(gameStatus[RATIONS] == BAREBONES) {num = 1; reduceTeamHP(4);}
 		var pounds = num * numCharacters;
 		if(pounds > supplies[FOOD]) supplies[FOOD] = 0;
 		else supplies[FOOD] -= pounds;

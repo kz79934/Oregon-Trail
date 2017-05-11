@@ -20,8 +20,10 @@ document.getElementsByClassName("container")[0].innerHTML = "<img src='columbia/
 														<img src='columbia/rock2.png' id='r2' style = 'position:absolute; width: 100px; length: 100px; top:0px; right: 4%; opacity: 0;' alt='Mountain View'>\
 														<img src='columbia/rock3.png' id='r3' style = 'position:absolute; width: 80px; length: 80px; top:0px; right: 4%; opacity: 0;' alt='Mountain View'>"	
 $(document).ready(function(){
-	river.loop = true;
-	river.play();
+	if(soundOn){
+		river.loop = true;
+		river.play();
+	}
 	rock1();
 	$(window).keydown(function (e) {
         if (e.which == 40 && fin == false) {//down
@@ -113,7 +115,7 @@ function check2(){
 			hit.play();
 			riverHP--;
 			if(riverHP == 0){
-				river.pause();
+				if(soundOn) river.pause();
 				riverFail();
 			}
 		}
@@ -239,7 +241,10 @@ function rock3(){
 			else{
 				$("#r3").css("opacity", "0");
 				fin = true;
-				alert("River Successfully Sailed \n HP:" + riverHP);//remove the hp part and display how did and did't die
+				var finMsg;
+				if(hp < 12) finMsg = "You completed the river but took some damages!\n" + riverLoss(1);
+				else finMsg = "You flawlessly navigated the river!"
+				alert(finMsg);
 				finish();
 			}
 		}
@@ -261,7 +266,7 @@ function finish(){
 			finish();
 		}
 		else{
-			river.pause();
+			if(soundOn) river.pause();
 			$("#ok").css("opacity", "0");
 			riverWin();
 		}
