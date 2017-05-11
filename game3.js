@@ -101,9 +101,18 @@ function randomEvent(){
 	var num = Math.floor(Math.random() * (rand));
 	console.log("num: " + num);
 	if(num == 0){
-		randMsg = "You get lost on the trail! Lose 1 day.";
-		eatFood();
-		day++;
+		if(Math.floor(Math.random() * 2)){
+			randMsg = "You get lost on the trail! Lose 1 day.";
+			eatFood();
+			day++;
+		}
+		else{
+			var randDay = Math.floor(Math.random() * 3) + 3;
+			randMsg = "The trail is very rough! Lose "+randDay+" days."
+			var i;
+			for(i = 0; i < randDay; i++) eatFood();
+			day += randDay;
+		}
 	}
 	else if(num == 1 || gameStatus[HEALTH] == VERYPOOR){
 		var tempMsg = "";
@@ -158,7 +167,7 @@ function randomEvent(){
 	else if(num == 5){randMsg = "You find wild fruit."; supplies[FOOD] += 50;}
 	//Storms only happen if it is raining.
 	else{
-		randDay = Math.floor(Math.random() * (3)) + 1;
+		var randDay = Math.floor(Math.random() * (3)) + 1;
 		randMsg = "There is a severe storm! Lose "+randDay+" days";
 		var i;
 		for(i = 0; i < randDay; i++) eatFood();
