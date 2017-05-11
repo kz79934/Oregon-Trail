@@ -357,7 +357,7 @@ function finishIntro() {
 function storeGreeting() {
     console.log("test");
     var t = "<p>Hi, I'm Krunal! I see you're going to Oregon, and it just so happens that I have some very useful supplies you may need </p>\
-            <img src='image/p2.png' alt='HTML5 Icon' style='position: relative; left: 100px; width: 15%;'></img>\
+            <img src='image/P2.png' alt='HTML5 Icon' style='position: relative; left: 100px; width: 15%;'></img>\
 			<ol class='a'>\
                 <li1>1. A team of oxen to pull your wagon</li1><br><br>\
                 <li1>2. Clothing for both summer and winter</li1><br><br>\
@@ -376,7 +376,7 @@ function storeGreeting() {
 function initStore() {
     var tempBalance = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));
     var t = "<h3>Krunal's General Store</h3><h4>Independence, Missouri<br>" + months[month] + " 1, 1848</h4>\
-            <img src='image/p2.png' alt='HTML5 Icon' style='position: fixed; left: 200px; width: 15%;'></img>\
+            <img src='image/P2.png' alt='HTML5 Icon' style='position: fixed; left: 200px; width: 15%;'></img>\
 			<ol class='b'><li1>1. Oxen = $" + (price[OXEN_COST] * tempSupplies[OXEN]) + "&nbsp&nbsp&nbsp <button class='button button1' value='Oxen' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>2. Clothes = $" + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + " <button class='button button1' value='Clothes' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>3. Food = $" + Number(Math.round((price[FOOD_COST] * tempSupplies[FOOD]) + 'e2') + 'e-2') + "&nbsp&nbsp&nbsp <button class='button button1' value='Food' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
