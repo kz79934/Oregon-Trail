@@ -35,7 +35,7 @@ const FILLING = 0;
 const MEAGER = 1;
 const BAREBONES = 2;
 var spaceTxt = "<div><p>Press SPACE BAR to Continue</p></div>";
-var locations = ["Kansas River crossing", "Big Blue River crossing", "Fort Kearny", "Chimney Rock", "Fort Laramie", "Independence Rock", "South Pass"];
+var locations = ["Kansas River crossing", "Big Blue River crossing", "Fort Kearney", "Chimney Rock", "Fort Laramie", "Independence Rock", "South Pass"];
 var distance = [102, 82, 118, 250, 86, 190, 102];
 //var route1 = ["Green River crossing", "Soda Springs", "Fort Hall", "Snake River crossing", "Fort Boise", "Blue Mountains"];
 //var altroute1 = ["Fort Bridger", "Soda Springs"];
@@ -95,6 +95,7 @@ var brokenPart = 3;
 var oxenInjured = 0;
 var soundOn = 1;
 var gameDone = 0;
+
 welcome();
 
 function welcome() {
@@ -1242,7 +1243,7 @@ function talk(){
 	we could be stranded here for days! Hope there's enough graze for all those animals --<br>not many people carry feed! I'd rather wait, though, than cross in a rickety wagon boat!\"";
 	else if(currLocation == "Big Blue River crossing") t = "<p>A lady, Marnie Stewart, tells you:<br>\"This prairie is mighty pretty with all the wild flowers and tall grasses.<br>\
 	But there's too much of it! I miss not having a town nearby. I wonder how many days until I see a town --<br>a town with real shops, a church, people...\"";
-	else if(currLocation == "Fort Kearny") t = "<p>A fort soldier tells you:<br>\"The trails from the jumping off places -- Independence, St. Joseph, Council Bluffs --<br>\
+	else if(currLocation == "Fort Kearney") t = "<p>A fort soldier tells you:<br>\"The trails from the jumping off places -- Independence, St. Joseph, Council Bluffs --<br>\
 	come together at Fort Kearney. This new fort was built by the U.S. Army<br>to protect those bound for California and Oregon.\"";
 	else if(currLocation == "Chimney Rock") t = "<p>Celinda Hines tells you:<br>\"Chimney Rock by moonlight is awfully sublime. Many Indians came<br>\
 	to our wagon with fish to exchange for clothing. We bought a number.<br>They understand \'swap\' and \'no swap.\' Seem most anxious to get shirts and socks.\"";
@@ -1330,6 +1331,20 @@ function locationInfo() {
     document.getElementsByClassName("container")[0].innerHTML = t;
 	if(currType == RIVER && tempTraveled == 0) document.getElementsByClassName("button")[0].setAttribute("onclick", "riverOptions()");
 	else document.getElementsByClassName("button")[0].setAttribute("onclick", "leaveTown()");
+}
+
+function displayLocation(){
+	var locImg;
+	if(currLocation == "Kansas River crossing") locImg = "image/locations/Kansas_River.JPG";
+	else if(currLocation == "Big Blue River crossing") locImg = "image/locations/Big_Blue_River.PNG";
+	else if(currLocation == "Fort Kearney") locImg = "image/locations/Fort_Kearney.PNG"
+	else if(currLocation == "Chimney Rock") locImg = "image/locations/Chimney_Rock.JPG"
+	else if(currLocation == "Fort Laramie") locImg = "";
+	else if(currLocation == "Independence Rock") locImg = "";
+	else if(currLocation == "South Pass") locImg = "image/locations/South_Pass.JPG";
+	var t = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>\
+			<img src='"+locImg+"' style='width:700px; height:400px; left:50%; margin-left: -350; position:absolute; background-color: black'></img>";
+	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
 function stopLocation() {
