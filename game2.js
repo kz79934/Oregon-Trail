@@ -709,6 +709,17 @@ function talk(){
 	});
 }
 
+function checkMap(num = 0){
+	document.getElementsByClassName("container")[0].innerHTML = spaceTxt+ "<img src='image/Map.PNG' style='width:700px; height:400px; left:50%; margin-left: -350; position:absolute; background-color: black'></img>"
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			if(num) leaveTown();
+			else locationInfo();
+		}
+	});
+}
+
 function leaveTown(){
 	if(supplies[OXEN] <= 0){alert("You need oxen to continue on the trail!"); return;}
 	else if(brokenPart == WHEEL){alert("You need to replace your broken wheel to continue on the trail!"); return;}
@@ -745,7 +756,7 @@ function locationInfo() {
 			<div id='townOptions'><p>You may:</p><br><br>\
 			<button class='button' onclick=''><span>Continue on trail</span></button><br>\
 			<button class='button' onclick='checkSupplies()'><span>Check supplies</span></button><br>\
-			<button class='button' onclick=''><span>Look at map</span></button><br>\
+			<button class='button' onclick='checkMap()'><span>Look at map</span></button><br>\
 			<button class='button' onclick='changePace()'><span>Change pace</span></button><br>\
 			<button class='button' onclick='changeRations()'><span>Change food rations</span></button><br>\
 			<button class='button' onclick='rest()'><span>Stop to rest</span></button><br>\
