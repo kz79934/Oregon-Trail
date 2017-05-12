@@ -726,12 +726,12 @@ function leaveTown(){
 																						<button onclick='columRiver()' class='button'><span>The Columbia River</span></button><br>\
 																						<button onclick='mainGame()' class='button'><span>The Barlow Road</span></button></p>";
 	else{mainGame();}
-	randMsg = "";
 	currLocation = "";
 }
 
 function locationInfo() {
 	if(numCharacters == 0){lostGame(); return;}
+	randMsg = "";
 	setHealth();
 	setDate();
     var t = "";
@@ -757,8 +757,11 @@ function locationInfo() {
 	}
     t += "</div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
-	if(currType == RIVER && tempTraveled == 0) document.getElementsByClassName("button")[0].setAttribute("onclick", "riverOptions()");
-	else document.getElementsByClassName("button")[0].setAttribute("onclick", "leaveTown()");
+	if (currLocation != "") {
+		if(currType == RIVER && tempTraveled == 0) document.getElementsByClassName("button")[0].setAttribute("onclick", "riverOptions()");
+		else document.getElementsByClassName("button")[0].setAttribute("onclick", "leaveTown()");
+	}
+	else document.getElementsByClassName("button")[0].setAttribute("onclick", "mainGame()");
 }
 
 function displayLocation(){
