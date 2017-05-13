@@ -469,7 +469,7 @@ function checkValid(index) {
         tempBalance = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));
         if (tempBalance < 0) {
             tempSupplies[index] = tempValue;
-            document.getElementById("errMsg").innerHTML = "<label>You do not have enough money to do that!</label>";
+            document.getElementById("errMsg").innerHTML = "<p>You do not have enough money to do that!</p>";
         }
         else {
             tempParts[WHEEL] = parseInt(tempInputs[0].value);
@@ -487,11 +487,11 @@ function checkValid(index) {
             tempBalance = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));
             if (tempBalance < 0) {
                 tempSupplies[index] = tempValue;
-                document.getElementById("errMsg").innerHTML = "<label>You do not have enough money to do that!</label>";
+                document.getElementById("errMsg").innerHTML = "<p>You do not have enough money to do that!</p>";
             }
             else initStore();
         }
-        else document.getElementById("errMsg").innerHTML = "<label>Please enter a number!</label>";
+        else document.getElementById("errMsg").innerHTML = "<p>Please enter a number!</p>";
     }
 }
 
