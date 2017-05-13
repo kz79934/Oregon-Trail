@@ -141,14 +141,15 @@ function setItem(item){
 function buySupplies(){
 	var t = "<h2>"+currLocation+"<br>"+months[month]+" "+day+", "+year+"</h2>\
 			<p>You may buy:</p><br>\
-			<button class='button' value='OXEN' onclick='setItem(this.value)'><span>Oxen</span></button><label>- $20 per ox</label><br>\
-			<button class='button' value='CLOTHING' onclick='setItem(this.value)'><span>Clothing</span></button><label>- $10 per set</label><br>\
-			<button class='button' value='BAIT' onclick='setItem(this.value)'><span>Bait</span></button><label>- $2 per bucket</label><br>\
-			<button class='button' value='WHEEL' onclick='setItem(this.value)'><span>Wagon Wheels</span></button><label>- $10 per wheel</label><br>\
-			<button class='button' value='AXLE' onclick='setItem(this.value)'><span>Wagon Axles</span></button><label>- $10 per axle</label><br>\
-			<button class='button' value='TONGUE' onclick='setItem(this.value)'><span>Wagon Tongues</span></button><label>- $10 per tongue</label><br>\
-			<button class='button' value='FOOD' onclick='setItem(this.value)'><span>Food</span></button><label>- $0.20 per pound</label><br>\
-			<button class='button' onclick='locationInfo()'><span>Leave</span></button> <br>\
+            <div class='side'>\
+			<button class='button' value='OXEN' onclick='setItem(this.value)'><span>Oxen</span></button><label1>1. $20 per ox</label1><br>\
+			<button class='button' value='CLOTHING' onclick='setItem(this.value)'><span>Clothing</span></button><label1>2. $10 per set</label1><br>\
+			<button class='button' value='BAIT' onclick='setItem(this.value)'><span>Bait</span></button><label1>3. $2 per bucket</label1><br>\
+			<button class='button' value='WHEEL' onclick='setItem(this.value)'><span>Wagon Wheels</span></button><label1>4. $10 per wheel</label1><br>\
+			<button class='button' value='AXLE' onclick='setItem(this.value)'><span>Wagon Axles</span></button><label1>5. $10 per axle</label1><br>\
+			<button class='button' value='TONGUE' onclick='setItem(this.value)'><span>Wagon Tongues</span></button><label1>6. $10 per tongue</label1><br>\
+			<button class='button' value='FOOD' onclick='setItem(this.value)'><span>Food</span></button><label1>7. $0.20 per pound</label1><br>\
+			<button class='button' onclick='locationInfo()'><span>Leave</span></button></div><br>\
 			<div><label>You have $"+supplies[MONEY]+" to spend.</label></div><br>\
 			<div id='selectItem'><label>What would you like to buy?</label></div>\
 			<label id='errMsg'></label>";
