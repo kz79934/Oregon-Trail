@@ -523,10 +523,19 @@ function ferry(){
 
 function riverWait(){
 	document.getElementsByClassName("container")[0].innerHTML = "<p>You camp near the river for a day.</p>" + spaceTxt;
-	eatFood(); changeWeather();
+	day++; setDate(); eatFood(); changeWeather();
 	if(numCharacters == 0){lostGame(); return;}
 	if(gameStatus[WEATHER] == RAINY || gameStatus[WEATHER] == VERYRAINY){if(riverChange < 4) {Math.round((riverDepth += .2) * 10) / 10; Math.round((riverChange += .2) * 10) / 10;}}
 	else{if(riverChange > 0){Math.round((riverDepth -= .2) * 10) / 10; Math.round((riverChange -= .2) * 10) / 10;}}
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){$(this).unbind(); riverOptions();}
+	});
+}
+
+function riverInfo(){
+	document.getElementsByClassName("container")[0].innerHTML = "<p>To ford a river means to pull your wagon across a <br>shallow part of the river, with the oxen still attached.</p>\
+	<p>To caulk the wagon means to seal it so that no water can get in.<br>The wagon can then be floated across like a boat.</p>\
+	<p>To use a ferry means to put your wagon on top of a flat boat that belongs to someone else.<br>The owner of the ferry will take your wagon across the river for a fee.</p>" + spaceTxt;
 	$(document).keypress(function(e){
 		if(e.keyCode == SPACEBAR){$(this).unbind(); riverOptions();}
 	});
@@ -539,27 +548,29 @@ function setRiver(){
 	else if(currLocation == "Snake River crossing") {riverWidth = 1000; riverDepth = 6.0;}
 }
 
-function riverOptions(){
+function preRiver(){
 	randMsg = "";
 	if(riverDepth == 0) setRiver();
 	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2>\
 																<p id='river'>You must cross the river in order to continue.<br>\
 																The river at this point is currently "+riverWidth+" feet across, and "+riverDepth+" feet deep in the middle.<br><br>Press SPACE BAR to Continue</p>";
-	var t = "<p>Weather: "+currWeather+"<br>\
-			River width: "+riverWidth+" feet <br>River depth: "+riverDepth+" feet<br>\
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			riverOptions();
+		}
+	});
+}
+
+function riverOptions(){
+	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2><p>Weather: "+currWeather+"<br>\
+			River width: "+riverWidth+" feet <br>River depth: "+riverDepth.toFixed(1)+" feet<br>\
 			You may: <br><br>\
 			<button class='button' onclick='ford()'><span>Ford the River</span></button><br>\
 			<button class='button' onclick='floatWagon()'><span>Float the Wagon</span></button><br>\
 			<button class='button' onclick='ferry()'><span>Take a Ferry</span></button><br>\
 			<button class='button' onclick='riverWait()'><span>Wait</span></button><br>\
-			<button class='button' onclick=''><span>Get Information</span></button></p>";
-			
-	$(document).keypress(function(e){
-		if(e.keyCode == SPACEBAR){
-			$(this).unbind();
-			document.getElementById("river").innerHTML = t;
-		}
-	});
+			<button class='button' onclick='riverInfo()'><span>Get Information</span></button></p>";
 }
 
 function rest(){
@@ -773,7 +784,7 @@ function locationInfo() {
     t += "</div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
 	if (currLocation != "") {
-		if(currType == RIVER && tempTraveled == 0) document.getElementsByClassName("button")[0].setAttribute("onclick", "riverOptions()");
+		if(currType == RIVER && tempTraveled == 0) document.getElementsByClassName("button")[0].setAttribute("onclick", "preRiver()");
 		else document.getElementsByClassName("button")[0].setAttribute("onclick", "leaveTown()");
 	}
 	else document.getElementsByClassName("button")[0].setAttribute("onclick", "mainGame()");
@@ -783,11 +794,12 @@ function displayLocation(){
 	var locImg;
 	if(currLocation == "Kansas River crossing") locImg = "image/locations/Kansas_River.JPG";
 	else if(currLocation == "Big Blue River crossing") locImg = "image/locations/Big_Blue_River.PNG";
-	else if(currLocation == "Fort Kearney") locImg = "image/locations/Fort_Kearney.PNG"
-	else if(currLocation == "Chimney Rock") locImg = "image/locations/Chimney_Rock.JPG"
+	else if(currLocation == "Fort Kearney") locImg = "image/locations/Fort_Kearney.PNG";
+	else if(currLocation == "Chimney Rock") locImg = "image/locations/Chimney_Rock.JPG";
 	else if(currLocation == "Fort Laramie") locImg = "image/locations/Fort_Laramie.JPG";
 	else if(currLocation == "Independence Rock") locImg = "image/locations/Independence_Rock.PNG";
 	else if(currLocation == "South Pass") locImg = "image/locations/South_Pass.JPG";
+	else if(currLocation == "Fort Hall") locImg = "image/locations/Fort_Hall.PNG";
 	else if(currLocation == "Fort Bridger") locImg = "image/locations/Fort_Bridger.JPG";
 	else if(currLocation == "Green River crossing") locImg = "image/locations/Green_River.PNG";
 	else if(currLocation == "Soda Springs") locImg = "image/locations/Soda_Springs.JPG";
@@ -814,7 +826,7 @@ function stopLocation() {
     var t = "<p><label>"+randMsg+"</label><br>You have reached " + currLocation + ".<br> Do you want to look around?</p>\
 			<button class='button' onclick='displayLocation()'><span>Yes</span></button>&nbsp<button class='button' onclick=''><span>No</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;
-	if(currType == RIVER) document.getElementsByClassName("button")[1].setAttribute("onclick", "riverOptions()");
+	if(currType == RIVER) document.getElementsByClassName("button")[1].setAttribute("onclick", "preRiver()");
 	else document.getElementsByClassName("button")[1].setAttribute("onclick", "leaveTown()");
 	//if(randMsg != ""){alert(randMsg); randMsg = "";}
 	randMsg = "";
