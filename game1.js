@@ -42,7 +42,7 @@ var distance = [102, 82, 118, 250, 86, 190, 102];
 const TOWN = 1;
 const RIVER = 2;
 const DIVIDE1 = 3;
-const DIVIDE2 = 4
+const DIVIDE2 = 4;
 const END = 5;
 var locType = [RIVER, RIVER, TOWN, 0, TOWN, 0, DIVIDE1];
 var months = ["January", "Februrary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -393,23 +393,23 @@ function OxenValidation(){
 function initBuy(item) {
     var t;
     if (item == "Oxen") {
-        t = "<p>Advice on Oxen. How many yoke would you like to buy?</p>\
+        t = "<p>There are 2 oxen in a yoke; I recommend at least 3 yoke. I charge $40 a yoke. <br><br>How many yoke would you like to buy?</p>\
 			<input type='text' value='' placeholder='Number of Yoke' onkeypress='return itemValidation(event)'></input><br><button class='button' id='oxenOption' onclick='checkValid(OXEN)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Clothes") {
-        t = "<p>Advice on Clothes. How many pairs of clothes would you like to buy?</p>\
+        t = "<p>You'll need warm clothing in the mountains.<br>I recommend taking at least 2 sets of clothes per person. Each set is $10. <br><br>How many pairs of clothes would you like to buy?</p>\
 			<input type='text' value='' placeholder='Number of Clothes' onkeypress='return itemValidation(event)'></input><br><button class='button' id='clothingOption' onclick='checkValid(CLOTHING)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Food") {
-        t = "<p>Advice on Food. How much food in pounds would you like to buy?</p>\
+        t = "<p>I recommend you take at least 200 pounds of food for each person in your family.<br>I see that you have 5 people in all. My price is 20 cents a pound. <br><br>How much food in pounds would you like to buy?</p>\
 			<input type='text' value='' placeholder='Number of Food' onkeypress='return itemValidation(event)'></input><br><button class='button' id='foodOption' onclick='checkValid(FOOD)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Bait") {
-        t = "<p>Advice on Bait. How many buckets of bait would you like to buy?</p>\
+        t = "<p>I sell bait in buckets of 20. Each bucket costs $2. <br><br>How many buckets of bait would you like to buy?</p>\
 			<input type='text' value='' placeholder='Number of Buckets' onkeypress='return itemValidation(event)'></input><br><button class='button' id='baitOption' onclick='checkValid(BAIT)'><span>Buy It!</span></button><div id='errMsg'></div>";
     }
     else if (item == "Wagon") {
-        t = "<p>Advice on Wagon.<br><br>\
+        t = "<p>You're gonna be faced with some rough trails that can damage your wagon.<br>You should buy a few just in case. I charge $10 for each part.<br><br>\
 		How many wheels would you like to buy? <input type='text' id='wheel' value='' placeholder='Number of Wheels' onkeypress='return itemValidation(event)'></input><br>\
 		How many axles would you like to buy? <input  type='text' id='axle' value='' placeholder='Number of Axles' onkeypress='return itemValidation(event)'></input><br>\
 		How many tongues would you like to buy? <input type='text' id='tongue' value='' placeholder='Number of Tongues' onkeypress='return itemValidation(event)'></input><br></p>\
