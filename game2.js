@@ -199,6 +199,7 @@ function riverLoss(num = 0){
 }
 
 function ford(){
+		prevLocation = currLocation;
 		currLocation = "";
         var t = "<img src='image/Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
         <img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
@@ -228,6 +229,7 @@ function ford(){
 }
 
 function floatWagon(){
+	prevLocation = currLocation;
 	currLocation = "";
         var t = "<img src='image/Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
         <img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
@@ -508,7 +510,7 @@ function ferryFinish(){
 			$(this).unbind();
 			if(supplies[MONEY] < 5) riverOptions();
 			else if(numCharacters == 0) lostGame();
-			else {supplies[MONEY] -= 5; currLocation=""; tempTraveled++; totalTraveled++; ferryAnimation();}
+			else {supplies[MONEY] -= 5; prevLocation=currLocation; currLocation=""; tempTraveled++; totalTraveled++; ferryAnimation();}
 		}
 	});
 }
@@ -738,6 +740,7 @@ function leaveTown(){
 																						<button onclick='columRiver()' class='button'><span>The Columbia River</span></button><br>\
 																						<button onclick='mainGame()' class='button'><span>The Barlow Road</span></button></p>";
 	else{mainGame();}
+	prevLocation = currLocation;
 	currLocation = "";
 }
 

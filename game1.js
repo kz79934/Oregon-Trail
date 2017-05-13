@@ -79,6 +79,7 @@ var currHealth = "Good";
 var currPace = "Steady";
 var currRations = "Filling";
 var currLocation = "Independence";
+var prevLocation = "";
 var currType = TOWN;
 var randMsg = "";
 var ferryWait = 0;
