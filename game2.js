@@ -123,36 +123,37 @@ function buyItem(item){
 
 function setItem(item){
 	if(item == "OXEN") 
-		document.getElementById("selectItem").innerHTML = "<label>How many oxen?</label> <input id='buy' value=''></input> <button class='button' value='OXEN' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+		document.getElementById("selectItem").innerHTML = "<label>How many oxen?</label><br><br><input id='buy' type='text' value='' placeholder='Oxen'></input><br><button class='button' value='OXEN' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "CLOTHING") 
-		document.getElementById("selectItem").innerHTML = "<label>How many sets?</label> <input id='buy' value=''></input> <button class='button' value='CLOTHING' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+		document.getElementById("selectItem").innerHTML = "<label>How many sets?</label><br><br><input id='buy' type='text' value='' placeholder='Sets'></input><br><button class='button' value='CLOTHING' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "BAIT") 
-		document.getElementById("selectItem").innerHTML = "<label>How many buckets?</label> <input id='buy' value=''></input> <button class='button' value='BAIT' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+		document.getElementById("selectItem").innerHTML = "<label>How many buckets?</label><br><br><input id='buy' type='text' value='' placeholder='Buckets'></input><br><button class='button' value='BAIT' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "WHEEL") 
-		document.getElementById("selectItem").innerHTML = "<label>How many wheels?</label> <input id='buy' value=''></input> <button class='button' value='WHEEL' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+		document.getElementById("selectItem").innerHTML = "<label>How many wheels?</label><br><br><input id='buy' type='text' value='' placeholder='Wheels'></input><br><button class='button' value='WHEEL' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "AXLE") 
-		document.getElementById("selectItem").innerHTML = "<label>How many axles?</label> <input id='buy' value=''></input> <button class='button' value='AXLE' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+		document.getElementById("selectItem").innerHTML = "<label>How many axles?</label><br><br><input id='buy' type='text' value='' placeholder='Axels'></input><br><button class='button' value='AXLE' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "TONGUE") 
-		document.getElementById("selectItem").innerHTML = "<label>How many tongues?</label> <input id='buy' value=''></input> <button class='button' value='TONGUE' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+		document.getElementById("selectItem").innerHTML = "<label>How many tongues?</label><br><br><input id='buy' type='text' value='' placeholder='Tongues'></input><br><button class='button' value='TONGUE' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "FOOD") 
-		document.getElementById("selectItem").innerHTML = "<label>How many pounds?</label> <input id='buy' value=''></input> <button class='button' value='FOOD' onclick='buyItem(this.value)'><span>Buy It!</span></button>";
+		document.getElementById("selectItem").innerHTML = "<label>How many pounds?</label><br><br><input id='buy' type='text' value='' placeholder='Food'></input><br><button class='button' value='FOOD' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 }
 
 function buySupplies(){
 	var t = "<h2>"+currLocation+"<br>"+months[month]+" "+day+", "+year+"</h2>\
 			<p>You may buy:</p><br>\
             <div class='side'>\
-			<button class='button' value='OXEN' onclick='setItem(this.value)'><span>Oxen</span></button><label1>1. $20 per ox</label1><br>\
-			<button class='button' value='CLOTHING' onclick='setItem(this.value)'><span>Clothing</span></button><label1>2. $10 per set</label1><br>\
-			<button class='button' value='BAIT' onclick='setItem(this.value)'><span>Bait</span></button><label1>3. $2 per bucket</label1><br>\
-			<button class='button' value='WHEEL' onclick='setItem(this.value)'><span>Wagon Wheels</span></button><label1>4. $10 per wheel</label1><br>\
-			<button class='button' value='AXLE' onclick='setItem(this.value)'><span>Wagon Axles</span></button><label1>5. $10 per axle</label1><br>\
-			<button class='button' value='TONGUE' onclick='setItem(this.value)'><span>Wagon Tongues</span></button><label1>6. $10 per tongue</label1><br>\
-			<button class='button' value='FOOD' onclick='setItem(this.value)'><span>Food</span></button><label1>7. $0.20 per pound</label1><br>\
-			<button class='button' onclick='locationInfo()'><span>Leave</span></button></div><br>\
-			<div><label>You have $"+supplies[MONEY]+" to spend.</label></div><br>\
-			<div id='selectItem'><label>What would you like to buy?</label></div>\
-			<label id='errMsg'></label>";
+			<button class='button button1' value='OXEN' onclick='setItem(this.value)'><span>Oxen</span></button><label1>1. $20 per ox</label1><br>\
+			<button class='button button1' value='CLOTHING' onclick='setItem(this.value)'><span>Clothing</span></button><label1>2. $10 per set</label1><br>\
+			<button class='button button1' value='BAIT' onclick='setItem(this.value)'><span>Bait</span></button><label1>3. $2 per bucket</label1><br>\
+			<button class='button button1' value='WHEEL' onclick='setItem(this.value)'><span>Wagon Wheels</span></button><label1>4. $10 per wheel</label1></div>\
+            <div class='side'>\
+			<button class='button button1' value='AXLE' onclick='setItem(this.value)'><span>Wagon Axles</span></button><label1>5. $10 per axle</label1><br>\
+			<button class='button button1' value='TONGUE' onclick='setItem(this.value)'><span>Wagon Tongues</span></button><label1>6. $10 per tongue</label1><br>\
+			<button class='button button1' value='FOOD' onclick='setItem(this.value)'><span>Food</span></button><label1>7. $0.20 per pound</label1><br>\
+			<button class='button button1' onclick='locationInfo()'><span>Leave</span></button></div><br>\
+			<div><label2>You have $"+supplies[MONEY]+" to spend.</label2></div><br>\
+			<div id='selectItem'><label2>What would you like to buy?</label2></div>\
+			<label2 id='errMsg'></label2>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
