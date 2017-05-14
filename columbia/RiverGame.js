@@ -278,7 +278,7 @@ function riverFail(){
 	$(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
             $(this).unbind();
-            lostGame();
+            quit();
         }
     });
 }

@@ -21,7 +21,11 @@ function checkSupplies() {
 }
 
 function paceInfo() {
-    var t = "<p>Pace Info Here</p>" + spaceTxt;
+    var t = "<p>Steady: You travel about 8 hours a day, taking requent rests. You take care not to get too tired<br><br>\
+			Strenuous: You travel about 12 hours a day, starting just after sunrise and stopping shortly before sunset.<br>\
+			You stop to rest only when necessary. You finish each day feeling very tired.<br><br>\
+			Grueling: You travel about 16 hours a day, starting before sunrise and continuing until dark. You almost never stop to rest.<br>\
+			You do not get enough sleep at night. You finish each day feeling absolutely exhausted, and your health suffers.</p>" + spaceTxt;
     document.getElementsByClassName("container")[0].innerHTML = t;
     $(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
@@ -729,7 +733,7 @@ function checkMap(num = 0){
 	$(document).keypress(function(e){
 		if(e.keyCode == SPACEBAR){
 			$(this).unbind();
-			if(num) leaveTown();
+			if(num) {currLocation = prevLocation; leaveTown();}
 			else locationInfo();
 		}
 	});
@@ -744,13 +748,13 @@ function leaveTown(){
 
 	if(currType == DIVIDE1) document.getElementsByClassName("container")[0].innerHTML = "<p>There are two different routes to take.<br>Where would you like to go to next?<br><br>\
 																						<button onclick='firstDRoute1()' class='button'><span>Green River crossing</span></button><br>\
-																						<button onclick='firstDRoute2()' class='button'><span>Fort Bridger</span></button></p>";
+																						<button onclick='firstDRoute2()' class='button'><span>Fort Bridger</span></button><br><button class='button' onclick='checkMap(1)'><span>See Map</span></button></p>";
 	else if(currType == DIVIDE2) document.getElementsByClassName("container")[0].innerHTML = "<p>There are two different routes to take.<br>Where would you like to go to next?<br><br>\
 																						<button onclick='secondDRoute1()' class='button'><span>Fort Walla Walla</span></button><br>\
-																						<button onclick='secondDRoute2()' class='button'><span>The Dalles</span></button></p>";
+																						<button onclick='secondDRoute2()' class='button'><span>The Dalles</span></button><br><button class='button' onclick='checkMap(1)'><span>See Map</span></button></p>";
 	else if(currLocation == "The Dalles") document.getElementsByClassName("container")[0].innerHTML = "<p>There are two different routes to take.<br>Where would you like to go to next?<br><br>\
 																						<button onclick='columRiver()' class='button'><span>The Columbia River</span></button><br>\
-																						<button onclick='mainGame()' class='button'><span>The Barlow Road</span></button></p>";
+																						<button onclick='mainGame()' class='button'><span>The Barlow Road</span></button><br><button class='button' onclick='checkMap(1)'><span>See Map</span></button></p>";
 	else{mainGame();}
 	prevLocation = currLocation;
 	currLocation = "";
