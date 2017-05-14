@@ -261,7 +261,7 @@ function alphaValMembers(input){
 
 function getLeaderName() {
     characters = ["Andrew", "Kathy", "LeBron", "Barbara", "Frank"];
-    var t = "<img src='image/p1.png' alt='HTML5 Icon' style='display: block; margin-left: 300px; width: 50%;'></img>\
+    var t = "<img src='image/P1.png' alt='HTML5 Icon' style='display: block; margin-left: 300px; width: 50%;'></img>\
             <p>What is the first name of your leader?</p>\
 			<input id='leader' type='text' value='' placeholder='First Name' onkeypress='return alphaValLeader(event)'></input><br><button class='button' onclick='getNames()'><span>Next</span></button>"
     document.getElementById("innerPage").innerHTML = t;
@@ -274,7 +274,7 @@ function getNames() {
 	leaderName = firstLetter + nameSlice;
 	
     if (leaderName.replace(/\s/g, "") != "") characters[0] = leaderName;
-    var t = "<img src='image/p1.png' alt='HTML5 Icon' style='display: block; margin-left: 300px; width: 50%;'></img>\
+    var t = "<img src='image/P1.png' alt='HTML5 Icon' style='display: block; margin-left: 300px; width: 50%;'></img>\
             <p>What are the first names of the other members in your party?<br>\
 			The leader's name is " + characters[0] + ".</p>\
 			<input class='names' type='text1' value='' placeholder='First Member' onkeypress='return alphaValMembers(event)'></input>\
