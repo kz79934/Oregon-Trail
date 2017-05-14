@@ -728,6 +728,11 @@ function talk(){
 	});
 }
 
+function payToll(){
+	if(supplies[MONEY] < 8.50) alert("You do not have enough money to pay the $8.50 toll for this road.");
+	else {alert("You pay the toll of $8.50 to travel on this road."); supplies[MONEY] -= 8.50; mainGame()};
+}
+
 function checkMap(num = 0){
 	document.getElementsByClassName("container")[0].innerHTML = spaceTxt+ "<img src='image/Map.PNG' style='width:700px; height:400px; left:50%; margin-left: -350; position:absolute; background-color: black'></img>"
 	$(document).keypress(function(e){
@@ -754,7 +759,9 @@ function leaveTown(){
 																						<button onclick='secondDRoute2()' class='button'><span>The Dalles</span></button><br><button class='button' onclick='checkMap(1)'><span>See Map</span></button></p>";
 	else if(currLocation == "The Dalles") document.getElementsByClassName("container")[0].innerHTML = "<p>There are two different routes to take.<br>Where would you like to go to next?<br><br>\
 																						<button onclick='columRiver()' class='button'><span>The Columbia River</span></button><br>\
-																						<button onclick='mainGame()' class='button'><span>The Barlow Road</span></button><br><button class='button' onclick='checkMap(1)'><span>See Map</span></button></p>";
+																						<button onclick='payToll()' class='button'><span>The Barlow Road</span></button><br>\
+																						(There is a toll of $8.50 for this road.)<br><br>\
+																						<button class='button' onclick='checkMap(1)'><span>See Map</span></button></p>";
 	else{mainGame();}
 	prevLocation = currLocation;
 	currLocation = "";
