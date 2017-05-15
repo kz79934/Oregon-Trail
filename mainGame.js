@@ -196,11 +196,26 @@ function mainGame() {
 
 function lostGame(){
 	//Store totalTraveled in the database with the player's name and his tombstone msg that comes from user input, the leaders name is at characters[0]
-	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU DIED!</h1> <input type='text' val=''></input><br><button class='button'>Submit</button>";
+	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU LOSE!!!</h1><form name='form2' action='tombstone.php' method='post'><input type='hidden' name='tempTraveled'></input><input type='hidden' name='leaderName'></input><input type='hidden' name='nextLocation'></input><input type='hidden' name='prevLocation'></input><input type='text' val='' name='messageInput' id='messageInput'></input><br><input type='submit' name='submitButton' class='button'></input></form>";															
+	
+	console.log(tempTraveled);
+	console.log(characters[0]);
+	
+	var msgInput = document.getElementById('messageInput').value;
+	document.form2.prevLocation.value = prevLocation;
+	document.form2.nextLocation.value = locations[0];
+	document.form2.leaderName.value = characters[0];
+	document.form2.tempTraveled.value = tempTraveled;
+	
 }
 
 function endGame() {
 	var i;
 	for(i = 0; i < supplies.length; i++) score += supplies[i];
-    document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU WIN!</h1> <p>Your score: "+score+"</p> <input type='text' val=''></input><br><button class='button'>Submit</button>";
+    document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU WIN!!!</h1><p>Your score: "+score+"</p><form name='form1' action='high_score.php' method='post'><input type='hidden' name='scorePage'></input><input type='text' val='' name='pageInput' id='pageInput'></input><br><input type='submit' class='button'></input></form>";
+	
+	//score and type name
+	var inputName = document.getElementById('pageInput').value;
+	document.form1.scorePage.value = score;
+	document.form1.pageInput.value = inputName;
 }
