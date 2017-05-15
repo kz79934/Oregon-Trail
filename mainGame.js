@@ -68,7 +68,7 @@ function travelTrail() {
 
 /*
 
-function displayTombstone(index){
+function displayTombstone(index, num){
 	var t = "<p>"+tombName[index]+"<br><br>"+tombMsg[index]+"</p>" + spaceTxt;
 	document.getElementsByClassName("container")[0].innerHTML = t;
 	$(document).keypress(function (e) {
@@ -79,18 +79,18 @@ function displayTombstone(index){
 			tombPrev.splice(index, 1);
 			tombNext.splice(index, 1);
 			tombMiles.splice(index, 1);
-			checkTombstone();
+			checkTombstone(num);
         }
     });
 }
 
-function askTombstone(index){
-	document.getElementsByClassName("container")[0].innerHTML = "<p>You pass over a tombstone. Would you like to take a close look?<br>\
+function askTombstone(index, num){
+	document.getElementsByClassName("container")[0].innerHTML = "<p>You pass over a grave. Would you like to take a closer look?<br>\
 	<button id='tombYes' class='button'><span>Yes</span></button><br><button id='tombNo' class='button'><span>No</span></button></p>";
 	$("#tombYes").click(function(){
 		$(this).unbind();
 		$("#tombNo").unbind();
-		displayTombstone(index);
+		displayTombstone(index, num);
 	});
 	$("#tombNo").click(function(){
 		$(this).unbind();
@@ -100,7 +100,7 @@ function askTombstone(index){
 		tombPrev.splice(index, 1);
 		tombNext.splice(index, 1);
 		tombMiles.splice(index, 1);
-		checkTombstone();
+		checkTombstone(num);
 	});
 }
 
@@ -108,7 +108,7 @@ function checkTombstone(num = 0){
 	var i;
 	for(i = 0; i < tombMiles.length; i++){
 		if(tombPrev[i] == prevLocation && tombNext[i] == locations[0]){
-			if(tombMiles[i] <= tempTraveled){ askTombstone(i); return;}
+			if(tombMiles[i] <= tempTraveled){ askTombstone(i, num); return;}
 		}
 	}
 	if(num){
