@@ -267,10 +267,11 @@ table, td, th {
 /* formatting and styling the score table */
 table {
     border-collapse: collapse;
-    width: 50%;
+    width: 60%;
+	height: 50px;
 }
 
 th {
-    height: 50px;
+    height: 100px;
 }
 
