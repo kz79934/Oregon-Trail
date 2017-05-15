@@ -1,5 +1,7 @@
 //Contains all the options for location (Ex: towns and rivers), pace, ration, etc.
+//Also has the fishing mini game.
 
+//Outputs how many supplies you have in each category
 function checkSupplies() {
     var t = "<p>Your Supplies:<br>\
 			Oxen: " + supplies[OXEN] + "<br>\
@@ -20,6 +22,7 @@ function checkSupplies() {
     });
 }
 
+//Outputs the differences in the three pace options.
 function paceInfo() {
     var t = "<p>Steady: You travel about 8 hours a day, taking requent rests. You take care not to get too tired<br><br>\
 			Strenuous: You travel about 12 hours a day, starting just after sunrise and stopping shortly before sunset.<br>\
@@ -35,6 +38,7 @@ function paceInfo() {
     });
 }
 
+//Sets the game pace based on what the user selected
 function setPace(pace) {
     currPace = pace;
     if (pace == "Steady") gameStatus[PACE] = STEADY;
@@ -43,6 +47,7 @@ function setPace(pace) {
     locationInfo();
 }
 
+//Gives user the option to change their pace
 function changePace() {
     var t = "<div id='paceOptions'><p>Change pace<br>\
 			(currently: " + currPace + ")<br><br>\
@@ -55,6 +60,7 @@ function changePace() {
     document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
+//Changes the game rations based on what the user selected
 function setRations(rations) {
     currRations = rations;
     if (rations == "Filling") gameStatus[RATIONS] = FILLING;
@@ -63,6 +69,7 @@ function setRations(rations) {
     locationInfo();
 }
 
+//Gives the user the option to change their rations. Also gives a brief description of each option
 function changeRations() {
     var t = "<div id='foodOptions'><p>Change food rations<br>\
 			(currently: " + currRations + ")<br><br>\
@@ -73,6 +80,7 @@ function changeRations() {
     document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
+//Gets the index of the supplies global array based on the string argument (Helper Function)
 function getIndex(str){
 	if(str == "OXEN") return OXEN;
 	if(str == "CLOTHING") return CLOTHING;
@@ -84,6 +92,7 @@ function getIndex(str){
 	if(str == "PARTS") return OXEN;
 }
 
+//Gets the user input of the amount of the supply they want. Also checks if the input is valid and if they have enough money
 function buyItem(item){
 	var index = getIndex(item);
 	var amount = document.getElementById("buy").value;
@@ -125,6 +134,7 @@ function buyItem(item){
 	}
 }
 
+//Displays an input box for the user to enter in the amount they want of the option they chose
 function setItem(item){
 	if(item == "OXEN") 
 		document.getElementById("selectItem").innerHTML = "<label>How many oxen?</label><br><br><input id='buy' type='text' value='' placeholder='Oxen'></input><br><button class='button' value='OXEN' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
@@ -142,6 +152,7 @@ function setItem(item){
 		document.getElementById("selectItem").innerHTML = "<label>How many pounds?</label><br><br><input id='buy' type='text' value='' placeholder='Food'></input><br><button class='button' value='FOOD' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 }
 
+//The menu for the fort stores. Each fort that you can stop at along the trail has this kind of store
 function buySupplies(){
 	var t = "<h2>"+currLocation+"<br>"+months[month]+" "+day+", "+year+"</h2>\
 			<p>You may buy:</p><br>\
@@ -161,7 +172,8 @@ function buySupplies(){
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
-//0 means called from ford or float wagon. 1 means called from columbia river game.
+//Checks what the user lost based on random number generation
+//0 means called from ford or float wagon. 1 means called from columbia river game
 function riverLoss(num = 0){
 	var msg = "What you lost:";
 	if((num == 1 && numCharacters > 1) || num == 0){
@@ -203,6 +215,7 @@ function riverLoss(num = 0){
 	return msg;
 }
 
+//Displays the fording animation. Success or fail is based on random number generation that can vary based on river depth
 function ford(){
 		prevLocation = currLocation;
 		currLocation = "";
@@ -233,6 +246,7 @@ function ford(){
 		riverDepth = 0; riverWidth = 0; ferryWait = 0; riverChange = 2;
 }
 
+//Displays float wagon animation. Success or fail is based on random number generation
 function floatWagon(){
 	prevLocation = currLocation;
 	currLocation = "";
@@ -493,7 +507,7 @@ function catchfish(){
 	
 }
 
-
+//Displays the animation for ferrying accross the river.
 function ferryAnimation(){
 	var t = "<img src='image/Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
 	<img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
@@ -501,6 +515,7 @@ function ferryAnimation(){
     $(document).ready(function(){$("#ok").animate({right: '10%'},10000,function(){alert("The ferry takes you across the river safely."); mainGame();});});
 }
 
+//Checks to see if you have enough money to ride the ferry, then increments the amount of days needed to wait. Also subtracts from food for each day
 function ferryFinish(){
 	if(supplies[MONEY] < 5) document.getElementsByClassName("container")[0].innerHTML = "<p>You do not have enough money to ride the ferry!"+spaceTxt+"</p>";
 	else{
@@ -520,12 +535,14 @@ function ferryFinish(){
 	});
 }
 
+//Asks the user if they want to take a ferry. The number of days to wait is randomly generated from 1-5 days
 function ferry(){
 	if(ferryWait == 0) ferryWait = Math.floor(Math.random() * (5)) + 1;
 	document.getElementsByClassName("container")[0].innerHTML = "<p>The ferry can take you across the river safely. It will cost $5, and you will have to wait for "+ferryWait+" days.<br>\
 																Do you want to take the ferry?</p> <button onclick='ferryFinish()' class='button'><span>Yes</span></button><br><button onclick='riverOptions()' class='button'><span>No</span></button>";
 }
 
+//The user waits a day by the river to see if conditions change. River depth can increase/decrease based on weather
 function riverWait(){
 	document.getElementsByClassName("container")[0].innerHTML = "<p>You camp near the river for a day.</p>" + spaceTxt;
 	day++; setDate(); eatFood(); changeWeather();
@@ -537,6 +554,7 @@ function riverWait(){
 	});
 }
 
+//Tells the user about the different options on the river menu
 function riverInfo(){
 	document.getElementsByClassName("container")[0].innerHTML = "<p>To ford a river means to pull your wagon across a <br>shallow part of the river, with the oxen still attached.</p>\
 	<p>To caulk the wagon means to seal it so that no water can get in.<br>The wagon can then be floated across like a boat.</p>\
@@ -546,6 +564,7 @@ function riverInfo(){
 	});
 }
 
+//Sets the river dimensions based on the river location
 function setRiver(){
 	if(currLocation == "Kansas River crossing") {riverWidth = 628; riverDepth = 4.8;}
 	else if(currLocation == "Big Blue River crossing") {riverWidth = 235; riverDepth = 3.0;}
@@ -553,6 +572,7 @@ function setRiver(){
 	else if(currLocation == "Snake River crossing") {riverWidth = 1000; riverDepth = 6.0;}
 }
 
+//Tells you information about the river before the main river menu
 function preRiver(){
 	randMsg = "";
 	if(riverDepth == 0) setRiver();
@@ -567,6 +587,7 @@ function preRiver(){
 	});
 }
 
+//Displays all the options of the river location to the user
 function riverOptions(){
 	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2><p>Weather: "+currWeather+"<br>\
 			River width: "+riverWidth+" feet <br>River depth: "+riverDepth.toFixed(1)+" feet<br>\
@@ -578,6 +599,7 @@ function riverOptions(){
 			<button class='button' onclick='riverInfo()'><span>Get Information</span></button></p>";
 }
 
+//Increments the date based on the user input. The crew's overall health is increased per day of rest.
 function rest(){
 	var daysInput;
 	var t = "<p>How many days would you like to rest?</p>\
@@ -598,13 +620,14 @@ function rest(){
 		});	
 }
 
-//validate input for rest input
+//Validate input for rest input
 function restInput(input){
 	var key;
 	document.getElementById ? key = input.keyCode: key = input.which;
 	return ((key > 47 && key < 58) || key == 8 || key == 13);
 }
 
+//User accepted the trade offer. Makes the transaction.
 function tradeAccept(type, amt, typePart){
 	supplies[type[0]] += amt[0];
 	supplies[type[1]] -= amt[1];
@@ -613,6 +636,8 @@ function tradeAccept(type, amt, typePart){
 	locationInfo();
 }
 
+//Checks to see if there is a trade offer based on random number generation, and also uses random number generation to determine
+//what the trade offer is. The merchant class gets better offers here. Also increments a day.
 function trade(){
 	day++;
 	eatFood();
@@ -625,6 +650,7 @@ function trade(){
 	//If 1 then someone wants to trade
 	if(Math.floor(Math.random() * (2))){
 		var i;
+		//Generating the trade offer
 		for(i = 0; i < 2; i++){
 			rand[i] = Math.floor(Math.random() * (5)) + 1;
 			if(i == 1){
@@ -657,6 +683,7 @@ function trade(){
 	$("#back").click(function(){$(this).unbind(); $("#acceptTrade").unbind(); locationInfo();});
 }
 
+//The Route functions append different locations and distances to the global arrays based on what route the user chose
 function firstDRoute1(){
 	locations.push.apply(locations, ["Green River crossing", "Soda Springs", "Fort Hall", "Snake River crossing", "Fort Boise", "Blue Mountains"]);
 	distance.push.apply(distance, [57, 143, 57, 182, 113, 160]);
@@ -682,6 +709,7 @@ function secondDRoute2(){
 	mainGame();
 }
 
+//Displays the different dialogue based on the location the user is at
 function talk(){
 	var t;
 	if(currLocation == "Independence") t = "<p>A town resident tells you:<br>\"Some folks seem to think that two oxen are enough to get them to Oregon!<br>\
@@ -728,11 +756,13 @@ function talk(){
 	});
 }
 
+//Checks to see if the user can pay the toll for the Barlow Road
 function payToll(){
 	if(supplies[MONEY] < 8.50) alert("You do not have enough money to pay the $8.50 toll for this road.");
 	else {alert("You pay the toll of $8.50 to travel on this road."); supplies[MONEY] -= 8.50; mainGame()};
 }
 
+//Displays the map of the Oregon Trail
 function checkMap(num = 0){
 	document.getElementsByClassName("container")[0].innerHTML = spaceTxt+ "<img src='image/Map.PNG' style='width:700px; height:400px; left:50%; margin-left: -350; position:absolute; background-color: black'></img>"
 	$(document).keypress(function(e){
@@ -744,6 +774,7 @@ function checkMap(num = 0){
 	});
 }
 
+//Leaves the location the user stopped at to continue on the trail. Also checks for diverging routes based on location.
 function leaveTown(){
 	if(supplies[OXEN] <= 0){alert("You need oxen to continue on the trail!"); return;}
 	else if(brokenPart == WHEEL){alert("You need to replace your broken wheel to continue on the trail!"); return;}
@@ -767,6 +798,7 @@ function leaveTown(){
 	currLocation = "";
 }
 
+//Displays the different options the user has based on location (fort, trail, river, etc.)
 function locationInfo() {
 	if(numCharacters == 0){lostGame(); return;}
 	randMsg = "";
@@ -802,6 +834,7 @@ function locationInfo() {
 	else document.getElementsByClassName("button")[0].setAttribute("onclick", "mainGame()");
 }
 
+//Displays the location image if the user chooses to stop there. User wins if they get to the last location.
 function displayLocation(){
 	var locImg;
 	if(currLocation == "Kansas River crossing") locImg = "image/locations/Kansas_River.JPG";
@@ -833,6 +866,7 @@ function displayLocation(){
 	});
 }
 
+//Gives user the option to stop at a location (fort, river, other)
 function stopLocation() {
 	if(numCharacters == 0){lostGame(); return;}
     var t = "<p><label>"+randMsg+"</label><br>You have reached " + currLocation + ".<br> Do you want to look around?</p>\
