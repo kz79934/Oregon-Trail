@@ -110,7 +110,8 @@ function welcome() {
 function displayScores(){
 	var numRows = 10;
 	if(arrScore.length < numRows) numRows = arrScore.length;
-	var t = "<h1>Top 10 Players</h1>";
+	var t = "<h1>Top 10 Players</h1>\
+			<table style='background-color: yellow; border-radius: 5px;'><tr><td>Player</td><td>Score</td></tr>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
 	$(document).keypress(function(e){
 		if (e.keyCode == SPACEBAR){

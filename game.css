@@ -254,3 +254,23 @@ P.blocktext {
     border: 3px solid red; 
 }
 
+table, td, th {
+    border: 5px solid red;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 20em
+}
+
+/* formatting and styling the score table */
+table {
+    border-collapse: collapse;
+    width: 50%;
+}
+
+th {
+    height: 50px;
+}
+
