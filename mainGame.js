@@ -87,7 +87,7 @@ function displayTombstone(index, num){
 }
 
 function askTombstone(index, num){
-	document.getElementsByClassName("container")[0].innerHTML = "<p>You pass over a grave. Would you like to take a closer look?<br>\
+	document.getElementsByClassName("container")[0].innerHTML = "<p>You pass over a grave. Would you like to take a closer look?<br><br>\
 	<button id='tombYes' class='button'><span>Yes</span></button><br><button id='tombNo' class='button'><span>No</span></button></p>";
 	$("#tombYes").click(function(){
 		$(this).unbind();
@@ -196,7 +196,8 @@ function mainGame() {
 
 function lostGame(){
 	//Store totalTraveled in the database with the player's name and his tombstone msg that comes from user input, the leaders name is at characters[0]
-	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU LOSE!!!</h1><form name='form2' action='tombstone.php' method='post'><input type='hidden' name='tempTraveled'></input><input type='hidden' name='leaderName'></input><input type='hidden' name='nextLocation'></input><input type='hidden' name='prevLocation'></input><input type='text' val='' name='messageInput' id='messageInput'></input><br><input type='submit' name='submitButton' class='button'></input></form>";															
+	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU LOSE!!!</h1><p>Enter a message for your grave.</p>\
+	<form name='form2' action='tombstone.php' method='post'><input type='hidden' name='tempTraveled'></input><input type='hidden' name='leaderName'></input><input type='hidden' name='nextLocation'></input><input type='hidden' name='prevLocation'></input><input type='text' val='' name='messageInput' id='messageInput'></input><br><input type='submit' name='submitButton' class='button'></input></form>";															
 	
 	console.log(tempTraveled);
 	console.log(characters[0]);
@@ -210,10 +211,27 @@ function lostGame(){
 }
 
 function endGame() {
-	var i;
-	for(i = 0; i < supplies.length; i++) score += supplies[i];
-    document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU WIN!!!</h1><p>Your score: "+score+"</p><form name='form1' action='high_score.php' method='post'><input type='hidden' name='scorePage'></input><input type='text' val='' name='pageInput' id='pageInput'></input><br><input type='submit' class='button'></input></form>";
-	
+	var scoreMult = 0;
+	if(job == "Banker") scoreMult = 1;
+	else if(job == "Carpenter" || job == "Fisher" || job == "Cowboy" || job == "Merchant") scoreMult = 2;
+	else if(job == "Farmer") scoreMult = 3;
+	else if(job == "Batman") scoreMult = 0;
+	var t= "<h1>YOU WIN!!!</h1><p>Calculating your score:<br><br>Money - $"+(supplies[MONEY]).toFixed(2)+":  "+Math.floor(supplies[MONEY])+" points<br>";
+	score += Math.floor(supplies[MONEY]);
+	t += "Food - "+supplies[FOOD]+" pounds:  "+Math.floor(supplies[FOOD]/10)+" points<br>";
+	score += Math.floor(supplies[FOOD]/10);
+	t += "Clothes - "+supplies[CLOTHING]+" sets:  "+(supplies[CLOTHING] * 10)+" points<br>";
+	score += (supplies[CLOTHING] * 10);
+	t += "Bait - "+supplies[BAIT]+":  "+Math.floor(supplies[BAIT]/10)+" points<br>";
+	score += Math.floor(supplies[BAIT]/10);
+	t += "Oxen - "+supplies[OXEN]+":  "+(supplies[OXEN] * 100)+" points<br>";
+	score += (supplies[OXEN] * 100);
+	t += "Spare Parts - "+supplies[PARTS]+" parts:  "+(supplies[PARTS] * 10)+"points<br>Score Multiplier:  "+scoreMult+"<br>";
+	score += (supplies[PARTS] * 10);
+	score *= scoreMult;
+	t += "Total Score:  "+score+"<br><br>Enter a name for your score.</p>"
+	t += "<form name='form1' action='high_score.php' method='post'><input type='hidden' name='scorePage'></input><input type='text' val='' name='pageInput' id='pageInput'></input><br><input type='submit' class='button'></input></form>";
+	document.getElementsByClassName("container")[0].innerHTML = t;
 	//score and type name
 	var inputName = document.getElementById('pageInput').value;
 	document.form1.scorePage.value = score;
