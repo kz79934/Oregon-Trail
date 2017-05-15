@@ -1,5 +1,6 @@
 //Misc. functions that help regulate the game. Includes random events.
 
+//Adds health to every person in the crew. Things like filling rations and resting use this function.
 function addTeamHP(num){
 	var i;
 	for(i = 0; i < hp.length; i++){
@@ -10,6 +11,8 @@ function addTeamHP(num){
 	}
 }
 
+//Reduces health from the entire crew. Things such as not enough clothing, fast pace, and small rations use this function.
+//Uses some random number generation so everyone does not die at the same time.
 function reduceTeamHP(num){
 	var randNum = 0;
 	var i;
@@ -22,12 +25,13 @@ function reduceTeamHP(num){
 	}
 }
 
+//Reduces the health of an individual person. Things like diseases use this function.
 function reduceCharHP(index, num){ 
 	hp[index] -= num;
 	if(hp[index] <= 0) {numCharacters--; alert(characters[index]+" has died!");}
 }
 
-//Adjusting the date
+//Adjusts the date of the game after incrementing day. Switches month if the day count exceeds the days of that current month.
 function setDate(){
     if (day > monthDays[month]) {
         day = day % monthDays[month];
@@ -38,7 +42,8 @@ function setDate(){
         else month++;
     }
 }
-	
+
+//Sets the overall crew health based on the combined total of HP	
 function setHealth(){
 	var totalHP = 0;
 	var i;
@@ -49,6 +54,7 @@ function setHealth(){
 	else {gameStatus[HEALTH] = VERYPOOR; currHealth = "Very Poor";}
 }
 
+//Subtracts from the users food supply and either adds or reduces health based on ration option. Food depletion varies based on rations.
 function eatFood(){
 	if(supplies[FOOD] == 0) reduceTeamHP(10);
 	else{
@@ -62,6 +68,7 @@ function eatFood(){
 	}
 }
 
+//Changes the weather of the game based on random number generation. Algorithm changes based on time of year.
 function changeWeather(){
 	var num = Math.floor(Math.random() * (10));
 	//Weather patterns based on months
@@ -94,12 +101,15 @@ function changeWeather(){
 	}
 }
 
+//Generates a random even based on random chance. Certain events have high chance of happening based on conditions.
+//Ex: If it is very rainy, higher chance that there is a severe storm. If overall health is poor, higher chance of disease.
 function randomEvent(){
 	var rand = 6;
 	if(gameStatus[WEATHER] == RAINY) rand += 3;
 	else if(gameStatus[WEATHER] == VERYRAINY) rand += 6;
 	var num = Math.floor(Math.random() * (rand));
 	console.log("num: " + num);
+	//Lose days on the trail
 	if(num == 0){
 		if(Math.floor(Math.random() * 2)){
 			randMsg = "You get lost on the trail! Lose 1 day.";
@@ -114,6 +124,7 @@ function randomEvent(){
 			day += randDay;
 		}
 	}
+	//Individual character diseases and other ailments
 	else if(num == 1 || gameStatus[HEALTH] == VERYPOOR){
 		var tempMsg = "";
 		var diseases = ["Typhoid Fever", "Cholera", "Dysentery", "Measles", "Diphtheria", "exhaustion", "a fever", "a broken arm", "a broken leg"];
@@ -127,6 +138,7 @@ function randomEvent(){
 
 		randMsg = tempMsg;
 	}
+	//A part on the wagon broke
 	else if(num == 2){
 		brokenPart = Math.floor(Math.random() * (3));
 		var tempMsg;
@@ -135,6 +147,7 @@ function randomEvent(){
 		else if(brokenPart == TONGUE) tempMsg = "The wagon's tongue broke!";
 		randMsg = tempMsg;
 	}
+	//A thief steals supplies
 	else if(num == 3){
 		var randThief = Math.floor(Math.random() * (4));
 		if(randThief == 0 && supplies[OXEN] > 0){
@@ -156,6 +169,7 @@ function randomEvent(){
 			randMsg = "A thief stole " + sFood + " pounds of food while you were sleeping!";
 		}
 	}
+	//Salvage items from abandoned wagons
 	else if(num == 4){
 		randMsg = "You spot an abandoned wagon";
 		var randPart = Math.floor(Math.random() * (6))
@@ -164,6 +178,7 @@ function randomEvent(){
 		else if(randPart == TONGUE){parts[TONGUE]++; supplies[PARTS]++; randMsg += ". It has a spare tongue.";}
 		else randMsg += ", but it is empty.";
 	}
+	//Find extra food
 	else if(num == 5){randMsg = "You find wild fruit."; supplies[FOOD] += 50;}
 	//Storms only happen if it is raining.
 	else{
@@ -176,6 +191,7 @@ function randomEvent(){
 	}
 }
 
+//Checks if the user has an unfixed broken part and/or no oxen. If they do, they cannot continue on trail until they address the issue.
 function checkMove(){
 	if(supplies[OXEN] <= 0) {alert("You have no oxen to pull your wagon!"); return 0;}
 	else if(brokenPart == WHEEL) {alert("Your wagon cannot move with a broken wheel!"); return 0;}
