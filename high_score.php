@@ -25,8 +25,11 @@
 ?>
 
 <html>
+<head>
+	<link rel="stylesheet" type="text/css" href="game.css">
+</head>
 <body>
 <h1>Thanks for playing!</h1>
-<button onclick="window.location.href='game.php'">Back to main</button>
+<button class="button" onclick="window.location.href='game.php'"><span>Play Again</span></button>
 </body>
 </html>
