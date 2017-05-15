@@ -261,7 +261,7 @@ function alphaValMembers(input){
 
 function getLeaderName() {
     characters = ["Andrew", "Kathy", "LeBron", "Barbara", "Frank"];
-    var t = "<img src='image/P1.png' alt='HTML5 Icon' style='display: block; margin-left: 300px; width: 50%;'></img>\
+    var t = "<img src='image/family.png' alt='HTML5 Icon' style='display: block; margin-left: 300px; width: 50%;'></img>\
             <p>What is the first name of your leader?</p>\
 			<input id='leader' type='text' value='' placeholder='First Name' onkeypress='return alphaValLeader(event)'></input><br><button class='button' onclick='getNames()'><span>Next</span></button>"
     document.getElementById("innerPage").innerHTML = t;
@@ -274,7 +274,7 @@ function getNames() {
 	leaderName = firstLetter + nameSlice;
 	
     if (leaderName.replace(/\s/g, "") != "") characters[0] = leaderName;
-    var t = "<img src='image/P1.png' alt='HTML5 Icon' style='display: block; margin-left: 300px; width: 50%;'></img>\
+    var t = "<img src='image/family.png' alt='HTML5 Icon' style='display: block; margin-left: 300px; width: 50%;'></img>\
             <p>What are the first names of the other members in your party?<br>\
 			The leader's name is " + characters[0] + ".</p>\
 			<input class='names' type='text1' value='' placeholder='First Member' onkeypress='return alphaValMembers(event)'></input>\
@@ -357,7 +357,7 @@ function finishIntro() {
 function storeGreeting() {
     console.log("test");
     var t = "<p>Hi, I'm Krunal! I see you're going to Oregon, and it just so happens that I have some very useful supplies you may need </p>\
-            <img src='image/P2.png' alt='HTML5 Icon' style='position: relative; left: 100px; width: 15%;'></img>\
+            <img src='image/Krunal.png' alt='HTML5 Icon' style='position: relative; left: 100px; width: 15%;'></img>\
 			<ol class='a'>\
                 <li1>1. A team of oxen to pull your wagon</li1><br><br>\
                 <li1>2. Clothing for both summer and winter</li1><br><br>\
@@ -376,7 +376,7 @@ function storeGreeting() {
 function initStore() {
     var tempBalance = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));
     var t = "<h3>Krunal's General Store</h3><h4>Independence, Missouri<br>" + months[month] + " 1, 1848</h4>\
-            <img src='image/P2.png' alt='HTML5 Icon' style='position: fixed; left: 200px; width: 15%;'></img>\
+            <img src='image/Krunal.png' alt='HTML5 Icon' style='position: fixed; left: 200px; width: 15%;'></img>\
 			<ol class='b'><li1>1. Oxen = $" + (price[OXEN_COST] * tempSupplies[OXEN]) + "&nbsp&nbsp&nbsp <button class='button button1' value='Oxen' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>2. Clothes = $" + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + " <button class='button button1' value='Clothes' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>3. Food = $" + Number(Math.round((price[FOOD_COST] * tempSupplies[FOOD]) + 'e2') + 'e-2') + "&nbsp&nbsp&nbsp <button class='button button1' value='Food' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
