@@ -104,6 +104,14 @@ function welcome() {
     document.getElementById("main").innerHTML = t;
 }
 
+/*
+function displayScores(){
+	var numRows = 10;
+	if(arrScore.length < numRows) numRows = arrScore.length;
+	var t = "<h1>Top 10 Players</h1>";
+}
+*/
+
 function toggleSound(){
 	if(soundOn) {soundOn = 0; document.getElementById("sound").innerHTML = "Turn On Sound"}
 	else {soundOn = 1; document.getElementById("sound").innerHTML = "Turn Off Sound"}
@@ -228,7 +236,7 @@ function getInfo(num = 0) {
 }
 
 function quit() {
-    document.getElementById("main").innerHTML = "<h1>THANKS FOR PLAYING FUCKER!!!</h1>";
+    document.getElementById("main").innerHTML = "<h1>THANKS FOR PLAYING!</h1>";
 }
 
 //validate input for alpha for leader

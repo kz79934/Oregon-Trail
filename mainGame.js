@@ -194,11 +194,11 @@ function mainGame() {
 
 function lostGame(){
 	//Store totalTraveled in the database with the player's name and his tombstone msg that comes from user input, the leaders name is at characters[0]
-	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU LOSE FUCKER!!!</h1> <input type='text' val=''></input><br><button class='button'>Submit</button>";
+	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU DIED!</h1> <input type='text' val=''></input><br><button class='button'>Submit</button>";
 }
 
 function endGame() {
 	var i;
 	for(i = 0; i < supplies.length; i++) score += supplies[i];
-    document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU WIN FUCKER!!!</h1> <p>Your score: "+score+"</p> <input type='text' val=''></input><br><button class='button'>Submit</button>";
+    document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU WIN!</h1> <p>Your score: "+score+"</p> <input type='text' val=''></input><br><button class='button'>Submit</button>";
 }
