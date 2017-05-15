@@ -112,6 +112,11 @@ function displayScores(){
 	if(arrScore.length < numRows) numRows = arrScore.length;
 	var t = "<h1>Top 10 Players</h1>\
 			<table style='background-color: yellow; border-radius: 5px;'><tr><td>Player</td><td>Score</td></tr>";
+			
+			for(var i = 0; i < arrScore.length; i++)
+			{
+				t += "<tr><td>" + arrName[i] + "</td><td>" + arrScore[i] + "</td></tr>";
+			}
 	document.getElementsByClassName("container")[0].innerHTML = t;
 	$(document).keypress(function(e){
 		if (e.keyCode == SPACEBAR){
