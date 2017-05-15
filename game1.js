@@ -111,7 +111,7 @@ function displayScores(){
 	var numRows = 10;
 	if(arrScore.length < numRows) numRows = arrScore.length;
 	var t = "<h1>Top 10 Players</h1>\
-			<table style='background-color: yellow; border-radius: 5px;'><tr><td>Player</td><td>Score</td></tr>";
+			<table style='background-color: black; border-radius: 5px;'><tr><td style='text-decoration: underline; color: Blue; font-size: 30px;'>Player</td><td style='text-decoration: underline; color: Blue; font-size: 30px;'>Score</td></tr>";
 			
 			for(var i = 0; i < arrScore.length; i++)
 			{
