@@ -5,37 +5,38 @@ const SPACEBAR = 32;
 const MONEY = 0;
 const FOOD = 1;
 const PARTS = 2;
-const WHEEL = 0;
-const AXLE = 1;
-const TONGUE = 2;
+	//Indices for each part
+	const WHEEL = 0;
+	const AXLE = 1;
+	const TONGUE = 2;
 const BAIT = 3;
 const OXEN = 4;
 const CLOTHING = 5;
 //Indices for Status
 const WEATHER = 0;
-//Weather Options
-const COOL = 0;
-const RAINY = 1;
-const COLD = 2;
-const WARM = 3;
-const HOT = 4;
-const VERYRAINY = 5;
+	//Weather Options
+	const COOL = 0;
+	const RAINY = 1;
+	const COLD = 2;
+	const WARM = 3;
+	const HOT = 4;
+	const VERYRAINY = 5;
 const HEALTH = 1;
-//Health Options
-const GOOD = 0;
-const FAIR = 1;
-const POOR = 2;
-const VERYPOOR = 3;
+	//Health Options
+	const GOOD = 0;
+	const FAIR = 1;
+	const POOR = 2;
+	const VERYPOOR = 3;
 const PACE = 2;
-//Pace Options
-const STEADY = 0;
-const STRENUOUS = 1;
-const GRUELING = 2;
+	//Pace Options
+	const STEADY = 0;
+	const STRENUOUS = 1;
+	const GRUELING = 2;
 const RATIONS = 3;
-//Rations Options
-const FILLING = 0;
-const MEAGER = 1;
-const BAREBONES = 2;
+	//Rations Options
+	const FILLING = 0;
+	const MEAGER = 1;
+	const BAREBONES = 2;
 var spaceTxt = "<div><p>Press SPACE BAR to Continue</p></div>";
 var locations = ["Kansas River crossing", "Big Blue River crossing", "Fort Kearney", "Chimney Rock", "Fort Laramie", "Independence Rock", "South Pass"];
 var distance = [102, 82, 118, 250, 86, 190, 102];
@@ -90,6 +91,7 @@ var gameDone = 0;
 
 welcome();
 
+//This is the initial function the game calls. It is equivalent to the start menu of a game.
 function welcome() {
     var t = "<div class='container'>\
 				<h1 class='spin'>The Oregon Trail!</h1>\
@@ -104,6 +106,7 @@ function welcome() {
     document.getElementById("main").innerHTML = t;
 }
 
+//Shows the top players players on the leaderboard based on their score. The information was acquired from a database.
 function displayScores(){
 	var numRows = 10;
 	if(arrScore.length < numRows) numRows = arrScore.length;
@@ -117,11 +120,13 @@ function displayScores(){
 	});
 }
 
+//Turns game sound on/off
 function toggleSound(){
 	if(soundOn) {soundOn = 0; document.getElementById("sound").innerHTML = "Turn On Sound"}
 	else {soundOn = 1; document.getElementById("sound").innerHTML = "Turn Off Sound"}
 }
 
+//The user chooses which class he wants to play as. A description of each class is shown when the user selects one of them.
 function getOccupation() {
     var t = "<form><div class='container'><ul>\
 				<li><input type='radio' id='f-option' name='occupation' value='Banker' onclick = 'displayOcc(this.value)'> <label for='f-option'>Banker</label> <div class='check'></div></li> <div id='info1' ></div>\
@@ -136,6 +141,7 @@ function getOccupation() {
     document.getElementById("innerPage").innerHTML = t;
 }
 
+//Responsible for outputting the information for each class. Also assigns the amount of money to supplies. Amount varies based on class.
 function displayOcc(occupation) {
     if (occupation == "Banker") {
         document.getElementById("info1").innerHTML = "<p>Banker has the most starting money in the game but you get least amount of points playing him.</p>";
@@ -218,6 +224,7 @@ function displayOcc(occupation) {
     document.getElementById("CharNames").setAttribute("onclick", "getLeaderName()");
 }
 
+//An option from the start menu which tells you about the Oregon Trail.
 function getInfo(num = 0) {
     var gameInfo = ["Try taking a journey by covered wagon across 2000 miles of plains, rivers, and mountains.<br>Try! On the plains, will you slosh your oxen through mud and water-filled ruts<br>or will you plod through dust six inches deep?", 
 	"How will you cross the rivers? If you have money, you might take a ferry.<br>Or, you can ford the river and hope you and your wagon aren't swallowed alive!", 
@@ -240,11 +247,12 @@ function getInfo(num = 0) {
     });
 }
 
+//Exit the game
 function quit() {
     document.getElementById("main").innerHTML = "<h1>THANKS FOR PLAYING!</h1>";
 }
 
-//validate input for alpha for leader
+//Validate input for alpha characters for leader
 function alphaValLeader(input){
 	var key;
 	document.getElementById ? key = input.keyCode: key = input.which;
@@ -254,7 +262,7 @@ function alphaValLeader(input){
 	return ((key > 64 && key < 91) || (key > 96 && key < 123) || key == 8 || key == 39 || key == 16 || key == 13);
 }
 
-//validate input for alpha for members
+//Validate input for alpha characters for members
 function alphaValMembers(input){
 	var key;
 	document.getElementById ? key = input.keyCode: key = input.which;
@@ -264,6 +272,7 @@ function alphaValMembers(input){
 	return ((key > 64 && key < 91) || (key > 96 && key < 123) || key == 8 || key == 39 || key == 16 || key == 13);
 }
 
+//Gets the user input for the name of your leader
 function getLeaderName() {
     characters = ["Andrew", "Kathy", "LeBron", "Barbara", "Frank"];
     var t = "<img src='image/p1.png' alt='HTML5 Icon' style='display: block; margin-left: 300px; width: 50%;'></img>\
@@ -272,6 +281,7 @@ function getLeaderName() {
     document.getElementById("innerPage").innerHTML = t;
 }
 
+//Gets the user input for the names of the rest of your crew.
 function getNames() {
     var leaderName = document.getElementById("leader").value;
 	if(leaderName == "") return;
@@ -292,6 +302,7 @@ function getNames() {
     document.getElementById("innerPage").innerHTML = t;
 }
 
+//Stores the names in the characters global array
 function finalizeNames() {
     var tempNames = document.getElementsByClassName("names");
     var i
@@ -309,6 +320,7 @@ function finalizeNames() {
     document.getElementById("innerPage").innerHTML = t;
 }
 
+//Gives user options on which month to depart.
 function pickMonth() {
     var t = "<p>It is 1848. Your jump off place for Oregon is Independence, Missouri. You must decide which month to leave Independence.</p>\
 			<form><div class='container'><ul>\
@@ -322,11 +334,13 @@ function pickMonth() {
     document.getElementById("innerPage").innerHTML = t;
 }
 
+//Finalizes the user selected month before the game starts
 function assignMonth(userMonth) {
     month = months.indexOf(userMonth);
     document.getElementById("play").setAttribute("onclick", "finishIntro()");
 }
 
+//Gives user advice on which month to leave on.
 function getAdvice() {
     document.getElementById("innerPage").innerHTML = "<p>You attend a public meeting held for \"folks with the California - Oregon fever.\" You're told:<br>\
 	If you leave too early, there won't be any grass for your oxen to eat. If you leave too late, you may not get to Oregon before winter comes.<br>If you leave at just the right time, there will be green grass and the weather will still be cool.</p>" + spaceTxt;
@@ -338,6 +352,7 @@ function getAdvice() {
     });
 }
 
+//Transitions from the class and month selection to Krunal's general store.
 function finishIntro() {
     console.log(month);
     var info = ["Before leaving Independence you should buy equipment and supplies. You have $" + supplies[MONEY] + " in cash, but you don't have to spend it all now"
@@ -360,9 +375,10 @@ function finishIntro() {
     });
 }
 
+//Information before entering the Krunal's general store
 function storeGreeting() {
     console.log("test");
-    var t = "<p>Hi, I'm Krunal! I see you're going to Oregon, and it just so happens that I have some very useful supplies you may need </p>\
+    var t = "<p>Hi, I'm Krunal! I see you're going to Oregon, and it just so happens that I have some very useful supplies you may need. </p>\
             <img src='image/P2.png' alt='HTML5 Icon' style='position: relative; left: 100px; width: 15%;'></img>\
 			<ol class='a'>\
                 <li1>1. A team of oxen to pull your wagon</li1><br><br>\
@@ -379,6 +395,7 @@ function storeGreeting() {
     });
 }
 
+//This is Krunal's general store. The user can choose what he/she wants to buy and how much of it.
 function initStore() {
     var tempBalance = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));
     var t = "<h3>Krunal's General Store</h3><h4>Independence, Missouri<br>" + months[month] + " 1, 1848</h4>\
@@ -394,6 +411,7 @@ function initStore() {
    //if (tempSupplies[OXEN] > 0) document.getElementById("startTrail").setAttribute("onclick", "initOpening()");
 }
 
+//Makes sure the use has oxen before beginning the trail
 function OxenValidation(){
 
     	if (tempSupplies[OXEN] > 0){
@@ -405,6 +423,7 @@ function OxenValidation(){
 		}
 }
 
+//Asks for user input for each item and gives advice for how much to buy.
 function initBuy(item) {
     var t;
     if (item == "Oxen") {
@@ -433,8 +452,8 @@ function initBuy(item) {
     document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
-//validate input for buying items
-//user can enter a value and press enter button = buy it button
+//Validate input for buying items
+//User can enter a value and press enter button = buy it button
 function itemValidation(input){
 	var key;
 	document.getElementById ? key = input.keyCode: key = input.which;
@@ -463,6 +482,8 @@ function itemValidation(input){
 	return ((key > 47 && key < 58) || key == 8 || key == 13);
 }
 
+//Makes sure the user entered valid input or didn't leave it blank.
+//Also calculates the estimated cost to see if the user can afford that amount.
 function checkValid(index) {
     var tempBalance, tempValue;
     var tempInputs = document.getElementsByTagName("input");
@@ -509,7 +530,8 @@ function checkValid(index) {
     }
 }
 
-
+//Transfers the users shopping cart from Krunal's general store to their supplies.
+//Also subtracts the transaction cost of all the items from the user's balance.
 function tempTransfer() {
     supplies[MONEY] = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));
     var i;
@@ -519,6 +541,7 @@ function tempTransfer() {
     tempParts = [0, 0, 0];
 }
 
+//The location display for Independence (First Location)
 function initOpening() {
     tempTransfer();
     var IndepDay = months[month];
