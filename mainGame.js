@@ -52,6 +52,8 @@ function travelTrail() {
 		else{
 			//Ask if they wish to stop here
 			totalTraveled = totalTraveled - (tempTraveled - distance[0]);
+			//checkTombstone(1);
+			//Comment out the rest and uncomment checkTombstone(1) when ready
 			tempTraveled = 0;
 			currLocation = locations.shift();
 			currType = locType.shift();
@@ -102,14 +104,22 @@ function askTombstone(index){
 	});
 }
 
-function checkTombstone(){
+function checkTombstone(num = 0){
 	var i;
 	for(i = 0; i < tombMiles.length; i++){
 		if(tombPrev[i] == prevLocation && tombNext[i] == locations[0]){
 			if(tombMiles[i] <= tempTraveled){ askTombstone(i); return;}
 		}
 	}
-	mainGame();
+	if(num){
+		tempTraveled = 0;
+		currLocation = locations.shift();
+		currType = locType.shift();
+		distance.shift();
+		console.log(distance.length);
+		stopLocation();
+	}
+	else mainGame();
 }
 */
 
