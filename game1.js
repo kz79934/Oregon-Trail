@@ -261,6 +261,7 @@ function getLeaderName() {
 
 function getNames() {
     var leaderName = document.getElementById("leader").value;
+	if(leaderName == "") return;
 	var firstLetter = leaderName.charAt(0).toUpperCase();
 	var nameSlice = leaderName.slice(1).toLowerCase();
 	leaderName = firstLetter + nameSlice;
