@@ -61,7 +61,57 @@ function travelTrail() {
 		}
 	}
     else if (!gameDone) mainGame();
+	//else if (!gameDone) checkTombstone();
 }
+
+/*
+
+function displayTombstone(index){
+	var t = "<p>"+tombName[index]+"<br><br>"+tombMsg[index]+"</p>" + spaceTxt;
+	document.getElementsByClassName("container")[0].innerHTML = t;
+	$(document).keypress(function (e) {
+        if (e.keyCode == SPACEBAR) {
+            $(this).unbind();
+            tombMsg.splice(index, 1);
+			tombName.splice(index, 1);
+			tombPrev.splice(index, 1);
+			tombNext.splice(index, 1);
+			tombMiles.splice(index, 1);
+			checkTombstone();
+        }
+    });
+}
+
+function askTombstone(index){
+	document.getElementsByClassName("container")[0].innerHTML = "<p>You pass over a tombstone. Would you like to take a close look?<br>\
+	<button id='tombYes' class='button'><span>Yes</span></button><br><button id='tombNo' class='button'><span>No</span></button></p>";
+	$("#tombYes").click(function(){
+		$(this).unbind();
+		$("#tombNo").unbind();
+		displayTombstone(index);
+	});
+	$("#tombNo").click(function(){
+		$(this).unbind();
+		$("#tombYes").unbind();
+		tombMsg.splice(index, 1);
+		tombName.splice(index, 1);
+		tombPrev.splice(index, 1);
+		tombNext.splice(index, 1);
+		tombMiles.splice(index, 1);
+		checkTombstone();
+	});
+}
+
+function checkTombstone(){
+	var i;
+	for(i = 0; i < tombMiles.length; i++){
+		if(tombPrev[i] == prevLocation && tombNext[i] == locations[0]){
+			if(tombMiles[i] <= tempTraveled){ askTombstone(i); return;}
+		}
+	}
+	mainGame();
+}
+*/
 
 function walk(){
 	$(document).ready(function(){
