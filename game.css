@@ -2,8 +2,21 @@ h1,h2,h3{
     color: white;
     text-align: center;
     line-height: 1;
-    font-size: 50px;
+    font-size: 60px;
     font-family: courier;
+}
+
+h1{
+    position: relative;
+    top: 10px;
+    border-bottom: 6px solid red;
+    border-bottom-style: double;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top: 6px solid red;
+    border-top-style: double;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 h4{
@@ -12,7 +25,7 @@ h4{
     font-family: courier;
     font-size: 20px;
     position: relative;
-    bottom: 20px;
+    bottom: 50px;
     border-bottom: 6px solid red;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -211,6 +224,8 @@ ol.b{
     color: white;
     font-family: courier;
     font-size: 20px;
+    position: relative;
+    bottom: 40px;
     margin-left: auto;
     margin-right: auto;
     width: 17em

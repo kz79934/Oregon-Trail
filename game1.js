@@ -92,7 +92,7 @@ welcome();
 
 function welcome() {
     var t = "<div class='container'>\
-				<h1>The Oregon Trail!</h1>\
+				<h1 class='spin'>The Oregon Trail!</h1>\
 				<div id='innerPage'>\
 				<button class='button button2' onclick='getOccupation()'><span>Travel the Trail</span></button><br>\
 				<button class='button button2' onclick ='getInfo()'><span>Learn About the Trail</span></button><br>\
@@ -377,7 +377,7 @@ function storeGreeting() {
 function initStore() {
     var tempBalance = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));
     var t = "<h3>Krunal's General Store</h3><h4>Independence, Missouri<br>" + months[month] + " 1, 1848</h4>\
-            <img src='image/P2.png' alt='HTML5 Icon' style='position: fixed; left: 200px; width: 15%;'></img>\
+            <img src='image/P2.png' alt='HTML5 Icon' style='position: fixed; left: 200px; width: 15%; top: 170px;'></img>\
 			<ol class='b'><li1>1. Oxen = $" + (price[OXEN_COST] * tempSupplies[OXEN]) + "&nbsp&nbsp&nbsp <button class='button button1' value='Oxen' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>2. Clothes = $" + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + " <button class='button button1' value='Clothes' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
             <li1>3. Food = $" + Number(Math.round((price[FOOD_COST] * tempSupplies[FOOD]) + 'e2') + 'e-2') + "&nbsp&nbsp&nbsp <button class='button button1' value='Food' onclick='initBuy(this.value)'><span>Buy!</span></button> </li1><br>\
