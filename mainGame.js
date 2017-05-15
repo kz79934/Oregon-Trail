@@ -1,5 +1,7 @@
-//The main game file that has the game travel loop. Also checks for end game (win or lose) and has the travel animation for wagon.
+//The main game file that has the game travel loop. Also checks for end game (win or lose), has the travel animation for wagon, and checks for tombstones.
 
+//The main travel logic of the game. Will increment the day, eatFood, changeWeather, etc. and increase miles traveled based on pace.
+//Also in charge of determining if random event happens, location is reached, and/or game is over
 function travelTrail() {
 	//if(!checkMove()){ mainGame(); return;}
 	randMsg = "";
@@ -69,7 +71,7 @@ function travelTrail() {
 }
 
 
-
+//Shows the tombstone with the leader's name and their message
 function displayTombstone(index, num){
 	var t = "<p>"+tombName[index]+"<br><br>"+tombMsg[index]+"</p>" + spaceTxt;
 	document.getElementsByClassName("container")[0].innerHTML = t;
@@ -86,6 +88,7 @@ function displayTombstone(index, num){
     });
 }
 
+//Asks user if they want to look at the tombstone
 function askTombstone(index, num){
 	document.getElementsByClassName("container")[0].innerHTML = "<p>You pass over a grave. Would you like to take a closer look?<br><br>\
 	<button id='tombYes' class='button'><span>Yes</span></button><br><button id='tombNo' class='button'><span>No</span></button></p>";
@@ -106,6 +109,7 @@ function askTombstone(index, num){
 	});
 }
 
+//Checks to see if the user is passing any tombstones
 function checkTombstone(num = 0){
 	var i;
 	for(i = 0; i < tombMiles.length; i++){
@@ -113,6 +117,7 @@ function checkTombstone(num = 0){
 			if(tombMiles[i] <= tempTraveled){ askTombstone(i, num); return;}
 		}
 	}
+	//If the tombstone is next to a town/river/other
 	if(num){
 		tempTraveled = 0;
 		currLocation = locations.shift();
@@ -121,10 +126,11 @@ function checkTombstone(num = 0){
 		console.log(distance.length);
 		stopLocation();
 	}
+	//If the tombstone is somewhere along the trail
 	else mainGame();
 }
 
-
+//Shows the travel animation. The wheels on the wagon rotate and the oxen walk.
 function walk(){
 	$(document).ready(function(){
 	if(!checkMove()){ mainGame(); return;}
@@ -163,7 +169,9 @@ function walk(){
 	});
 }
 
+//The main game screen that displays the status of the game and the area in which the walk animation takes place
 function mainGame() {
+	//If all crew members die
 	if(numCharacters == 0){lostGame(); return;}
 	setDate();
 	setHealth();
@@ -194,6 +202,7 @@ function mainGame() {
     });
 }
 
+//Function is called when everyone dies. Gives you an input box to input a message on your tombstone for other players to see.
 function lostGame(){
 	//Store totalTraveled in the database with the player's name and his tombstone msg that comes from user input, the leaders name is at characters[0]
 	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU LOSE!!!</h1><p>Enter a message for your grave.</p>\
@@ -210,6 +219,7 @@ function lostGame(){
 	
 }
 
+//Function is called when you reach Oregon. Calculates your score based on your supplies and class. Gives you an input box to put in a name for your score.
 function endGame() {
 	var scoreMult = 0;
 	if(job == "Banker") scoreMult = 1;
