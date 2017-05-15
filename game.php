@@ -81,7 +81,7 @@ mysqli_close($con);
 			tombMiles.push(tombstone[j].miles);
 
 		}
-				
+		/*		
 		document.getElementById("demo").innerHTML = "score:: " + arrScore;
 		document.getElementById("demo2").innerHTML = "name:: " + arrName + "<br>";
 		
@@ -90,7 +90,7 @@ mysqli_close($con);
 		document.getElementById("demo5").innerHTML = "tomb next location:: " + tombNext;
 		document.getElementById("demo6").innerHTML = "tomb leader name:: " + tombName;
 		document.getElementById("demo7").innerHTML = "tomb miles:: " + tombMiles;
-
+		*/
 		
 	</script>
 	<script src="game1.js"></script>
