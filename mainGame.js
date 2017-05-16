@@ -246,7 +246,7 @@ function endGame() {
 	score += Math.floor(supplies[BAIT]/10);
 	t += "Oxen - "+supplies[OXEN]+":  "+(supplies[OXEN] * 100)+" points<br><br>";
 	score += (supplies[OXEN] * 100);
-	t += "Spare Parts - "+supplies[PARTS]+" parts:  "+(supplies[PARTS] * 10)+"points<br>Score Multiplier:  "+scoreMult+"<br><br>";
+	t += "Spare Parts - "+supplies[PARTS]+" parts:  "+(supplies[PARTS] * 10)+" points<br><br>Score Multiplier:  "+scoreMult+"<br><br>";
 	score += (supplies[PARTS] * 10);
 	score *= scoreMult;
 	t += "Total Score:  "+score+"<br><br>Enter a name for your score.</p>"
