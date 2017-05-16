@@ -854,6 +854,10 @@ function locationInfo() {
 	if(soundOn){//stops town music if music is on
 		bkg.pause();
 		bkg.load();
+		land.pause();
+		land.load();
+		coast.pause();
+		coast.load();
 	}
 	if(numCharacters == 0){lostGame(); return;}
 	randMsg = "";
@@ -898,10 +902,22 @@ function displayLocation(){
 			victory.play();
 		}
 	}
-	else {
+	else if (currType == TOWN){
 		if(soundOn){//plays town music if music is on
 			bkg.loop = true;
 			bkg.play();
+		}
+	}
+	else if (currType == RIVER){
+		if(soundOn){//plays town music if music is on
+			coast.loop = true;
+			coast.play();
+		}
+	}
+	else{
+		if(soundOn){
+			land.loop = true;
+			land.play();
 		}
 	}
 	if(currLocation == "Kansas River crossing") locImg = "image/locations/Kansas_River.JPG";
