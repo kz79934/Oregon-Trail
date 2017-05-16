@@ -155,7 +155,7 @@ function setItem(item){
 	else if(item == "WHEEL") 
 		document.getElementById("selectItem").innerHTML = "<label>How many wheels?</label><br><br><input id='buy' type='text' value='' placeholder='Wheels' onkeypress='return itemValidation(event)'></input><br><button class='button' value='WHEEL' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "AXLE") 
-		document.getElementById("selectItem").innerHTML = "<label>How many axles?</label><br><br><input id='buy' type='text' value='' placeholder='Axels' onkeypress='return itemValidation(event)'></input><br><button class='button' value='AXLE' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
+		document.getElementById("selectItem").innerHTML = "<label>How many axles?</label><br><br><input id='buy' type='text' value='' placeholder='Axles' onkeypress='return itemValidation(event)'></input><br><button class='button' value='AXLE' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "TONGUE") 
 		document.getElementById("selectItem").innerHTML = "<label>How many tongues?</label><br><br><input id='buy' type='text' value='' placeholder='Tongues' onkeypress='return itemValidation(event)'></input><br><button class='button' value='TONGUE' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "FOOD") 
