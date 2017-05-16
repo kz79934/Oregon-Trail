@@ -936,6 +936,7 @@ function displayLocation(){
 //Gives user the option to stop at a location (fort, river, other)
 function stopLocation() {
 	if(numCharacters == 0){lostGame(); return;}
+	if(currLocation == "Willamette Valley") {displayLocation(); return;}
     var t = "<p><label>"+randMsg+"</label><br>You have reached " + currLocation + ".<br> Do you want to look around?</p>\
 			<button class='button' onclick='displayLocation()'><span>Yes</span></button>&nbsp<button class='button' onclick=''><span>No</span></button>";
     document.getElementsByClassName("container")[0].innerHTML = t;

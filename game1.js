@@ -96,7 +96,7 @@ welcome();
 
 //This is the initial function the game calls. It is equivalent to the start menu of a game.
 function welcome() {
-	if(soundOn){//plays victory music if music is on
+	if(soundOn){//pauses victory music if music is on
 			victory.pause();
 	}
     var t = "<div class='container'>\
