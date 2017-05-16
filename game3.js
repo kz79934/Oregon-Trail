@@ -182,7 +182,7 @@ function randomEvent(){
 	else if(num == 5){randMsg = "You find wild fruit."; supplies[FOOD] += 50;}
 	//Storms only happen if it is raining.
 	else{
-		var randDay = Math.floor(Math.random() * (3)) + 1;
+		var randDay = Math.floor(Math.random() * (2)) + 2;
 		randMsg = "There is a severe storm! Lose "+randDay+" days";
 		var i;
 		for(i = 0; i < randDay; i++) eatFood();
