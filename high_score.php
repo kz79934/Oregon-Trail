@@ -31,6 +31,6 @@
 </head>
 <body>
 <h1>Thanks for playing!</h1>
-<button class="button" onclick="window.location.href='game.php'"><span>Play Again</span></button>
+<button class="button" onclick="window.location.href='proj2.php'"><span>Play Again</span></button>
 </body>
 </html>
