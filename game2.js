@@ -137,19 +137,19 @@ function buyItem(item){
 //Displays an input box for the user to enter in the amount they want of the option they chose
 function setItem(item){
 	if(item == "OXEN") 
-		document.getElementById("selectItem").innerHTML = "<label>How many oxen?</label><br><br><input id='buy' type='text' value='' placeholder='Oxen'></input><br><button class='button' value='OXEN' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
+		document.getElementById("selectItem").innerHTML = "<label>How many oxen?</label><br><br><input id='buy' type='text' value='' placeholder='Oxen' onkeypress='return itemValidation(event)'></input><br><button class='button' value='OXEN' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "CLOTHING") 
-		document.getElementById("selectItem").innerHTML = "<label>How many sets?</label><br><br><input id='buy' type='text' value='' placeholder='Sets'></input><br><button class='button' value='CLOTHING' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
+		document.getElementById("selectItem").innerHTML = "<label>How many sets?</label><br><br><input id='buy' type='text' value='' placeholder='Sets' onkeypress='return itemValidation(event)'></input><br><button class='button' value='CLOTHING' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "BAIT") 
-		document.getElementById("selectItem").innerHTML = "<label>How many buckets?</label><br><br><input id='buy' type='text' value='' placeholder='Buckets'></input><br><button class='button' value='BAIT' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
+		document.getElementById("selectItem").innerHTML = "<label>How many buckets?</label><br><br><input id='buy' type='text' value='' placeholder='Buckets' onkeypress='return itemValidation(event)'></input><br><button class='button' value='BAIT' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "WHEEL") 
-		document.getElementById("selectItem").innerHTML = "<label>How many wheels?</label><br><br><input id='buy' type='text' value='' placeholder='Wheels'></input><br><button class='button' value='WHEEL' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
+		document.getElementById("selectItem").innerHTML = "<label>How many wheels?</label><br><br><input id='buy' type='text' value='' placeholder='Wheels' onkeypress='return itemValidation(event)'></input><br><button class='button' value='WHEEL' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "AXLE") 
-		document.getElementById("selectItem").innerHTML = "<label>How many axles?</label><br><br><input id='buy' type='text' value='' placeholder='Axels'></input><br><button class='button' value='AXLE' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
+		document.getElementById("selectItem").innerHTML = "<label>How many axles?</label><br><br><input id='buy' type='text' value='' placeholder='Axels' onkeypress='return itemValidation(event)'></input><br><button class='button' value='AXLE' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "TONGUE") 
-		document.getElementById("selectItem").innerHTML = "<label>How many tongues?</label><br><br><input id='buy' type='text' value='' placeholder='Tongues'></input><br><button class='button' value='TONGUE' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
+		document.getElementById("selectItem").innerHTML = "<label>How many tongues?</label><br><br><input id='buy' type='text' value='' placeholder='Tongues' onkeypress='return itemValidation(event)'></input><br><button class='button' value='TONGUE' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 	else if(item == "FOOD") 
-		document.getElementById("selectItem").innerHTML = "<label>How many pounds?</label><br><br><input id='buy' type='text' value='' placeholder='Food'></input><br><button class='button' value='FOOD' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
+		document.getElementById("selectItem").innerHTML = "<label>How many pounds?</label><br><br><input id='buy' type='text' value='' placeholder='Food' onkeypress='return itemValidation(event)'></input><br><button class='button' value='FOOD' onclick='buyItem(this.value)'><span>Buy It!</span></button><br>";
 }
 
 //The menu for the fort stores. Each fort that you can stop at along the trail has this kind of store
