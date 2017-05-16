@@ -402,7 +402,6 @@ function getAdvice() {
 
 //Transitions from the class and month selection to Krunal's general store.
 function finishIntro() {
-    console.log(month);
     var info = ["Before leaving Independence you should buy equipment and supplies. You have $" + supplies[MONEY] + " in cash, but you don't have to spend it all now"
 				, "You can buy whatever you need at Krunal's General Store."];
     var t = "<p id='info'>" + info[0] + "</p>" + spaceTxt;
@@ -425,7 +424,6 @@ function finishIntro() {
 
 //Information before entering the Krunal's general store
 function storeGreeting() {
-    console.log("test");
     var t = "<p>Hi, I'm Krunal! I see you're going to Oregon, and it just so happens that I have some very useful supplies you may need. </p>\
             <img src='image/Krunal.png' alt='HTML5 Icon' style='position: relative; left: 100px; width: 15%;'></img>\
 			<ol class='a'>\
@@ -507,7 +505,6 @@ function itemValidation(input){
 	document.getElementById ? key = input.keyCode: key = input.which;
 	
 	var id = document.getElementsByClassName("button")[0].id;
-	console.log(id);
 	if(event.keyCode == 13){
 		if(id == "oxenOption")
 			checkValid(OXEN);
@@ -546,7 +543,6 @@ function checkValid(index) {
             }
             total += parseInt(tempInputs[i].value);
         }
-        console.log(total);
         tempValue = tempSupplies[index];
         tempSupplies[index] = total;
         tempBalance = supplies[MONEY] - ((price[OXEN_COST] * tempSupplies[OXEN]) + (price[CLOTHING_COST] * tempSupplies[CLOTHING]) + (price[FOOD_COST] * tempSupplies[FOOD]) + (price[BAIT_COST] * tempSupplies[BAIT]) + (price[WAGON_COST] * tempSupplies[PARTS]));

@@ -432,7 +432,6 @@ function catchfish(){
 		left = parseInt(imgObj.style.left, 10);
 		right = parseInt(imgObj1.style.left, 10);
 		right2 = parseInt(imgObj2.style.left, 10);
-		//console.log(right);
 		
 		//if moving left is not 1800 px ye
 		if (1800>= left) {
@@ -456,7 +455,6 @@ function catchfish(){
 				//continue to loop back fish function to spawn fish
 				//otherwise end fish
 				if(fish < 9999){
-					console.log("1");
 					left=0, imgObj=null;
 					right=1800, imgObj1=null;
 					right2=1800, imgObj2=null;

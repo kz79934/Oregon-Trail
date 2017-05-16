@@ -108,7 +108,6 @@ function randomEvent(){
 	if(gameStatus[WEATHER] == RAINY) rand += 3;
 	else if(gameStatus[WEATHER] == VERYRAINY) rand += 6;
 	var num = Math.floor(Math.random() * (rand));
-	console.log("num: " + num);
 	//Lose days on the trail
 	if(num == 0){
 		if(Math.floor(Math.random() * 2)){

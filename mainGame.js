@@ -116,7 +116,6 @@ function checkTombstone(num = 0){
 		currLocation = locations.shift();
 		currType = locType.shift();
 		distance.shift();
-		console.log(distance.length);
 		stopLocation();
 	}
 	//If the tombstone is somewhere along the trail
@@ -211,8 +210,6 @@ function lostGame(){
 	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU LOSE!!!</h1><p>Enter a message for your grave.</p>\
 	<form name='form2' action='tombstone.php' method='post'><input type='hidden' name='tempTraveled'></input><input type='hidden' name='leaderName'></input><input type='hidden' name='nextLocation'></input><input type='hidden' name='prevLocation'></input><input type='text' val='' name='messageInput' id='messageInput'></input><br><input type='submit' name='submitButton' class='button'></input></form>";															
 	
-	console.log(tempTraveled);//for testing
-	console.log(characters[0]);//for testing
 	//once message is input, the data is sumbitted to the database
 	var msgInput = document.getElementById('messageInput').value;
 	document.form2.prevLocation.value = prevLocation;
