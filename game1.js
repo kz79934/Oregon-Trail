@@ -473,7 +473,6 @@ function OxenValidation(){
 
     	if (tempSupplies[OXEN] > 0){
 			initOpening();
-			//document.getElementById("startTrail").setAttribute("target", "initOpening()");
 		} 
 		else{
 			alert("Don't forget, you'll need oxen to pull your wagon");

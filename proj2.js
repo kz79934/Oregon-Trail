@@ -15,7 +15,6 @@
 //The main travel logic of the game. Will increment the day, eatFood, changeWeather, etc. and increase miles traveled based on pace.
 //Also in charge of determining if random event happens, location is reached, and/or game is over
 function travelTrail() {
-	//if(!checkMove()){ mainGame(); return;}
 	randMsg = "";
     day++;
 	eatFood();

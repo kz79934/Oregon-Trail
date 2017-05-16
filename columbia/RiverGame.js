@@ -177,7 +177,6 @@ function rock1(){
 			if(r1x == 92)
 				$("#r1").css("opacity", "0");
 			check1();//checks for hit
-			//console.log($("#ok").css("opacity"));
 			if($("#ok").css("opacity") != 1)//makes sure the rock is visible
 				$("#ok").css("opacity", "1");
 			rock1();
@@ -292,7 +291,7 @@ function riverFail(){
 	$(document).keypress(function (e) {
         if (e.keyCode == SPACEBAR) {
             $(this).unbind();
-            quit();//exits wit ha loss
+            quit();//exits with a loss
         }
     });
 }
