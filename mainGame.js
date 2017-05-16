@@ -174,6 +174,10 @@ function walk(){
 
 //The main game screen that displays the status of the game and the area in which the walk animation takes place
 function mainGame() {
+	if(soundOn){//stops town music if music is on
+		bkg.pause();
+		bkg.load();
+	}
 	//If all crew members die
 	if(numCharacters == 0){lostGame(); return;}
 	setDate();

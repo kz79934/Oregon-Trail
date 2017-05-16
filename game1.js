@@ -88,6 +88,7 @@ var brokenPart = 3;
 var oxenInjured = 0;
 var soundOn = 1;
 var gameDone = 0;
+var bkg = new Audio("Town.mp3");
 
 welcome();
 
@@ -251,7 +252,7 @@ function displayOcc(occupation) {
 		document.getElementById("info7").innerHTML ="";
     }
     else if (occupation == "Batman") {
-        document.getElementById("info7").innerHTML = "<p>You're Batman!</p>";
+        document.getElementById("info7").innerHTML = "<p>You're Batman! You have TONS of money obviously, but you don't get to brag about your score when you complete the game.</p>";
         supplies[MONEY] = 99999.00;
 		
 		document.getElementById("info1").innerHTML ="";
@@ -585,6 +586,10 @@ function tempTransfer() {
 //The location display for Independence (First Location)
 function initOpening() {
     tempTransfer();
+	if(soundOn){//plays town music if music is on
+		bkg.loop = true;
+		bkg.play();
+	}
     var IndepDay = months[month];
     var t = "<div id='op' style= 'background-color: black;'>\
 			<img src='image/opening.JPG' alt='Mountain View' style='width:98%; height:97%;position: absolute;background-color: black;'>\

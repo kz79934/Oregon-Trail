@@ -626,6 +626,10 @@ function preRiver(){
 
 //Displays all the options of the river location to the user
 function riverOptions(){
+	if(soundOn){//stops town music if music is on
+		bkg.pause();
+		bkg.load();
+	}
 	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2><p>Weather: "+currWeather+"<br>\
 			River width: "+riverWidth+" feet <br>River depth: "+riverDepth.toFixed(1)+" feet<br>\
 			You may: <br><br>\
@@ -831,7 +835,7 @@ function leaveTown(){
 	else if(brokenPart == AXLE){alert("You need to replace your broken axle to continue on the trail!"); return;}
 	else if(brokenPart == TONGUE){alert("You need to replace your broken tongue to continue on the trail!"); return;}
 	
-
+	
 	if(currType == DIVIDE1) document.getElementsByClassName("container")[0].innerHTML = "<p>There are two different routes to take.<br>Where would you like to go to next?<br><br>\
 																						<button onclick='firstDRoute1()' class='button'><span>Green River crossing</span></button><br>\
 																						<button onclick='firstDRoute2()' class='button'><span>Fort Bridger</span></button><br><button class='button' onclick='checkMap(1)'><span>See Map</span></button></p>";
@@ -846,6 +850,7 @@ function leaveTown(){
 	else{mainGame();}
 	prevLocation = currLocation;
 	currLocation = "";
+	
 }
 
 //Displays the different options the user has based on location (fort, trail, river, etc.)
@@ -888,6 +893,10 @@ function locationInfo() {
 //Displays the location image if the user chooses to stop there. User wins if they get to the last location.
 function displayLocation(){
 	var locImg;
+	if(soundOn){//plays town music if music is on
+		bkg.loop = true;
+		bkg.play();
+	}
 	if(currLocation == "Kansas River crossing") locImg = "image/locations/Kansas_River.JPG";
 	else if(currLocation == "Big Blue River crossing") locImg = "image/locations/Big_Blue_River.PNG";
 	else if(currLocation == "Fort Kearney") locImg = "image/locations/Fort_Kearney.PNG";
