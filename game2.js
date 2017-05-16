@@ -21,7 +21,7 @@ function checkSupplies() {
 			Wagon Axles: " + parts[AXLE] + "<br>\
 			Wagon Tongues: " + parts[TONGUE] + "<br>\
 			Pounds of Food: " + supplies[FOOD] + "<br>\
-			Money Left: $" + supplies[MONEY] + "</p>\
+			Money Left: $" + (supplies[MONEY]).toFixed(2) + "</p>\
 			" + spaceTxt;
     document.getElementsByClassName("container")[0].innerHTML = t;
     $(document).keypress(function (e) {
@@ -176,7 +176,7 @@ function buySupplies(){
 			<button class='button button1' value='TONGUE' onclick='setItem(this.value)'><span>Wagon Tongues</span></button><label1>6. $10 per tongue</label1><br>\
 			<button class='button button1' value='FOOD' onclick='setItem(this.value)'><span>Food</span></button><label1>7. $0.20 per pound</label1><br>\
 			<button class='button button1' onclick='locationInfo()'><span>Leave</span></button></div><br>\
-			<div><label2>You have $"+ supplies[MONEY] +" to spend.</label2></div><br>\
+			<div><label2>You have $"+ (supplies[MONEY]).toFixed(2) +" to spend.</label2></div><br>\
 			<div id='selectItem'><label2>What would you like to buy?</label2></div>\
 			<label2 id='errMsg'></label2>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
