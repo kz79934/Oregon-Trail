@@ -56,18 +56,8 @@ function travelTrail() {
 			//Ask if they wish to stop here
 			totalTraveled = totalTraveled - (tempTraveled - distance[0]);
 			checkTombstone(1);//checks if a tombstone is in the area
-			//former tombstone testing code don't pay attention to it
-			/*
-			tempTraveled = 0;
-			currLocation = locations.shift();
-			currType = locType.shift();
-			distance.shift();
-			stopLocation();
-			console.log(distance.length);
-			*/
 		}
 	}
-    //else if (!gameDone) mainGame();
 	else if (!gameDone) checkTombstone();
 }
 
@@ -86,7 +76,7 @@ function displayTombstone(index, num){
 			tombPrev.splice(index, 1);
 			tombNext.splice(index, 1);
 			tombMiles.splice(index, 1);
-			checkTombstone(num);//check fot other tombstones after this 
+			checkTombstone(num);//check for other tombstones after this 
         }
     });
 }
@@ -183,6 +173,9 @@ function mainGame() {
 	if(numCharacters == 0){lostGame(); return;}
 	setDate();
 	setHealth();
+	var backImg;
+	if(gameStatus[WEATHER] == RAINY || gameStatus[WEATHER] == VERYRAINY) backImg = "image/rainy.JPG";
+	else backImg = "image/mountain.JPG";
     var t = "<p id='msg'>"+randMsg+"</p>\
 			<button class='button' id='checkOptions'><span>Check Options</span></button>\
 			<p id='info' style='text-align: center;'>Date: " + months[month] + " " + day + ", " + year + "<br>\
@@ -192,14 +185,13 @@ function mainGame() {
 			Next Landmark: " + (distance[0] - tempTraveled) + "<br>\
 			Miles Traveled: " + totalTraveled + "</p>\
 			" + spaceTxt + "\
-			<div id='walking'><img src='image/mountain.JPG' id = 'col' alt='Mountain View' style='width:900px; height:350px; left:45%; margin-left: -350; position:absolute; background-color: black;'>\
+			<div id='walking'><img src="+backImg+" id = 'col' alt='Mountain View' style='width:900px; height:350px; left:45%; margin-left: -350; position:absolute; background-color: black;'>\
 			<img src='image/Frame1.png' id='ok' style = 'position:absolute; width: 180px; length: 180px; left: 50%; margin-left:-50px; margin-top:200px' alt='Mountain View'><div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
     $(document).keypress(function (e) {//when space button is clicked you travel and go to the next day
         if (e.keyCode == SPACEBAR) {
 			$("#checkOptions").unbind();
             $(this).unbind();
-            //travelTrail();
 			walk();
         }
     });
