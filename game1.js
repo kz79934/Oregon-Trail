@@ -96,9 +96,6 @@ welcome();
 
 //This is the initial function the game calls. It is equivalent to the start menu of a game.
 function welcome() {
-	if(soundOn){//pauses victory music if music is on
-			victory.pause();
-	}
     var t = "<div class='container'>\
 				<h1 class='spin'>The Oregon Trail!</h1>\
 				<div id='innerPage'>\
