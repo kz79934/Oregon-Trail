@@ -762,6 +762,19 @@ function payToll(){
 	else {alert("You pay the toll of $8.50 to travel on this road."); supplies[MONEY] -= 8.50; mainGame()};
 }
 
+//Gives you instructions on how to navigate the Columbia River before the minigame starts
+function columInfo(){
+	var t "<h1>The Columbia River</h1><p>Navigating the river is very dangerous! To safely reach the end, you need to avoid the obstacles along the way.<br>\
+			Use the arrow keys to sail your wagon in different directions to avoid the oncoming rocks. If you make it, you will have reached Oregon! Good Luck!</p>" + spaceTxt;
+	document.getElementsByClassName("container")[0].innerHTML = t;
+	$(document).keypress(function(e){
+		if(e.keyCode == SPACEBAR){
+			$(this).unbind();
+			columRiver();
+		}
+	})
+}
+
 //Displays the map of the Oregon Trail
 function checkMap(num = 0){
 	document.getElementsByClassName("container")[0].innerHTML = spaceTxt+ "<img src='image/Map.PNG' style='width:700px; height:400px; left:50%; margin-left: -350; position:absolute; background-color: black'></img>"
@@ -789,7 +802,7 @@ function leaveTown(){
 																						<button onclick='secondDRoute1()' class='button'><span>Fort Walla Walla</span></button><br>\
 																						<button onclick='secondDRoute2()' class='button'><span>The Dalles</span></button><br><button class='button' onclick='checkMap(1)'><span>See Map</span></button></p>";
 	else if(currLocation == "The Dalles") document.getElementsByClassName("container")[0].innerHTML = "<p>There are two different routes to take.<br>Where would you like to go to next?<br><br>\
-																						<button onclick='columRiver()' class='button'><span>The Columbia River</span></button><br>\
+																						<button onclick='columInfo()' class='button'><span>The Columbia River</span></button><br>\
 																						<button onclick='payToll()' class='button'><span>The Barlow Road</span></button><br>\
 																						(There is a toll of $8.50 for this road.)<br><br>\
 																						<button class='button' onclick='checkMap(1)'><span>See Map</span></button></p>";
