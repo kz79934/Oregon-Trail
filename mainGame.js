@@ -175,6 +175,10 @@ function walk(){
 
 //The main game screen that displays the status of the game and the area in which the walk animation takes place
 function mainGame() {
+	if(soundOn){//stops river music if music is on
+		river.pause();
+		river.load();
+	}
 	//If all crew members die
 	if(numCharacters == 0){lostGame(); return;}
 	setDate();

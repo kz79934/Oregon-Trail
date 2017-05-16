@@ -217,6 +217,10 @@ function riverLoss(num = 0){
 
 //Displays the fording animation. Success or fail is based on random number generation that can vary based on river depth
 function ford(){
+		if(soundOn){//plays river sounds if music is on
+			river.loop = true;
+			river.play();
+		}	
 		prevLocation = currLocation;
 		currLocation = "";
         var t = "<img src='image/Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
@@ -248,6 +252,10 @@ function ford(){
 
 //Displays float wagon animation. Success or fail is based on random number generation
 function floatWagon(){
+	if(soundOn){//plays river sounds if music is on
+			river.loop = true;
+			river.play();
+		}	
 	prevLocation = currLocation;
 	currLocation = "";
         var t = "<img src='image/Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
@@ -549,6 +557,10 @@ function ferryAnimation(){
 	var t = "<img src='image/Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
 	<img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; left: 80%;' alt='Mountain View'>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
+	if(soundOn){//plays river sounds if music is on
+			river.loop = true;
+			river.play();
+	}	
     $(document).ready(function(){$("#ok").animate({left: '10%'},10000,function(){alert("The ferry takes you across the river safely."); mainGame();});});
 }
 
