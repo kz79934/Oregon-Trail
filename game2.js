@@ -166,7 +166,7 @@ function buySupplies(){
 			<button class='button button1' value='TONGUE' onclick='setItem(this.value)'><span>Wagon Tongues</span></button><label1>6. $10 per tongue</label1><br>\
 			<button class='button button1' value='FOOD' onclick='setItem(this.value)'><span>Food</span></button><label1>7. $0.20 per pound</label1><br>\
 			<button class='button button1' onclick='locationInfo()'><span>Leave</span></button></div><br>\
-			<div><label2>You have $"+supplies[MONEY]+" to spend.</label2></div><br>\
+			<div><label2>You have $"+ supplies[MONEY] +" to spend.</label2></div><br>\
 			<div id='selectItem'><label2>What would you like to buy?</label2></div>\
 			<label2 id='errMsg'></label2>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
@@ -863,19 +863,20 @@ function locationInfo() {
 			Pace: " + currPace + "<br>\
 			Rations: " + currRations + "<br>\</p>\
 			<div id='townOptions'><p>You may:</p><br><br>\
-			<button class='button' onclick=''><span>Continue on trail</span></button><br>\
-			<button class='button' onclick='checkSupplies()'><span>Check supplies</span></button><br>\
-			<button class='button' onclick='checkMap()'><span>Look at map</span></button><br>\
-			<button class='button' onclick='changePace()'><span>Change pace</span></button><br>\
-			<button class='button' onclick='changeRations()'><span>Change food rations</span></button><br>\
-			<button class='button' onclick='rest()'><span>Stop to rest</span></button><br>\
-			<button class='button' onclick='trade()'><span>Attempt to trade</span></button><br>";
+			<div class='game_ctrls'>\
+			<button class='button button3' onclick=''><span>Continue on trail</span></button>\
+			<button class='button button3' onclick='checkSupplies()'><span>Check supplies</span></button>\
+			<button class='button button3' onclick='checkMap()'><span>Look at map</span></button>\
+			<button class='button button3' onclick='changePace()'><span>Change pace</span></button>\
+			<button class='button button3' onclick='changeRations()'><span>Change food rations</span></button>\
+			<button class='button button3' onclick='rest()'><span>Stop to rest</span></button>\
+			<button class='button button3' onclick='trade()'><span>Attempt to trade</span></button>";
     if (currLocation != "") {
-		t += "<button class='button' onclick='talk()'><span>Talk to people</span></button><br>";
-		if(currType == TOWN) t += "<button class='button' onclick='buySupplies()'><span>Buy Supplies</span></button><br>";
-		else if(currType == RIVER)t += "<button class='button' onclick='fish()'><span>Go Fishing</span></button><br>"
+		t += "<button class='button button3' onclick='talk()'><span>Talk to people</span></button>";
+		if(currType == TOWN) t += "<button class='button button3' onclick='buySupplies()'><span>Buy Supplies</span></button>";
+		else if(currType == RIVER)t += "<button class='button button3' onclick='fish()'><span>Go Fishing</span></button>"
 	}
-    t += "</div>";
+    t += "</div> </div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
 	if (currLocation != "") {
 		if(currType == RIVER && tempTraveled == 0) document.getElementsByClassName("button")[0].setAttribute("onclick", "preRiver()");

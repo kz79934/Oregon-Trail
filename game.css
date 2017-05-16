@@ -59,6 +59,19 @@ body {
     width: 500px;
 }
 
+.game_ctrls{
+    width: 100%;
+    margin-bottom: 30px;
+}
+.button3{
+	margin-left: 3%;
+	width: 20%;
+	height: 40px;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+
 .button span {
   cursor: pointer;
   display: inline-block;
@@ -302,6 +315,6 @@ th {
        margin-left: auto;
        margin-right: auto;
        background-image: url(image/grave.png);
- }
+}
 
 
