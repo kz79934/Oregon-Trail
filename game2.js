@@ -270,6 +270,7 @@ function floatWagon(){
 		riverDepth = 0; riverWidth = 0; ferryWait = 0; riverChange = 2;
 }
 
+//function to show amount of fish caught
 function fishResults(){
 	$('body').css('cursor', 'default');
 	document.getElementsByClassName("container")[0].innerHTML = "<p>You were able to get "+(supplies[FOOD]-tempSupplies[FOOD])+" pounds of food from fishing." + spaceTxt + "</p>";
@@ -281,33 +282,34 @@ function fishResults(){
 	});
 }
 
+//function to let user with options to fish or not to fish
 function fish(){
 	if(supplies[BAIT] <= 0) {document.getElementsByClassName("container")[0].innerHTML = "<p>You have no bait to fish. You must buy some first.</p> <button onclick='locationInfo()' class='button'><span>Back</span></button>"; return;}
 	tempSupplies[FOOD] = supplies[FOOD];
 	var t = "<p>Amount of bait left: <span id='baitAmt'>"+supplies[BAIT]+"</span><br>\
 			<label id='fishMsg'></label></p>\
+			<p>To catch fish: Simply drag and drop the fish using your hook on to the bucket</p>\
 			<button onclick='catchfish()' id='contFish' class='button'><span>Attempt to Fish</span></button><br>\
 			<button onclick='fishResults()' id='stopFish' class='button'><span>Stop Fishing</span></button>"
 	document.getElementsByClassName("container")[0].innerHTML = t;
 }
 
+//user decides to fish
+//functions to animate movement of fish and capture fish using drag and drop ability
 function catchfish(){
+	
 	var animate, fish = 0, left=0, imgObj=null;
-	var right=1819, imbObj1=null;
+	var right=1800, imbObj1=null;
 	var right2=150, imbObj2=null;
 
 	var fishcount = 0;
 	var smallfish = 0, mediumfish = 0, largefish = 0;
-	var fishtime;
 	
 	var t ="<style>\
 			.droptarget {\
 				float: left; \
-				width: 97%; \
-				height: 650px;\
-				margin: 15px;\
-				padding: 10px;\
-			   // border: 1px solid #aaaaaa;\
+				width: 100%; \
+				height: 60%;\
 				background: url(image/fishbackground.png);\
 				background-repeat: no-repeat;\
 				background-size: 100%;\
@@ -334,33 +336,40 @@ function catchfish(){
 				height: 100%;\
 				width: 100%;\
 			}	\
-			p{\
+			div{\
 				color: yellow;\
 			}\
 			</style>\
-			<p id='fishcount'></p>\
-			<p id='fishsort'></p>\
-			<p id='fishsupply'></p>\
-			<p id='timer'></p>\
-				<div class='droptarget'>\
+			<div align='center' style='text-align:center'>\
+				<div id='fishcount'></div>\
+				<div id='fishsort'></div>\
+				<div id='fishsupply'></div>\
+				<div id='timer'></div>\
+			</div>\
+			<div class='droptarget'>\
 				<div id='basket' >\
 					<img id='fishbasket' src='image/fishbasket.png'>\
 				</div>\
-				  <img id='clicktarget' src='image/fish1.gif'>\
-				  <img id='clicktarget1' src='image/fish2.gif'>\
-				  <img id='clicktarget2' src='image/fish3.gif'>\
+				<img id='clicktarget' src='image/fish1.gif'>\
+				<img id='clicktarget1' src='image/fish2.gif'>\
+				<img id='clicktarget2' src='image/fish3.gif'>\
 			</div>\
 			<button onclick='fishResults()' id='stopFish2' class='button'><span>Stop Fishing</span></button>";
+			
 	document.getElementsByClassName("container")[0].innerHTML = t;
 				
-				
+	//change cursor to a hook			
 	document.getElementsByTagName("body")[0].style.cursor = "url('http://userpages.umbc.edu/~mmilbo1/cursor.cur'), auto";
 
+	//set timer of 15 seconds
 	var timeLeft = 15;
 	var elem = document.getElementById('timer');
 
+	//countdown time
 	var timerId = setInterval(countdown, 1000);
 
+	//function to jump to result page to get amount of fish calculated when time is zero
+	//or continue to countdown
 	function countdown() {
 		if (timeLeft == 0) {
 			clearTimeout(timerId);
@@ -372,36 +381,42 @@ function catchfish(){
 		}
 	}
 	
+	//start fish animation function
 	initfish();
 	
 	function initfish(){
 		
+		//check for bait available
 		if(supplies[BAIT] == 0){
 			alert("You do not have any bait to fish");
 			fishResults();
 		}
 		
+		//set position of fish1 show up at random
 	   $("#clicktarget").show();
 	   imgObj = document.getElementById('clicktarget');
 	   imgObj.style.position= 'absolute';
-	   imgObj.style.top = (Math.floor(Math.random()*(650-250+1)+250) +'px');
+	   imgObj.style.top = (Math.floor(Math.random()*(500-150+1)+150) +'px');
 	   imgObj.style.left = '0px';
 	   imgObj.style.visibility='hidden';
 
+		//set position of fish2 show up at random
 	   $("#clicktarget1").show();
 	   imgObj1 = document.getElementById('clicktarget1');
 	   imgObj1.style.position= 'absolute';
-	   imgObj1.style.top = (Math.floor(Math.random()*(650-250+1)+250) +'px');
-	   imgObj1.style.left = '1819px';
+	   imgObj1.style.top = (Math.floor(Math.random()*(500-150+1)+150) +'px');
+	   imgObj1.style.left = '1800px';
 	   imgObj1.style.visibility='hidden';
 	   
+	   //set position of fish3 show up at random
 	   $("#clicktarget2").show();
 	   imgObj2 = document.getElementById('clicktarget2');
 	   imgObj2.style.position= 'absolute';
-	   imgObj2.style.top = (Math.floor(Math.random()*(650-250+1)+250) +'px');
-	   imgObj2.style.left = '1819px';
+	   imgObj2.style.top = (Math.floor(Math.random()*(500-150+1)+150) +'px');
+	   imgObj2.style.left = '1800px';
 	   imgObj2.style.visibility='hidden';
 	   
+	   //move the fish across the screen
 	   movefish();
 	}
 	
@@ -410,26 +425,33 @@ function catchfish(){
 		right = parseInt(imgObj1.style.left, 10);
 		right2 = parseInt(imgObj2.style.left, 10);
 		//console.log(right);
-		if (1819>= left) {
+		
+		//if moving left is not 1800 px ye
+		if (1800>= left) {
 
+			//fish1 move right 5 pix
 			imgObj.style.left = (left + 5) + 'px';
 			imgObj.style.visibility='visible';
 			
+			//fish2 move left 5 pix
 			imgObj1.style.left = (right - 5) + 'px';
 			imgObj1.style.visibility='visible';
 			
+			//fish3 move left 10 pix
 			imgObj2.style.left = (right2 - 10) + 'px';
 			imgObj2.style.visibility='visible';
 			
-			animate = setTimeout(function(){movefish();},10); // call movefish  in 20msec
+			animate = setTimeout(function(){movefish();},10); // call movefish  in 10msec
 			
 		}
 		else {
+				//continue to loop back fish function to spawn fish
+				//otherwise end fish
 				if(fish < 9999){
 					console.log("1");
 					left=0, imgObj=null;
-					right=1819, imgObj1=null;
-					right2=1819, imgObj2=null;
+					right=1800, imgObj1=null;
+					right2=1800, imgObj2=null;
 					fish = fish +1;
 					$("#clicktarget").hide();
 					$("#clicktarget1").hide();
@@ -451,34 +473,47 @@ function catchfish(){
 	   clearTimeout(animate);
 	}
 
+	//display count and amount of fish and time
 	document.getElementById('fishcount').innerHTML ="Number of fish caught: " + fishcount;
 	document.getElementById('fishsort').innerHTML ="Small fish: " + smallfish +"  | Medium fish: " + mediumfish +"  | Large fish: " + largefish;
 	document.getElementById('fishsupply').innerHTML ="Amount of bait left: " + supplies[BAIT];
 	document.getElementById('timer').innerHTML ="Time Remaining: " + timeLeft + " seconds";
 	
+	
+	//drag and drop function
 	$(function() {
+		
+		//set fish1,2,3 as able to drag
 		$( "#clicktarget" ).draggable();
 		$( "#clicktarget1" ).draggable();
 		$( "#clicktarget2" ).draggable();
 		
+		//set basket as able to drop
 		$( "#basket" ).droppable({
 		
+			//drop event
 			drop: function( event, ui ) {
-			
+				//get fish id that is dropped
 				var id = ui.draggable.attr("id");
 				
+				//when fish1 is dropped it will disappear
+				//increase small fish caught as well as supplies
 				if(id == "clicktarget"){
 					$("#clicktarget").hide();
 					smallfish++;
 					if(job == "Fisher") supplies[FOOD] += 5;
 					else supplies[FOOD] += 3;
 				}	
+				//when fish3 is dropped it will disappear
+				//increase medium fish caught as well as supplies
 				else if(id == "clicktarget1"){
 					$("#clicktarget1").hide();
 					mediumfish++;
 					if(job == "Fisher") supplies[FOOD] += 8;
 					else supplies[FOOD] += 5;
 				}
+				//when fish3 is dropped it will disappear
+				//increase large fish caught as well as supplies
 				else{
 					$("#clicktarget2").hide();
 					largefish++;
@@ -486,15 +521,17 @@ function catchfish(){
 					else supplies[FOOD] += 10;
 				}
 			
+			
 				fishcount++;
 				supplies[BAIT]--;
 				
-
+				//display count and amount of fish and time
 				document.getElementById('fishcount').innerHTML ="Number of fish caught: " + fishcount;
 				document.getElementById('fishsort').innerHTML ="Small fish: " + smallfish +" Medium fish: " + mediumfish +" Large fish: " + largefish;
 				document.getElementById('fishsupply').innerHTML ="Amount of bait left: " + supplies[BAIT];
 				document.getElementById('timer').innerHTML ="Time Remaining: " + timeLeft + " seconds";
 				
+				//check bait available
 				if(supplies[BAIT] == 0){
 					fishResults();
 				}
