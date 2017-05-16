@@ -108,18 +108,51 @@ function welcome() {
 
 //Shows the top players players on the leaderboard based on their score. The information was acquired from a database.
 function displayScores(){
-	var numRows = 10;
-	if(arrScore.length < numRows) numRows = arrScore.length;
+	
 	var t = "<h1>Top 10 Players</h1>\
 			 <table style='background-color: black; border-radius: 5px;'>\
 			 <tr><th style='text-decoration: underline; color: Blue; font-size: 30px;'>Player</th>\
 			 <th style='text-decoration: underline; color: Blue; font-size: 30px;'>Score</th></tr>";
 			
-			for(var i = 0; i < arrScore.length; i++)
-			{
-				t += "<tr><td>" + arrName[i] + "</td><td>" + arrScore[i] + "</td></tr>";
-			}
+	var len = arrScore.length;
+	var nameScore = [];
+
+	$(arrName).each(function(index, val){
+		nameScore.push([arrName[index], arrScore[index]]);
+	})
+	
+	nameScore.sort(function(a, b) { 
+		return b[1] - a[1];
+	});
+	var displaylen;
+	
+	if(len > 10){
+		displaylen = 10;
+	}
+	else{
+		displaylen = len;
+	}
+	
+	var name = [];
+	var score = [];
+	
+	for(var z = 0; z < displaylen; z++){
+		for(var y = 0; y < 1; y++){
+			name[z] = nameScore[z][y];		
+		}
+	}
+	for(var i = 0; i < displaylen; i++){
+		for(var k = 1; k < 2; k++){
+			score[i] = nameScore[i][k];		
+		}
+	}
+	
+	for(var j = 0; j < displaylen; j++){
+		t += "<tr><td>" + name[j] + "</td><td>" + score[j] + "</td></tr>";
+	}
+	
 	document.getElementsByClassName("container")[0].innerHTML = t;
+	
 	$(document).keypress(function(e){
 		if (e.keyCode == SPACEBAR){
 			$(this).unbind();
