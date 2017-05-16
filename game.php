@@ -45,7 +45,7 @@ mysqli_close($con);
 <body>
 	<div id="main"></div>
 	<div id="main2"></div>
-	<!-- <script src="game.js"></script> -->
+
 	<script>
 		var t = "<p id='demo' style='color:white;'></p><p id='demo2'style='color:white;'></p><p id='demo3' style='color:white;'></p><p id='demo4'style='color:white;'></p><p id='demo5' style='color:white;'></p><p id='demo6'style='color:white;'></p><p id='demo7' style='color:white;'></p>";
 				
@@ -81,16 +81,6 @@ mysqli_close($con);
 			tombMiles.push(tombstone[j].miles);
 
 		}
-		/*		
-		document.getElementById("demo").innerHTML = "score:: " + arrScore;
-		document.getElementById("demo2").innerHTML = "name:: " + arrName + "<br>";
-		
-		document.getElementById("demo3").innerHTML = "tomb message:: " + tombMsg;
-		document.getElementById("demo4").innerHTML = "tomb prev location:: " + tombPrev;
-		document.getElementById("demo5").innerHTML = "tomb next location:: " + tombNext;
-		document.getElementById("demo6").innerHTML = "tomb leader name:: " + tombName;
-		document.getElementById("demo7").innerHTML = "tomb miles:: " + tombMiles;
-		*/
 		
 	</script>
 	<script src="game1.js"></script>
