@@ -187,9 +187,9 @@ p1{
 	line-height: 1.3;
 	font-family: courier;
 	font-size: 35px;
-	position: fixed;
+	position: absolute;
 	width: 250px;
-	left: 500px;
+	left: 525px;
 	down: 175px;
 	top: 175px;
 }
