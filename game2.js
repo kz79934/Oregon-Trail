@@ -220,7 +220,7 @@ function ford(){
 		prevLocation = currLocation;
 		currLocation = "";
         var t = "<img src='image/Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
-        <img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
+        <img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; left: 80%;' alt='Mountain View'>";
         document.getElementsByClassName("container")[0].innerHTML = t;
         var death = 10;
 		var cross;
@@ -235,12 +235,12 @@ function ford(){
             if(death < cross){
 				if(Math.floor(Math.random()*2) == 0) msg = "You made it across perfectly fine!";
 				else {msg = "Your supplies got wet. Lose 1 day."; day++; changeWeather(); eatFood();}
-                $("#ok").animate({right: '10%'},10000,function(){alert(msg); tempTraveled++; totalTraveled++; mainGame();});
+                $("#ok").animate({left: '10%'},10000,function(){alert(msg); tempTraveled++; totalTraveled++; mainGame();});
             }
 			else{
 				msg = "You were unable to ford the river! " + riverLoss();
-                $("#ok").animate({right: '600px'},5000,function(){$("#ok").attr("src", "image/Capsize.png"); tempTraveled++; totalTraveled++; alert(msg);});//add who dies and what supplies are lost here
-                $("#ok").delay(3000).animate({right: '10%'},10000,function(){mainGame();});
+                $("#ok").animate({left: '600px'},5000,function(){$("#ok").attr("src", "image/Capsize.png"); tempTraveled++; totalTraveled++; alert(msg);});//add who dies and what supplies are lost here
+                $("#ok").delay(3000).animate({left: '10%'},10000,function(){mainGame();});
             }
         });
 		riverDepth = 0; riverWidth = 0; ferryWait = 0; riverChange = 2;
@@ -251,7 +251,7 @@ function floatWagon(){
 	prevLocation = currLocation;
 	currLocation = "";
         var t = "<img src='image/Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
-        <img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
+        <img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; left: 80%;' alt='Mountain View'>";
         document.getElementsByClassName("container")[0].innerHTML = t;
         var death = 10;
 		var msg;
@@ -259,12 +259,12 @@ function floatWagon(){
 			death = (Math.floor(Math.random()*10));
             if(death < 6){
 				msg = "You made it across perfectly fine!";
-                $("#ok").animate({right: '10%'},10000,function(){alert(msg); tempTraveled++; totalTraveled++; mainGame();});
+                $("#ok").animate({left: '10%'},10000,function(){alert(msg); tempTraveled++; totalTraveled++; mainGame();});
             }
 			else{
 				msg = "Your wagon tipped over! " + riverLoss();
-                $("#ok").animate({right: '600px'},5000,function(){$("#ok").attr("src", "image/Capsize.png"); tempTraveled++; totalTraveled++; alert(msg);});//add who dies and what supplies are lost here
-                $("#ok").delay(3000).animate({right: '10%'},10000,function(){mainGame();});
+                $("#ok").animate({left: '600px'},5000,function(){$("#ok").attr("src", "image/Capsize.png"); tempTraveled++; totalTraveled++; alert(msg);});//add who dies and what supplies are lost here
+                $("#ok").delay(3000).animate({left: '10%'},10000,function(){mainGame();});
             }
         });
 		riverDepth = 0; riverWidth = 0; ferryWait = 0; riverChange = 2;
@@ -510,9 +510,9 @@ function catchfish(){
 //Displays the animation for ferrying accross the river.
 function ferryAnimation(){
 	var t = "<img src='image/Ford.JPG' id='bkg' style = 'position:absolute; width:100%; height:100%;' alt='Mountain View'>\
-	<img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; right: 85%;' alt='Mountain View'>";
+	<img src='image/Cross.png' id='ok' style = 'position:absolute; width: 180px; length: 300px; bottom:20px; left: 80%;' alt='Mountain View'>";
 	document.getElementsByClassName("container")[0].innerHTML = t;
-    $(document).ready(function(){$("#ok").animate({right: '10%'},10000,function(){alert("The ferry takes you across the river safely."); mainGame();});});
+    $(document).ready(function(){$("#ok").animate({left: '10%'},10000,function(){alert("The ferry takes you across the river safely."); mainGame();});});
 }
 
 //Checks to see if you have enough money to ride the ferry, then increments the amount of days needed to wait. Also subtracts from food for each day
