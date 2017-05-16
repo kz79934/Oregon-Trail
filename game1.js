@@ -213,7 +213,7 @@ function displayOcc(occupation) {
 		document.getElementById("info7").innerHTML ="";
     }
     else if (occupation == "Farmer") {
-        document.getElementById("info3").innerHTML = "<p>You get little starting money, but 3 times as many points has the farmer.</p>";
+        document.getElementById("info3").innerHTML = "<p>You get little starting money, but 3 times as many points as the farmer.</p>";
         supplies[MONEY] = 400.00;
 		
 		document.getElementById("info1").innerHTML ="";
