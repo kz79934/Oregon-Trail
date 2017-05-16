@@ -764,7 +764,7 @@ function payToll(){
 
 //Gives you instructions on how to navigate the Columbia River before the minigame starts
 function columInfo(){
-	var t "<h1>The Columbia River</h1><p>Navigating the river is very dangerous! To safely reach the end, you need to avoid the obstacles along the way.<br>\
+	var t = "<h1>The Columbia River</h1><p>Navigating the river is very dangerous! To safely reach the end, you need to avoid the obstacles along the way.<br>\
 			Use the arrow keys to sail your wagon in different directions to avoid the oncoming rocks. If you make it, you will have reached Oregon! Good Luck!</p>" + spaceTxt;
 	document.getElementsByClassName("container")[0].innerHTML = t;
 	$(document).keypress(function(e){
