@@ -125,7 +125,7 @@ function randomEvent(){
 		}
 	}
 	//Individual character diseases and other ailments
-	else if(num == 1 || gameStatus[HEALTH] == VERYPOOR){
+	else if(num == 1 || gameStatus[HEALTH] == VERYPOOR || gameStatus[HEALTH] == POOR){
 		var tempMsg = "";
 		var diseases = ["Typhoid Fever", "Cholera", "Dysentery", "Measles", "Diphtheria", "exhaustion", "a fever", "a broken arm", "a broken leg"];
 		var tempIndicies = [];

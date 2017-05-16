@@ -243,8 +243,10 @@ function endGame() {
 	score += Math.floor(supplies[BAIT]/10);
 	t += "Oxen - "+supplies[OXEN]+":  "+(supplies[OXEN] * 100)+" points<br><br>";
 	score += (supplies[OXEN] * 100);
-	t += "Spare Parts - "+supplies[PARTS]+" parts:  "+(supplies[PARTS] * 10)+" points<br><br>Score Multiplier:  "+scoreMult+"<br><br>";
+	t += "Spare Parts - "+supplies[PARTS]+" parts:  "+(supplies[PARTS] * 10)+" points<br><br>\
+		Number of Survivors - "+numCharacters+":  "+(numCharacters*300)+" points<br><br>Score Multiplier:  "+scoreMult+"<br><br>";
 	score += (supplies[PARTS] * 10);
+	score += (numCharacters * 300);
 	score *= scoreMult;
 	t += "Total Score:  "+score+"<br><br>Enter a name for your score.</p>"
 	t += "<form name='form1' action='high_score.php' method='post'><input type='hidden' name='scorePage'></input><input type='text' val='' name='pageInput' id='pageInput'></input><br><input type='submit' class='button'></input></form>";
