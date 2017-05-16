@@ -245,8 +245,8 @@ function endGame() {
 	score += (supplies[CLOTHING] * 10);
 	t += "Bait - "+supplies[BAIT]+":  "+Math.floor(supplies[BAIT]/10)+" points<br><br>";
 	score += Math.floor(supplies[BAIT]/10);
-	t += "Oxen - "+supplies[OXEN]+":  "+(supplies[OXEN] * 100)+" points<br><br>";
-	score += (supplies[OXEN] * 100);
+	t += "Oxen - "+supplies[OXEN]+":  "+(supplies[OXEN] * 50)+" points<br><br>";
+	score += (supplies[OXEN] * 50);
 	t += "Spare Parts - "+supplies[PARTS]+" parts:  "+(supplies[PARTS] * 10)+" points<br><br>\
 		Number of Survivors - "+numCharacters+":  "+(numCharacters*300)+" points<br><br>Score Multiplier:  "+scoreMult+"<br><br>";
 	score += (supplies[PARTS] * 10);

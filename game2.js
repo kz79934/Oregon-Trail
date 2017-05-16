@@ -761,39 +761,39 @@ function secondDRoute2(){
 //Displays the different dialogue based on the location the user is at
 function talk(){
 	var t;
-	if(currLocation == "Independence") t = "<p>A town resident tells you:<br>\"Some folks seem to think that two oxen are enough to get them to Oregon!<br>\
+	if(currLocation == "Independence") t = "<p>A town resident tells you:<br><br>\"Some folks seem to think that two oxen are enough to get them to Oregon!<br>\
 	Two oxen can barely move a fully loaded wagon, and if one of them gets sick or dies,<br>you won't be going anywhere. I wouldn't go overland with less than six.\"";
-	else if(currLocation == "Kansas River crossing") t = "<p>Aunt Rebecca Sims tells you:<br>\"With the crowds of people waiting to get on the ferry,<br>\
+	else if(currLocation == "Kansas River crossing") t = "<p>Aunt Rebecca Sims tells you:<br><br>\"With the crowds of people waiting to get on the ferry,<br>\
 	we could be stranded here for days! Hope there's enough graze for all those animals --<br>not many people carry feed! I'd rather wait, though, than cross in a rickety wagon boat!\"";
-	else if(currLocation == "Big Blue River crossing") t = "<p>A lady, Marnie Stewart, tells you:<br>\"This prairie is mighty pretty with all the wild flowers and tall grasses.<br>\
+	else if(currLocation == "Big Blue River crossing") t = "<p>A lady, Marnie Stewart, tells you:<br><br>\"This prairie is mighty pretty with all the wild flowers and tall grasses.<br>\
 	But there's too much of it! I miss not having a town nearby. I wonder how many days until I see a town --<br>a town with real shops, a church, people...\"";
-	else if(currLocation == "Fort Kearney") t = "<p>A fort soldier tells you:<br>\"The trails from the jumping off places -- Independence, St. Joseph, Council Bluffs --<br>\
+	else if(currLocation == "Fort Kearney") t = "<p>A fort soldier tells you:<br><br>\"The trails from the jumping off places -- Independence, St. Joseph, Council Bluffs --<br>\
 	come together at Fort Kearney. This new fort was built by the U.S. Army<br>to protect those bound for California and Oregon.\"";
-	else if(currLocation == "Chimney Rock") t = "<p>Celinda Hines tells you:<br>\"Chimney Rock by moonlight is awfully sublime. Many Indians came<br>\
+	else if(currLocation == "Chimney Rock") t = "<p>Celinda Hines tells you:<br><br>\"Chimney Rock by moonlight is awfully sublime. Many Indians came<br>\
 	to our wagon with fish to exchange for clothing. We bought a number.<br>They understand \'swap\' and \'no swap.\' Seem most anxious to get shirts and socks.\"";
-	else if(currLocation == "Fort Laramie") t = "<p>A woman traveler tells you:<br>\"Be warned, stranger. Don't dig a water hole! Drink only river water.<br>\
+	else if(currLocation == "Fort Laramie") t = "<p>A woman traveler tells you:<br><br>\"Be warned, stranger. Don't dig a water hole! Drink only river water.<br>\
 	Salty as the Platte River is -- it's better than the cholera. We buried my husband last week.<br>Could use some help with this harness, if you can spare the time.\"";
-	else if(currLocation == "Independence Rock") t = "<p>Aunt Rebecca Sims tells you:<br>\"No butter or cheese or fresh fruit since Fort Laramie! Bless me,<br>\
+	else if(currLocation == "Independence Rock") t = "<p>Aunt Rebecca Sims tells you:<br><br>\"No butter or cheese or fresh fruit since Fort Laramie! Bless me,<br>\
 	but I'd rather have my larder full of food back East then have our names carved on that rock!<br>Well, tis a sight more cheery than all the graves we passed.\"";
-	else if(currLocation == "South Pass") t = "<p>An Arapho Indian tells you:<br>\"When the white man first crossed our lands their wagons were few.<br>\
+	else if(currLocation == "South Pass") t = "<p>An Arapho Indian tells you:<br><br>\"When the white man first crossed our lands their wagons were few.<br>\
 	Now they crowd the trail in great numbers. The land is overgrazed with their many animals.<br>Do any white men still live in the East? My people talk of moving.\"";
-	else if(currLocation == "Green River crossing") t = "<p>A young boy tells you:<br>\"My family didn't buy enough food in Independence. We have been eating very small rations since Fort Laramie.<br>\
+	else if(currLocation == "Green River crossing") t = "<p>A young boy tells you:<br><br>\"My family didn't buy enough food in Independence. We have been eating very small rations since Fort Laramie.<br>\
 	Because of that our health is poor. My sister has mountain fever, so we're stopped here for a while.\"";
-	else if(currLocation == "Fort Bridger") t = "<p>A trader tells you:<br>\"This fort was built by Jim Bridger. Jim was a mountain man before<br>\
+	else if(currLocation == "Fort Bridger") t = "<p>A trader tells you:<br><br>\"This fort was built by Jim Bridger. Jim was a mountain man before<br>\
 	he put in this blacksmith shop and small store to supply the overlanders.<br>Does a big trade in horses, Jim and his partner, Vasquez.\"";
-	else if(currLocation == "Soda Springs") t = "<p>Celinda Hines tells you:<br>\"My, the Soda Springs are so pretty! Seem to spout at regular intervals.<br>\
+	else if(currLocation == "Soda Springs") t = "<p>Celinda Hines tells you:<br><br>\"My, the Soda Springs are so pretty! Seem to spout at regular intervals.<br>\
 	Felt good to just rest and not be jostled in the wagon all day. When I get to Oregon,<br>I'll have a soft feather bed and never sleep in a wagon again!\"";
-	else if(currLocation == "Fort Hall") t = "<p>Aunt Rebecca tells you:<br>\"Hear there's mountain sheep around here. Enough water too, but hardly a stick of wood.<br>\
+	else if(currLocation == "Fort Hall") t = "<p>Aunt Rebecca tells you:<br><br>\"Hear there's mountain sheep around here. Enough water too, but hardly a stick of wood.<br>\
 	Thank heaven for Fort Hall! But I'm real sorry to be saying goodbye to cousin Miles and all the folks heading for California.\"";
-	else if(currLocation == "Snake River crossing") t = "<p>Big Louie tells you:<br>\"See that wild river? That's the Snake. Many a raft's been swamped in her foaming rapids.<br>\
+	else if(currLocation == "Snake River crossing") t = "<p>Big Louie tells you:<br><br>\"See that wild river? That's the Snake. Many a raft's been swamped in her foaming rapids.<br>\
 	Her waters travel all the way to Oregon! We'll be crossing her soon,<br>and then again after Fort Boise. Take care at the crossing!\"";
-	else if(currLocation == "Fort Boise") t = "<p>A trader with 6 mules tells you:<br>\"You'll not get yer wagon over them Blue Mountains, mister. Leave it!<br>\
+	else if(currLocation == "Fort Boise") t = "<p>A trader with 6 mules tells you:<br><br>\"You'll not get yer wagon over them Blue Mountains, mister. Leave it!<br>\
 	Cross yer goods over with pack animals. Get yerself a couple of good mules.<br>Pieces of wagons litter the trail -- left by them folks who don't heed good advice!\"";
-	else if(currLocation == "Blue Mountains") t = "<p>Jacob Hofsteader tells you:<br>\"This valley of the Grande Ronde is the most beautiful sight in months.<br>\
+	else if(currLocation == "Blue Mountains") t = "<p>Jacob Hofsteader tells you:<br><br>\"This valley of the Grande Ronde is the most beautiful sight in months.<br>\
 	Water and graze in abundance! And if this valley is so fine,<br>the Willamette must be twice as fine! We'll be sittin' pretty in our new homestead!\"";
-	else if(currLocation == "Fort Walla Walla") t = "<p>A Cayuse Indian tells you:<br>\"You ask about the Whitman massacre. I ask you why Doctor Whitman's<br>\
+	else if(currLocation == "Fort Walla Walla") t = "<p>A Cayuse Indian tells you:<br><br>\"You ask about the Whitman massacre. I ask you why Doctor Whitman's<br>\
 	medicine did not cure my people's children? Many caught measles from the strangers.<br>Why did the medicine poison our children and cure the children of white people?\"";
-	else if(currLocation == "The Dalles") t = "<p>A mountain man tells you:<br>\"These last hundred miles to Willamette are the roughest -- either rafting down<br>\
+	else if(currLocation == "The Dalles") t = "<p>A mountain man tells you:<br><br>\"These last hundred miles to Willamette are the roughest -- either rafting down<br>\
 	the swift and turbulent Columbia River or driving your wagon over<br>the steep Cascade Mountains. Hire an Indian guide if you take the river.\"";
 	t += "</p>" + spaceTxt;
 	document.getElementsByClassName("container")[0].innerHTML = t;

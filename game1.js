@@ -298,9 +298,7 @@ function getInfo(num = 0) {
 }
 
 //Exit the game
-function quit() {
-    document.getElementById("main").innerHTML = "<h1>THANKS FOR PLAYING!</h1>";
-}
+function quit() {document.getElementById("main").innerHTML = "<h1>THANKS FOR PLAYING!</h1>";}
 
 //Validate input for alpha characters for leader
 function alphaValLeader(input){

@@ -187,7 +187,7 @@ function randomEvent(){
 		var i;
 		for(i = 0; i < randDay; i++) eatFood();
 		day += randDay;
-		rain.play();
+		if(soundOn) rain.play();
 	}
 }
 
