@@ -174,10 +174,6 @@ function walk(){
 
 //The main game screen that displays the status of the game and the area in which the walk animation takes place
 function mainGame() {
-	if(soundOn){//stops town music if music is on
-		bkg.pause();
-		bkg.load();
-	}
 	//If all crew members die
 	if(numCharacters == 0){lostGame(); return;}
 	setDate();
@@ -231,23 +227,26 @@ function lostGame(){
 
 //Function is called when you reach Oregon. Calculates your score based on your supplies and class. Gives you an input box to put in a name for your score.
 function endGame() {
-	
+	if(soundOn){//stops town music if music is on
+		bkg.pause();
+		bkg.load();
+	}
 	var scoreMult = 0;
 	if(job == "Banker") scoreMult = 1;
 	else if(job == "Carpenter" || job == "Fisher" || job == "Cowboy" || job == "Merchant") scoreMult = 2;
 	else if(job == "Farmer") scoreMult = 3;
 	else if(job == "Batman") scoreMult = 0;
-	var t= "<h1>YOU WIN!!!</h1><p>Calculating your score:<br><br>Money - $"+(supplies[MONEY]).toFixed(2)+":  "+Math.floor(supplies[MONEY])+" points<br>";
+	var t= "<h1>YOU WIN!!!</h1><p>Calculating your score:<br><br>Money - $"+(supplies[MONEY]).toFixed(2)+":  "+Math.floor(supplies[MONEY])+" points<br><br>";
 	score += Math.floor(supplies[MONEY]);
-	t += "Food - "+supplies[FOOD]+" pounds:  "+Math.floor(supplies[FOOD]/10)+" points<br>";
+	t += "Food - "+supplies[FOOD]+" pounds:  "+Math.floor(supplies[FOOD]/10)+" points<br><br>";
 	score += Math.floor(supplies[FOOD]/10);
-	t += "Clothes - "+supplies[CLOTHING]+" sets:  "+(supplies[CLOTHING] * 10)+" points<br>";
+	t += "Clothes - "+supplies[CLOTHING]+" sets:  "+(supplies[CLOTHING] * 10)+" points<br><br>";
 	score += (supplies[CLOTHING] * 10);
-	t += "Bait - "+supplies[BAIT]+":  "+Math.floor(supplies[BAIT]/10)+" points<br>";
+	t += "Bait - "+supplies[BAIT]+":  "+Math.floor(supplies[BAIT]/10)+" points<br><br>";
 	score += Math.floor(supplies[BAIT]/10);
-	t += "Oxen - "+supplies[OXEN]+":  "+(supplies[OXEN] * 100)+" points<br>";
+	t += "Oxen - "+supplies[OXEN]+":  "+(supplies[OXEN] * 100)+" points<br><br>";
 	score += (supplies[OXEN] * 100);
-	t += "Spare Parts - "+supplies[PARTS]+" parts:  "+(supplies[PARTS] * 10)+"points<br>Score Multiplier:  "+scoreMult+"<br>";
+	t += "Spare Parts - "+supplies[PARTS]+" parts:  "+(supplies[PARTS] * 10)+"points<br>Score Multiplier:  "+scoreMult+"<br><br>";
 	score += (supplies[PARTS] * 10);
 	score *= scoreMult;
 	t += "Total Score:  "+score+"<br><br>Enter a name for your score.</p>"

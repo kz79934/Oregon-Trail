@@ -626,10 +626,6 @@ function preRiver(){
 
 //Displays all the options of the river location to the user
 function riverOptions(){
-	if(soundOn){//stops town music if music is on
-		bkg.pause();
-		bkg.load();
-	}
 	document.getElementsByClassName("container")[0].innerHTML = "<h2>" + currLocation + "<br>" + months[month] + " " + day + ", " + year + "</h2><p>Weather: "+currWeather+"<br>\
 			River width: "+riverWidth+" feet <br>River depth: "+riverDepth.toFixed(1)+" feet<br>\
 			You may: <br><br>\
@@ -855,6 +851,10 @@ function leaveTown(){
 
 //Displays the different options the user has based on location (fort, trail, river, etc.)
 function locationInfo() {
+	if(soundOn){//stops town music if music is on
+		bkg.pause();
+		bkg.load();
+	}
 	if(numCharacters == 0){lostGame(); return;}
 	randMsg = "";
 	setHealth();
