@@ -255,16 +255,20 @@ P.blocktext {
 }
 
 table, td, th {
-    border: 2px solid red;
+    border: 1px solid blue;
 	text-align: center;
+	font-family: courier;
 	font-weight: bold;
-	font-size: 20px;
-	color: yellow;
+	font-size: 15px;
+	color: white;
     margin-left: auto;
     margin-right: auto;
     width: 20em
 }
 
+td{
+	padding: 8px;
+}
 /* formatting and styling the score table */
 table {
     border-collapse: collapse;
@@ -272,7 +276,11 @@ table {
 	height: 50px;
 }
 
+tr:nth-child(even){background-color: #A9A9A9}
+
 th {
-    height: 100px;
+	background-color: #4CAF50;
+    height: 50px;
 }
+
 
