@@ -74,7 +74,8 @@ function travelTrail() {
 
 //Shows the tombstone with the leader's name and their message
 function displayTombstone(index, num){
-	var t = "<div class='imageContainer'> <p1>"+tombName[index]+"<br><br>"+tombMsg[index]+"</p1></div>" + spaceTxt;
+	var t = "<div class='imageContainer'> <div class='side1'> <p1>"+tombName[index]+"</p1> <br><br>\
+			<p>"+tombMsg[index]+"</p></div></div>" + spaceTxt;
 	
 	document.getElementsByClassName("container")[0].innerHTML = t;
 	$(document).keypress(function (e) {
