@@ -278,8 +278,11 @@ function floatWagon(){
 		riverDepth = 0; riverWidth = 0; ferryWait = 0; riverChange = 2;
 }
 
+var timeLeft;
+
 //function to show amount of fish caught
 function fishResults(){
+	timeLeft = 0;
 	$('body').css('cursor', 'default');
 	document.getElementsByClassName("container")[0].innerHTML = "<p>You were able to get "+(supplies[FOOD]-tempSupplies[FOOD])+" pounds of food from fishing." + spaceTxt + "</p>";
 	$(document).keypress(function(e){
@@ -370,7 +373,7 @@ function catchfish(){
 	document.getElementsByTagName("body")[0].style.cursor = "url('http://userpages.umbc.edu/~mmilbo1/cursor.cur'), auto";
 
 	//set timer of 15 seconds
-	var timeLeft = 15;
+	timeLeft = 15;
 	var elem = document.getElementById('timer');
 
 	//countdown time
