@@ -227,10 +227,6 @@ function lostGame(){
 
 //Function is called when you reach Oregon. Calculates your score based on your supplies and class. Gives you an input box to put in a name for your score.
 function endGame() {
-	if(soundOn){//stops town music if music is on
-		bkg.pause();
-		bkg.load();
-	}
 	var scoreMult = 0;
 	if(job == "Banker") scoreMult = 1;
 	else if(job == "Carpenter" || job == "Fisher" || job == "Cowboy" || job == "Merchant") scoreMult = 2;
