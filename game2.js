@@ -1,5 +1,15 @@
-//Contains all the options for location (Ex: towns and rivers), pace, ration, etc.
-//Also has the fishing mini game.
+/*******************************************************************
+ * File:    game2.js
+ * Project: CMSC 433 - Project 2 - Oregon Trail
+ * Author : Krunal Hirpara, Arvin Siva, Marcus Milbourne, Phuoc Nguyen
+ * Date   : 05/16/17
+ * Section: 01		
+ * E-mail:  kz79934@umbc.edu, sivaar1@umbc.edu, mmilbo1@umbc.edu,
+ *          ej77536@umbc.edu
+ *
+ *   Contains all the options for location (Ex: towns and rivers),
+ *   pace, ration, etc. Also has the fishing mini game.
+ ******************************************************************/
 
 //Outputs how many supplies you have in each category
 function checkSupplies() {
@@ -432,7 +442,6 @@ function catchfish(){
 		left = parseInt(imgObj.style.left, 10);
 		right = parseInt(imgObj1.style.left, 10);
 		right2 = parseInt(imgObj2.style.left, 10);
-		//console.log(right);
 		
 		//if moving left is not 1800 px ye
 		if (1800>= left) {
@@ -456,7 +465,6 @@ function catchfish(){
 				//continue to loop back fish function to spawn fish
 				//otherwise end fish
 				if(fish < 9999){
-					console.log("1");
 					left=0, imgObj=null;
 					right=1800, imgObj1=null;
 					right2=1800, imgObj2=null;

@@ -1,4 +1,15 @@
-//Misc. functions that help regulate the game. Includes random events.
+/*******************************************************************
+ * File:    game3.js
+ * Project: CMSC 433 - Project 2 - Oregon Trail
+ * Author : Krunal Hirpara, Arvin Siva, Marcus Milbourne, Phuoc Nguyen
+ * Date   : 05/16/17
+ * Section: 01		
+ * E-mail:  kz79934@umbc.edu, sivaar1@umbc.edu, mmilbo1@umbc.edu,
+ *          ej77536@umbc.edu
+ *
+ *   Misc. functions that help regulate the game. Includes random events.
+ *   
+ ******************************************************************/
 
 //Adds health to every person in the crew. Things like filling rations and resting use this function.
 function addTeamHP(num){
@@ -108,7 +119,6 @@ function randomEvent(){
 	if(gameStatus[WEATHER] == RAINY) rand += 3;
 	else if(gameStatus[WEATHER] == VERYRAINY) rand += 6;
 	var num = Math.floor(Math.random() * (rand));
-	console.log("num: " + num);
 	//Lose days on the trail
 	if(num == 0){
 		if(Math.floor(Math.random() * 2)){

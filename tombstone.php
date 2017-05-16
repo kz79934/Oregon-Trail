@@ -29,7 +29,7 @@
 
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="game.css">
+	<link rel="stylesheet" type="text/css" href="proj2.css">
 	<title>Oregon Trail Super Deluxe 3rd Strike Hyper Combo Edition Version 2.07</title>
 </head>
 <body>
