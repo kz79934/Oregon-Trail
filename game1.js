@@ -93,6 +93,7 @@ var coast = new Audio("sound/Coast.mp3");
 var land = new Audio("sound/Land.mp3");
 var victory = new Audio("sound/Win.mp3");
 var dead = new Audio("sound/Lose.mp3");
+var rain = new Audio("sound/Thunder.wav");
 
 
 welcome();

@@ -179,6 +179,9 @@ function mainGame() {
 		river.pause();
 		river.load();
 	}
+	if(gameStatus[WEATHER] == RAINY){
+		rain.play();
+	}
 	//If all crew members die
 	if(numCharacters == 0){lostGame(); return;}
 	setDate();
