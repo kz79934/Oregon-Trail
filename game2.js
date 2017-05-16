@@ -970,6 +970,5 @@ function stopLocation() {
     document.getElementsByClassName("container")[0].innerHTML = t;
 	if(currType == RIVER) document.getElementsByClassName("button")[1].setAttribute("onclick", "preRiver()");
 	else document.getElementsByClassName("button")[1].setAttribute("onclick", "leaveTown()");
-	//if(randMsg != ""){alert(randMsg); randMsg = "";}
 	randMsg = "";
 }
