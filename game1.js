@@ -157,6 +157,8 @@ function displayScores(){
 		t += "<tr><td>" + name[j] + "</td><td>" + score[j] + "</td></tr>";
 	}
 	
+	t = t + spaceTxt;
+	
 	document.getElementsByClassName("container")[0].innerHTML = t;
 	
 	$(document).keypress(function(e){

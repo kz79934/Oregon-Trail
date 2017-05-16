@@ -309,7 +309,7 @@ function catchfish(){
 			.droptarget {\
 				float: left; \
 				width: 100%; \
-				height: 60%;\
+				height: 80%;\
 				background: url(image/fishbackground.png);\
 				background-repeat: no-repeat;\
 				background-size: 100%;\
