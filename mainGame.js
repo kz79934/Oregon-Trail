@@ -11,22 +11,23 @@ function travelTrail() {
 	if(gameStatus[WEATHER] == COLD || gameStatus[WEATHER] == VERYRAINY){
 		if(supplies[CLOTHING] < 5) reduceTeamHP(2*(5-supplies[CLOTHING]));
 	}
-    if (gameStatus[PACE] == STEADY) {
+    if (gameStatus[PACE] == STEADY) {//if the pace is steady the travel distance is short for that day, but you have time to rest so you gain a small amount of health
         totalTraveled += 20;
         tempTraveled += 20;
         addTeamHP(1);
     }
-    else if (gameStatus[PACE] == STRENUOUS) {
+    else if (gameStatus[PACE] == STRENUOUS) {//if pace is strenuous the travel distance is long for that day but you don't have much rest time so you lose some health 
         totalTraveled += 30;
         tempTraveled += 30;
 		reduceTeamHP(2);
     }
-    else if (gameStatus[PACE] == GRUELING) {
+    else if (gameStatus[PACE] == GRUELING) {//if pace is grueling the travel distance is very long for that day, but you don't have any time to rest and lose a lot of health
         totalTraveled += 40;
         tempTraveled += 40;
 		reduceTeamHP(5);
     }
-	//Random event 20% chance
+	//Random event; 20% chance something bad happened to your party beyond your control; random even function is called to decide which event it is. if the even
+	// is a broken wagon part then the wagon parts are checked to see if you have any spare to replace the wagon part
 	if(Math.floor(Math.random() * (5)) == 0){
 		randomEvent();
 		if(brokenPart < 3){
@@ -34,7 +35,7 @@ function travelTrail() {
 			else randMsg+= "<br>You have no spare parts to replace it!";
 		}
 	}
-	//For injured and dying oxen
+	//For injured and dying oxen. determines if an oxen loses or gains health. The chances are higher that you heal the cattle if you chose cowboy 
 	else{
 		var rand = 8;
 		var heal = 5;
@@ -54,8 +55,8 @@ function travelTrail() {
 		else{
 			//Ask if they wish to stop here
 			totalTraveled = totalTraveled - (tempTraveled - distance[0]);
-			checkTombstone(1);
-			//Comment out the rest and uncomment checkTombstone(1) when ready
+			checkTombstone(1);//checks if a tombstone is in the area
+			//former tombstone testing code don't pay attention to it
 			/*
 			tempTraveled = 0;
 			currLocation = locations.shift();
@@ -83,7 +84,7 @@ function displayTombstone(index, num){
 			tombPrev.splice(index, 1);
 			tombNext.splice(index, 1);
 			tombMiles.splice(index, 1);
-			checkTombstone(num);
+			checkTombstone(num);//check fot other tombstones after this 
         }
     });
 }
@@ -92,12 +93,12 @@ function displayTombstone(index, num){
 function askTombstone(index, num){
 	document.getElementsByClassName("container")[0].innerHTML = "<p>You pass over a grave. Would you like to take a closer look?<br><br>\
 	<button id='tombYes' class='button'><span>Yes</span></button><br><button id='tombNo' class='button'><span>No</span></button></p>";
-	$("#tombYes").click(function(){
+	$("#tombYes").click(function(){//if yes then displaytombstone is called and the grave is shown
 		$(this).unbind();
 		$("#tombNo").unbind();
 		displayTombstone(index, num);
 	});
-	$("#tombNo").click(function(){
+	$("#tombNo").click(function(){//if no then display tombstone is not called and more tomstones are checked for
 		$(this).unbind();
 		$("#tombYes").unbind();
 		tombMsg.splice(index, 1);
@@ -137,6 +138,7 @@ function walk(){
 	document.getElementById("msg").innerHTML = "";
 	var f = 0;
 	var pace = .5;
+	//pace determines the speed of the animation. the pace is determined by the gameStatus[PACE]. the fast the in game pace, the faster the animation
 	if(gameStatus[PACE] == STEADY)
 		pace == 2;
 	else if (gameStatus[PACE] == STRENUOUS)
@@ -144,7 +146,7 @@ function walk(){
 	else if (gameStatus[PACE] == GRUELING)
 		pace == .5;
 	var id = setInterval(frame, 5);
-    function frame() {
+    function frame() {//every 50*pace iterations the frame is changed. it goes through 2 loops before stopping
 		if (f == 0 || f == 200* pace){
 			$("#ok").attr("src", "image/Frame1.png");
 		}
@@ -157,7 +159,7 @@ function walk(){
 		else if (f == (150 * pace)|| f == (350 * pace)){
 			$("#ok").attr("src", "image/Frame4.png");
 		}
-        if (f == 400) {
+        if (f == 400 * pace) {//interval clears and travel trail is called once finished
 			$("#ok").attr("src", "image/Frame1.png");
             clearInterval(id);
 			travelTrail();
@@ -187,7 +189,7 @@ function mainGame() {
 			<div id='walking'><img src='image/mountain.JPG' id = 'col' alt='Mountain View' style='width:900px; height:350px; left:45%; margin-left: -350; position:absolute; background-color: black;'>\
 			<img src='image/Frame1.png' id='ok' style = 'position:absolute; width: 180px; length: 180px; left: 50%; margin-left:-50px; margin-top:200px' alt='Mountain View'><div>";
     document.getElementsByClassName("container")[0].innerHTML = t;
-    $(document).keypress(function (e) {
+    $(document).keypress(function (e) {//when space button is clicked you travel and go to the next day
         if (e.keyCode == SPACEBAR) {
 			$("#checkOptions").unbind();
             $(this).unbind();
@@ -208,9 +210,9 @@ function lostGame(){
 	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU LOSE!!!</h1><p>Enter a message for your grave.</p>\
 	<form name='form2' action='tombstone.php' method='post'><input type='hidden' name='tempTraveled'></input><input type='hidden' name='leaderName'></input><input type='hidden' name='nextLocation'></input><input type='hidden' name='prevLocation'></input><input type='text' val='' name='messageInput' id='messageInput'></input><br><input type='submit' name='submitButton' class='button'></input></form>";															
 	
-	console.log(tempTraveled);
-	console.log(characters[0]);
-	
+	console.log(tempTraveled);//for testing
+	console.log(characters[0]);//for testing
+	//once message is input, the data is sumbitted to the database
 	var msgInput = document.getElementById('messageInput').value;
 	document.form2.prevLocation.value = prevLocation;
 	document.form2.nextLocation.value = locations[0];
