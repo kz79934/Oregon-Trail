@@ -186,8 +186,8 @@ function randomEvent(){
 		randMsg = "There is a severe storm! Lose "+randDay+" days";
 		var i;
 		for(i = 0; i < randDay; i++) eatFood();
-		changeWeather();
 		day += randDay;
+		rain.play();
 	}
 }
 
