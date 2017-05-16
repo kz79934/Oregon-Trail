@@ -893,9 +893,16 @@ function locationInfo() {
 //Displays the location image if the user chooses to stop there. User wins if they get to the last location.
 function displayLocation(){
 	var locImg;
-	if(soundOn){//plays town music if music is on
-		bkg.loop = true;
-		bkg.play();
+	if(currLocation == "Willamette Valley"){
+		if(soundOn){//plays victory music if music is on
+			victory.play();
+		}
+	}
+	else {
+		if(soundOn){//plays town music if music is on
+			bkg.loop = true;
+			bkg.play();
+		}
 	}
 	if(currLocation == "Kansas River crossing") locImg = "image/locations/Kansas_River.JPG";
 	else if(currLocation == "Big Blue River crossing") locImg = "image/locations/Big_Blue_River.PNG";

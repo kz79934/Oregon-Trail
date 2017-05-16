@@ -26,6 +26,7 @@ document.getElementsByClassName("container")[0].innerHTML = "<img src='columbia/
 //starts game
 $(document).ready(function(){
 	if(soundOn){//plays river sounds if music is on
+		bkg.pause();
 		river.loop = true;
 		river.play();
 	}

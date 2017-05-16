@@ -211,6 +211,9 @@ function mainGame() {
 
 //Function is called when everyone dies. Gives you an input box to input a message on your tombstone for other players to see.
 function lostGame(){
+	if(soundOn){//plays lost music if music is on
+			dead.play();
+	}
 	//Store totalTraveled in the database with the player's name and his tombstone msg that comes from user input, the leaders name is at characters[0]
 	document.getElementsByClassName("container")[0].innerHTML = "<h1>YOU LOSE!!!</h1><p>Enter a message for your grave.</p>\
 	<form name='form2' action='tombstone.php' method='post'><input type='hidden' name='tempTraveled'></input><input type='hidden' name='leaderName'></input><input type='hidden' name='nextLocation'></input><input type='hidden' name='prevLocation'></input><input type='text' val='' name='messageInput' id='messageInput'></input><br><input type='submit' name='submitButton' class='button'></input></form>";															
@@ -228,6 +231,7 @@ function lostGame(){
 
 //Function is called when you reach Oregon. Calculates your score based on your supplies and class. Gives you an input box to put in a name for your score.
 function endGame() {
+	
 	var scoreMult = 0;
 	if(job == "Banker") scoreMult = 1;
 	else if(job == "Carpenter" || job == "Fisher" || job == "Cowboy" || job == "Merchant") scoreMult = 2;

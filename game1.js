@@ -88,12 +88,17 @@ var brokenPart = 3;
 var oxenInjured = 0;
 var soundOn = 1;
 var gameDone = 0;
-var bkg = new Audio("Town.mp3");
+var bkg = new Audio("sound/Town.mp3");
+var victory = new Audio("sound/Win.mp3");
+var dead = new Audio("sound/Lose.mp3");
 
 welcome();
 
 //This is the initial function the game calls. It is equivalent to the start menu of a game.
 function welcome() {
+	if(soundOn){//plays victory music if music is on
+			victory.pause();
+	}
     var t = "<div class='container'>\
 				<h1 class='spin'>The Oregon Trail!</h1>\
 				<div id='innerPage'>\
