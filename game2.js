@@ -745,24 +745,28 @@ function trade(){
 
 //The Route functions append different locations and distances to the global arrays based on what route the user chose
 function firstDRoute1(){
+	steadyMiles -= 5; strenuousMiles -= 5; gruelingMiles -= 5;
 	locations.push.apply(locations, ["Green River crossing", "Soda Springs", "Fort Hall", "Snake River crossing", "Fort Boise", "Blue Mountains"]);
 	distance.push.apply(distance, [57, 143, 57, 182, 113, 160]);
 	locType.push.apply(locType, [RIVER, 0, TOWN, RIVER, TOWN, DIVIDE2]);
 	mainGame();
 }
 function firstDRoute2(){
+	steadyMiles -= 5; strenuousMiles -= 5; gruelingMiles -= 5;
 	locations.push.apply(locations, ["Fort Bridger", "Soda Springs", "Fort Hall", "Snake River crossing", "Fort Boise", "Blue Mountains"]);
 	distance.push.apply(distance, [125, 162, 57, 182, 113, 160]);
 	locType.push.apply(locType, [TOWN, 0, TOWN, RIVER, TOWN, DIVIDE2]);
 	mainGame();
 }
 function secondDRoute1(){
+	steadyMiles -= 5; strenuousMiles -= 5; gruelingMiles -= 5;
 	locations.push.apply(locations, ["Fort Walla Walla", "The Dalles", "Willamette Valley"]);
 	distance.push.apply(distance, [55, 120, 100]);
 	locType.push.apply(locType, [TOWN, 0, END]);
 	mainGame();
 }
 function secondDRoute2(){
+	steadyMiles -= 5; strenuousMiles -= 5; gruelingMiles -= 5;
 	locations.push.apply(locations, ["The Dalles", "Willamette Valley"]);
 	distance.push.apply(distance, [125, 100]);
 	locType.push.apply(locType, [0, END]);

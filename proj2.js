@@ -23,19 +23,19 @@ function travelTrail() {
 		if(supplies[CLOTHING] < 5) reduceTeamHP(2*(5-supplies[CLOTHING]));
 	}
     if (gameStatus[PACE] == STEADY) {//if the pace is steady the travel distance is short for that day, but you have time to rest so you gain a small amount of health
-        totalTraveled += 20;
-        tempTraveled += 20;
-        addTeamHP(1);
+        totalTraveled += steadyMiles;
+        tempTraveled += steadyMiles;
+        //addTeamHP(1);
     }
     else if (gameStatus[PACE] == STRENUOUS) {//if pace is strenuous the travel distance is long for that day but you don't have much rest time so you lose some health 
-        totalTraveled += 30;
-        tempTraveled += 30;
-		reduceTeamHP(2);
+        totalTraveled += strenuousMiles;
+        tempTraveled += strenuousMiles;
+		reduceTeamHP(3);
     }
     else if (gameStatus[PACE] == GRUELING) {//if pace is grueling the travel distance is very long for that day, but you don't have any time to rest and lose a lot of health
-        totalTraveled += 40;
-        tempTraveled += 40;
-		reduceTeamHP(5);
+        totalTraveled += gruelingMiles;
+        tempTraveled += gruelingMiles;
+		reduceTeamHP(6);
     }
 	//Random event; 20% chance something bad happened to your party beyond your control; random even function is called to decide which event it is. if the even
 	// is a broken wagon part then the wagon parts are checked to see if you have any spare to replace the wagon part
