@@ -334,6 +334,11 @@ function catchfish(){
 				background: url(image/fishbackground.png);\
 				background-repeat: no-repeat;\
 				background-size: 100%;\
+				-moz-user-select: -moz-none;\
+				-khtml-user-select: none;\
+				-webkit-user-select: none;\
+				-ms-user-select: none;\
+				user-select: none;\
 			}\
 			#basket{\
 				margin:0% 50%;\
